@@ -1,6 +1,9 @@
 
-public enum enumType {
+enum Type {
     FIRE, WATER, GRASS;
+	
+	
+	
 	public String toString() {
 		switch(this) {
 			case FIRE: return "FIRE";
