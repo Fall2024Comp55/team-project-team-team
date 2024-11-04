@@ -65,42 +65,41 @@ enum Type {
 								new TypeName[]{TypeName.GRASS, TypeName.BUG}, 
 								new TypeName[]{TypeName.FLYING}),
 
-	FLYING(TypeName.FLYING,     new TypeName[]{}, 
-								new TypeName[]{}, 
+	FLYING(TypeName.FLYING,     new TypeName[]{TypeName.GRASS, TypeName.FIGHTING, TypeName.BUG}, 
+								new TypeName[]{TypeName.ELECTRIC, TypeName.ROCK, TypeName.STEEL}, 
 								new TypeName[]{}),
 
-	PSYCHIC(TypeName.PSYCHIC,	new TypeName[]{}, 
-								new TypeName[]{}, 
+	PSYCHIC(TypeName.PSYCHIC,	new TypeName[]{TypeName.FIGHTING, TypeName.POISON}, 
+								new TypeName[]{TypeName.PSYCHIC, TypeName.STEEL}, 
+								new TypeName[]{TypeName.DARK}),
+
+	BUG(TypeName.BUG,     		new TypeName[]{TypeName.GRASS, TypeName.PSYCHIC, TypeName.DARK}, 
+								new TypeName[]{TypeName.FIRE, TypeName.FIGHTING, TypeName.POISON, TypeName.FLYING, TypeName.GHOST, TypeName.STEEL, TypeName.FAIRY}, 
 								new TypeName[]{}),
 
-	BUG(TypeName.BUG,     		new TypeName[]{}, 
-								new TypeName[]{}, 
+	ROCK(TypeName.ROCK,     	new TypeName[]{TypeName.FIRE, TypeName.ICE, TypeName.FLYING, TypeName.BUG}, 
+								new TypeName[]{TypeName.FIGHTING, TypeName.GROUND, TypeName.STEEL}, 
 								new TypeName[]{}),
 
-	ROCK(TypeName.ROCK,     	new TypeName[]{}, 
-								new TypeName[]{}, 
+	GHOST(TypeName.GHOST,     	new TypeName[]{TypeName.PSYCHIC, TypeName.GHOST}, 
+								new TypeName[]{TypeName.DARK}, 
+								new TypeName[]{TypeName.NORMAL}),
+
+	DRAGON(TypeName.DRAGON,     new TypeName[]{TypeName.DRAGON}, 
+								new TypeName[]{TypeName.STEEL}, 
+								new TypeName[]{TypeName.FAIRY}),
+
+	DARK(TypeName.DARK,     	new TypeName[]{TypeName.PSYCHIC, TypeName.GHOST}, 
+								new TypeName[]{TypeName.FIGHTING, TypeName.DARK, TypeName.FAIRY}, 
 								new TypeName[]{}),
 
-	GHOST(TypeName.GHOST,     	new TypeName[]{}, 
-								new TypeName[]{}, 
+	STEEL(TypeName.STEEL,     	new TypeName[]{TypeName.ICE, TypeName.ROCK, TypeName.FAIRY}, 
+								new TypeName[]{TypeName.FIRE, TypeName.WATER, TypeName.ELECTRIC, TypeName.STEEL}, 
 								new TypeName[]{}),
 
-	DRAGON(TypeName.DRAGON,     new TypeName[]{}, 
-								new TypeName[]{}, 
-								new TypeName[]{}),
-
-	DARK(TypeName.DARK,     	new TypeName[]{}, 
-								new TypeName[]{}, 
-								new TypeName[]{}),
-
-	STEEL(TypeName.STEEL,     	new TypeName[]{}, 
-								new TypeName[]{}, 
-								new TypeName[]{}),
-
-	FAIRY(TypeName.FAIRY,     	new TypeName[]{}, 
-								new TypeName[]{}, 
+	FAIRY(TypeName.FAIRY,     	new TypeName[]{TypeName.FIGHTING, TypeName.DRAGON, TypeName.DARK}, 
+								new TypeName[]{TypeName.FIRE, TypeName.POISON, TypeName.STEEL}, 
 								new TypeName[]{});
-
 	
 	public TypeName type;
 	public TypeName[] superEffective;
