@@ -1,35 +1,28 @@
 enum Move {
-    TACKLE("Tackle", 40, 100),
-    FLAMETHROWER("Flamethrower", 90, 100),
-    WATERGUN("Water Gun", 40, 100),
-    THUNDERBOLT("Thunderbolt", 90, 100),
-    EARTHQUAKE("Earthquake", 100, 100);
+    TACKLE			("Tackle", Type.NORMAL, 40, 100),
+    BODYSLAM		("Body Slam", Type.NORMAL , 80, 95),
+    FLAMETHROWER	("Flamethrower", Type.FIRE , 90, 100),
+    FIREBLAST		("Fire Blast", Type.FIRE , 110, 80),
+    WATERGUN		("Water Gun", Type.WATER , 40, 100),
+    SURF			("Surf", Type.WATER, 90, 100),
+    HYDROPUMP		("Hydro Pump", Type.WATER, 110, 80),
+    THUNDERBOLT		("Thunderbolt", Type.ELECTRIC, 90, 100),
+    EARTHQUAKE		("Earthquake", Type.GROUND, 100, 100);
 
-    private final String moveName;
-    private final int power;
-    private final int accuracy;
-
-	Move(String moveName, int power, int accuracy) {
-        this.moveName = moveName;
+    public String name;
+    public Type type;
+    public int power;
+    public int accuracy;
+    
+	Move(String name, Type type, int power, int accuracy) {
+        this.name = name;
+        this.type = type;
         this.power = power;
         this.accuracy = accuracy;
     }
 
-    public String getMoveName() {
-        return moveName;
-    }
-
-    public int getPower() {
-        return power;
-    }
-
-    public int getAccuracy() {
-        return accuracy;
-    }
-
-
-    public void animateMove() {
-        System.out.println(moveName + " is being used!");
+    public void animate() {
+        System.out.println(name + " is being used!");
         // Additional animation logic can be added here
     }
 }

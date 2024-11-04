@@ -40,63 +40,63 @@ enum Type {
 	WATER(TypeName.WATER,     	new TypeName[]{TypeName.FIRE, TypeName.GROUND, TypeName.ROCK}, 
 		    					new TypeName[]{TypeName.WATER, TypeName.GRASS, TypeName.DRAGON}, 
 		    					new TypeName[]{}),
-
+	
 	ELECTRIC(TypeName.ELECTRIC,	new TypeName[]{TypeName.WATER, TypeName.FLYING}, 
 								new TypeName[]{TypeName.ELECTRIC, TypeName.GRASS, TypeName.DRAGON}, 
 								new TypeName[]{TypeName.GROUND}),
-
+	
 	GRASS(TypeName.GRASS,		new TypeName[]{TypeName.WATER, TypeName.GROUND, TypeName.ROCK}, 
 								new TypeName[]{TypeName.FIRE, TypeName.GRASS, TypeName.POISON, TypeName.FLYING, TypeName.BUG, TypeName.DRAGON, TypeName.STEEL}, 
 								new TypeName[]{}),
-
+	
 	ICE(TypeName.ICE,     		new TypeName[]{TypeName.GRASS, TypeName.GROUND, TypeName.FLYING, TypeName.DRAGON}, 
 								new TypeName[]{TypeName.FIRE, TypeName.WATER, TypeName.ICE, TypeName.STEEL}, 
 								new TypeName[]{}),
-
+	
 	FIGHTING(TypeName.FIGHTING,	new TypeName[]{TypeName.NORMAL, TypeName.ICE, TypeName.ROCK, TypeName.DARK, TypeName.STEEL}, 
 								new TypeName[]{TypeName.POISON, TypeName.FLYING, TypeName.PSYCHIC, TypeName.BUG, TypeName.FAIRY}, 
 								new TypeName[]{TypeName.GHOST}),
-
+	
 	POISON(TypeName.POISON,     new TypeName[]{TypeName.GRASS, TypeName.FAIRY}, 
 								new TypeName[]{TypeName.POISON, TypeName.GROUND, TypeName.ROCK, TypeName.GHOST}, 
 								new TypeName[]{TypeName.STEEL}),
-
+	
 	GROUND(TypeName.GROUND,     new TypeName[]{TypeName.FIRE, TypeName.ELECTRIC, TypeName.POISON, TypeName.ROCK, TypeName.STEEL}, 
 								new TypeName[]{TypeName.GRASS, TypeName.BUG}, 
 								new TypeName[]{TypeName.FLYING}),
-
+	
 	FLYING(TypeName.FLYING,     new TypeName[]{TypeName.GRASS, TypeName.FIGHTING, TypeName.BUG}, 
 								new TypeName[]{TypeName.ELECTRIC, TypeName.ROCK, TypeName.STEEL}, 
 								new TypeName[]{}),
-
+	
 	PSYCHIC(TypeName.PSYCHIC,	new TypeName[]{TypeName.FIGHTING, TypeName.POISON}, 
 								new TypeName[]{TypeName.PSYCHIC, TypeName.STEEL}, 
 								new TypeName[]{TypeName.DARK}),
-
+	
 	BUG(TypeName.BUG,     		new TypeName[]{TypeName.GRASS, TypeName.PSYCHIC, TypeName.DARK}, 
 								new TypeName[]{TypeName.FIRE, TypeName.FIGHTING, TypeName.POISON, TypeName.FLYING, TypeName.GHOST, TypeName.STEEL, TypeName.FAIRY}, 
 								new TypeName[]{}),
-
+	
 	ROCK(TypeName.ROCK,     	new TypeName[]{TypeName.FIRE, TypeName.ICE, TypeName.FLYING, TypeName.BUG}, 
 								new TypeName[]{TypeName.FIGHTING, TypeName.GROUND, TypeName.STEEL}, 
 								new TypeName[]{}),
-
+	
 	GHOST(TypeName.GHOST,     	new TypeName[]{TypeName.PSYCHIC, TypeName.GHOST}, 
 								new TypeName[]{TypeName.DARK}, 
 								new TypeName[]{TypeName.NORMAL}),
-
+	
 	DRAGON(TypeName.DRAGON,     new TypeName[]{TypeName.DRAGON}, 
 								new TypeName[]{TypeName.STEEL}, 
 								new TypeName[]{TypeName.FAIRY}),
-
+	
 	DARK(TypeName.DARK,     	new TypeName[]{TypeName.PSYCHIC, TypeName.GHOST}, 
 								new TypeName[]{TypeName.FIGHTING, TypeName.DARK, TypeName.FAIRY}, 
 								new TypeName[]{}),
-
+	
 	STEEL(TypeName.STEEL,     	new TypeName[]{TypeName.ICE, TypeName.ROCK, TypeName.FAIRY}, 
 								new TypeName[]{TypeName.FIRE, TypeName.WATER, TypeName.ELECTRIC, TypeName.STEEL}, 
 								new TypeName[]{}),
-
+	
 	FAIRY(TypeName.FAIRY,     	new TypeName[]{TypeName.FIGHTING, TypeName.DRAGON, TypeName.DARK}, 
 								new TypeName[]{TypeName.FIRE, TypeName.POISON, TypeName.STEEL}, 
 								new TypeName[]{});
