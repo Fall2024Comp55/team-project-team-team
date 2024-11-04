@@ -8,7 +8,7 @@ enum Move {
     HYDROPUMP		("Hydro Pump", Type.WATER, 110, 80),
     THUNDERBOLT		("Thunderbolt", Type.ELECTRIC, 90, 100),
     EARTHQUAKE		("Earthquake", Type.GROUND, 100, 100);
-
+	
     public String name;
     public Type type;
     public int power;
