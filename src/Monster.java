@@ -19,60 +19,60 @@ public class Monster {
         //add code here
         return false;
     }
-
+    
     public void gainXP(int xp) {
         //add code here
     }
-
+    
     public void changeMove(int index, Move newMove) {
         //add code here
     }
-
+    
     public void levelUp() {
         //add code here
     }
-
+    
     public void evolve() {
         //add code here
     }
-
+    
     /// getters and setters 
 	public SpeciesType getSpecies() {
 		return species;
 	}
-
+	
 	public void setSpecies(SpeciesType species) {
 		this.species = species;
 	}
-
+	
 	public GImage getSprite() {
 		return sprite;
 	}
-
+	
 	public void setSprite(GImage sprite) {
 		this.sprite = sprite;
 	}
-
+	
 	public int getExperience() {
 		return experience;
 	}
-
+	
 	public void setExperience(int experience) {
 		this.experience = experience;
 	}
-
+	
 	public int getLevel() {
 		return level;
 	}
-
+	
 	public void setLevel(int level) {
 		this.level = level;
 	}
-
+	
 	public int getAtk() {
 		return atk;
 	}
-
+	
 	public void setAtk(int atk) {
 		this.atk = atk;
 	}
