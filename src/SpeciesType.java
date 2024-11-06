@@ -2,6 +2,7 @@
 
 /* format is name , description , health ,attack , and defense */
 /* start with this but can add more */
+//edited
 //finshed but need review:
 public enum SpeciesType {
 	
