@@ -1,6 +1,5 @@
-import java.util.ArrayList;
-// something new
 
+// Valid names of types
 enum TypeName {
 	NORMAL, FIRE, WATER, GRASS, ELECTRIC, ICE, FIGHTING, POISON, GROUND, FLYING, PSYCHIC, BUG, ROCK, GHOST, DRAGON, DARK, STEEL, FAIRY;
 	
@@ -29,6 +28,9 @@ enum TypeName {
 	}
 }
 
+// Types that monsters and moves can have. Each type has a name and three arrays for which types the current type
+// is offensively super effective, not very effective, and not effective at all against. For example, electric is
+// super effective against flying, not very effective against grass, and ground is immune.
 enum Type {
 	NORMAL(TypeName.NORMAL,		new TypeName[]{}, 
 						    	new TypeName[]{TypeName.ROCK, TypeName.STEEL}, 

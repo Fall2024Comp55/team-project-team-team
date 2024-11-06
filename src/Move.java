@@ -1,6 +1,7 @@
 enum Move {
     TACKLE			("Tackle", Type.NORMAL, 40, 100),
     BODYSLAM		("Body Slam", Type.NORMAL , 80, 95),
+    EMBER           ("Ember", Type.FIRE, 40, 100),
     FLAMETHROWER	("Flamethrower", Type.FIRE , 90, 100),
     FIREBLAST		("Fire Blast", Type.FIRE , 110, 80),
     WATERGUN		("Water Gun", Type.WATER , 40, 100),
