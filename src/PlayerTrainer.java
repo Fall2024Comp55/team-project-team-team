@@ -9,6 +9,9 @@ public class PlayerTrainer {
 	}
 	
 	public void openBag() {
-		
+		bag = new Bag();
 	}
+	
+	
+	
 }

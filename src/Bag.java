@@ -15,6 +15,10 @@ public class Bag {
 		items.add(bagItem);
 	}
 	
+	public Bag() {
+		items = null;
+	}
+	
 	//@SuppressWarnings("unlikely-arg-type")
 	public void removeItem(Item key, int amount) {
 		for(int i = 0; i < items.size(); i++) {

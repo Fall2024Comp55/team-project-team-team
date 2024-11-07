@@ -2,20 +2,21 @@ import acm.graphics.GImage;
 
 public class Item {
 	private int amount;
-	private String itemName;
+	private ItemName itemName;
 	private String description;
 	private String bagTab;
 	private GImage sprite;
+	//private ItemType itemType;
 	
 	public void Use() {
 		
 	}
 	
-	public String getName() {
+	public ItemName getName() {
 		return itemName;
 	}
 	
-	public void setName(String name) {
+	public void setName(ItemName name) {
 		itemName = name;
 	}
 	
