@@ -2,9 +2,8 @@
 public class HealItem {
     private int heal;
      
-    public void Use(Monster m, int itemIndex) {
-    	SetHeal(itemIndex);
-    	m.updateHP(heal);
+    public void Use(Monster m) {
+    	if(heal > 0) m.updateHP(heal);
     }
     
     public void SetHeal(int i) {
