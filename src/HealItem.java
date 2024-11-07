@@ -1,12 +1,30 @@
 
 public class HealItem {
-    private int health;
+    private int heal;
      
-    public void Use() {
-    	//add code here
+    public void Use(Monster m, int itemIndex) {
+    	SetHeal(itemIndex);
+    	m.updateHP(heal);
     }
     
     public void SetHeal(int i) {
-    	
+    	//For now, I assume i is the index for the heal item type.
+    	switch(i) {
+            case 1:
+                this.heal = 20;
+                break;
+            case 2:
+                this.heal = 40;
+                break;
+            case 3:
+                this.heal = 60;
+                break;
+            case 4:
+                this.heal = 80;
+                break;
+            default:
+                System.out.println("Invalid heal item");
+                this.heal = 0;
+        }
     }
 }
