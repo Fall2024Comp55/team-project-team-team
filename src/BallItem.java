@@ -30,5 +30,6 @@ public class BallItem {
             default:
                 System.out.println("Invalid ball");
                 this.catchRate = 0;
+    	}
     }
 }
