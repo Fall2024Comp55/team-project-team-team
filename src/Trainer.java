@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-
+//test2
 public class Trainer {
 	private ArrayList<Monster> team;
 	private int money;
