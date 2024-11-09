@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-
+//test2
 public class Bag {
 	private ArrayList<Pair<Item, Integer> >items;
 	
