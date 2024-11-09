@@ -3,6 +3,10 @@ import java.util.ArrayList;
 public class Bag {
 	private ArrayList<Pair<Item, Integer> >items;
 	
+	public Bag() {
+		items = new ArrayList<>();
+	}
+	
 	public ArrayList<Pair<Item, Integer>> getItems(){
 		return items;
 	}
@@ -15,9 +19,7 @@ public class Bag {
 		items.add(bagItem);
 	}
 	
-	public Bag() {
-		items = null;
-	}
+	
 	
 	//@SuppressWarnings("unlikely-arg-type")
 	public void removeItem(Item key, int amount) {
@@ -30,8 +32,9 @@ public class Bag {
 						item.setValue(newAmount);
 					}
 					else {
-						return;
+						items.remove(i);
 					}
+					return;
 					
 				}
 		}
