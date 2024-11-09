@@ -1,6 +1,6 @@
 public enum Direction {
     RIGHT, LEFT, UP, DOWN;
-    
+    //test2
     @Override//for some reason this only works if override is there idky
     public String toString() {
         switch(this) {
