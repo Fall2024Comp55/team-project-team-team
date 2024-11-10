@@ -14,7 +14,34 @@ public class Monster {
     private int health;
     private Type type1;
     private Type type2;
+    String name;
     private ArrayList<Move> moves;
+    
+    public void takeDamage(int damage) {
+        health -= damage;
+        if (health < 0) health = 0;
+    }
+
+    public boolean isFainted() {
+        return health <= 0;
+    }
+    public int getAttack() {
+        return atk;
+    }
+
+    public int getDefense() {
+        return def;
+    }
+
+    public int getlevel() {
+        return level;
+    }
+    
+    public String getName() {
+        
+		return name;
+    }
+
     
     Monster(SpeciesType specType) {
     	this.species = specType;
