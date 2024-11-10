@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BattleSimulator {
-
+//done
     public static void main(String[] args) {
         // Create moves (using Move enum constants)
         List<Move> moves1 = new ArrayList<>();
