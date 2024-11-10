@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.ArrayList;
 import acm.graphics.*;
 //finshed but need review:
@@ -15,7 +16,16 @@ public class Monster {
     private Type type1;
     private Type type2;
     String name;
-    private ArrayList<Move> moves;
+    private List<Move> moves;
+    
+    public Monster(String name, int hp, int attack, int defense, int level, List<Move> moves2) {
+        this.name = name;
+        this.health = hp;
+        this.atk = attack;
+        this.def = defense;
+        this.level = level;
+        this.moves = moves2;
+    }
     
     public void takeDamage(int damage) {
         health -= damage;
@@ -41,7 +51,10 @@ public class Monster {
         
 		return name;
     }
-
+    
+    public List<Move> getMoves1() {
+        return moves;
+    }
     
     Monster(SpeciesType specType) {
     	this.species = specType;
@@ -210,7 +223,7 @@ public class Monster {
 		this.type2 = type2;
 	}
 
-	public ArrayList<Move> getMoves() {
+	public List<Move> getMoves() {
 		return moves;
 	}
 

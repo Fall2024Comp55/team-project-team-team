@@ -1,4 +1,4 @@
-enum Move {
+public enum Move {
     TACKLE			("Tackle", Type.NORMAL, 40, 100),
     BODYSLAM		("Body Slam", Type.NORMAL , 80, 95),
     EMBER           ("Ember", Type.FIRE, 40, 100),
