@@ -13,6 +13,7 @@ public class Monster {
     private int spatk;
     private int spdef;
     private int health;
+    private int maxHealth;
     private Type type1;
     private Type type2;
     String name;
@@ -21,6 +22,7 @@ public class Monster {
     public Monster(String name, int hp, int attack, int defense, int level, List<Move> moves2) {
         this.name = name;
         this.health = hp;
+        this.maxHealth = hp;
         this.atk = attack;
         this.def = defense;
         this.level = level;
