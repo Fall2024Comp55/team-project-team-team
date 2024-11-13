@@ -8,6 +8,9 @@ public class Item {
 	private GImage sprite;
 	//private ItemType itemType;
 	
+	public Item(ItemName name) {
+		this.itemName = name;
+	}
 	public void Use() {
 		
 	}

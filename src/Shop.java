@@ -1,9 +1,9 @@
 import java.util.HashMap;
 public class Shop {
 	//HashMap<Item Name, Price>
-    private HashMap<String, Integer> itemList;
+    private HashMap<ItemName, Integer> itemList;
   //HashMap<Item Name, Quantity>
-    private HashMap<String, Integer> itemQuantity;
+    private HashMap<ItemName, Integer> itemQuantity;
     private PlayerTrainer player;
     private Bag playerBag;
     
@@ -12,29 +12,29 @@ public class Shop {
     	this.playerBag = player.getBag();
     	
     	itemList = new HashMap<>();
-    	itemList.put("POTION", 100);
-    	itemList.put("BIGPOTION", 200);
-    	itemList.put("MAXPOTION", 300);
-    	itemList.put("BASICBALL", 400);
-    	itemList.put("SUPERBALL", 500);
+    	itemList.put(ItemName.POTION, 100);
+    	itemList.put(ItemName.BIGPOTION, 200);
+    	itemList.put(ItemName.MAXPOTION, 300);
+    	itemList.put(ItemName.BASICBALL, 400);
+    	itemList.put(ItemName.SUPERBALL, 500);
     	
     	itemQuantity = new HashMap<>();
-    	itemQuantity.put("POTION", 20);
-    	itemQuantity.put("BIGPOTION", 20);
-    	itemQuantity.put("MAXPOTION", 20);
-    	itemQuantity.put("BASICBALL", 20);
-    	itemQuantity.put("SUPERBALL", 20);
+    	itemQuantity.put(ItemName.POTION, 20);
+    	itemQuantity.put(ItemName.BIGPOTION, 20);
+    	itemQuantity.put(ItemName.MAXPOTION, 20);
+    	itemQuantity.put(ItemName.BASICBALL, 20);
+    	itemQuantity.put(ItemName.SUPERBALL, 20);
     }
     public void displayMenu() {
     	System.out.println("Menu:");
-        for (String itemName : itemList.keySet()) {
+        for (ItemName itemName : itemList.keySet()) {
             int price = itemList.get(itemName);
             int quantity = itemQuantity.get(itemName);
             System.out.println(itemName + ": $" + price + " (Remains: " + quantity + ")");
         }
     }
     
-    public void buy(String name, int quantity) {
+    public void buy(ItemName name, int quantity) {
     	if (!itemList.containsKey(name) || !itemQuantity.containsKey(name)) {
             System.out.println("Item not available.");
             return;
@@ -48,17 +48,17 @@ public class Shop {
     		itemQuantity.remove(name);
     		itemQuantity.put(name, shopQuantity);
     		player.updateMoney(quantity);
-    		//need Item constructor to add new item into bag
-    		Pair<Item, Integer> newItem = new Pair<>(new Item(), quantity);
+    		Pair<Item, Integer> newItem = new Pair<>(new Item(name), quantity);
     		playerBag.addItem(newItem);
     		System.out.println("Thank you for buying");
     	}
     }
     
-    public void sell(String name, int amount) {
+    public void sell(ItemName name, int amount) {
         int total = 0;
         int itemPrice = itemList.get(name);
         total = (itemPrice * 3 / 4) * amount;
+        playerBag.removeItem(new Item(name), amount);
         player.updateMoney(total);
     }
 }
