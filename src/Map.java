@@ -26,6 +26,7 @@ public class Map extends GraphicsProgram implements ActionListener, KeyListener{
 	private Maps map = Maps.MAP1;
 	private GPoint nextPos = new GPoint(0,0);
 	private ArrayList<GImage> tiles = new ArrayList<GImage>();
+	private GImage nextTile;
 	
 	
 	public void actionPerformed(ActionEvent e) {
@@ -39,10 +40,10 @@ public class Map extends GraphicsProgram implements ActionListener, KeyListener{
 		for(Space[] x : map.spaceMap) {
 			System.out.println("adding line");
 			for(Space y : x) {
-				System.out.println("adding tile");
-				y.tile.setLocation(nextPos);
-				add(y.tile);
-				tiles.add(y.tile);
+				nextTile = new GImage(y.tile);
+				nextTile.setLocation(nextPos);
+				add(nextTile);
+				tiles.add(nextTile);
 				nextPos.translate(16, 0);
 				count++;
 			}

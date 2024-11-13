@@ -7,10 +7,10 @@ enum Space {
 	OBSTACLE(false, "Obstacle.png");
 	
 	public boolean walkable;
-	public GImage tile;
+	public String tile;
 	
 	Space(boolean walkable, String tile) {
 		this.walkable = walkable;
-		this.tile = new GImage(tile);
+		this.tile = tile;
 	}
 }
