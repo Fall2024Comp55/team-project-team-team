@@ -9,7 +9,6 @@ public class Shop {
     
     public Shop() {
     	this.player = new PlayerTrainer();
-    	this.playerBag = new Bag();
     	this.playerBag = player.getBag();
     	
     	itemList = new HashMap<>();
@@ -49,13 +48,17 @@ public class Shop {
     		itemQuantity.remove(name);
     		itemQuantity.put(name, shopQuantity);
     		player.updateMoney(quantity);
-    		//need Item constructor
-    		//playerBag.addItem(new Pair<new Item(name), Integer>(name, quantity));
+    		//need Item constructor to add new item into bag
+    		Pair<Item, Integer> newItem = new Pair<>(new Item(), quantity);
+    		playerBag.addItem(newItem);
     		System.out.println("Thank you for buying");
     	}
     }
     
     public void sell(String name, int amount) {
-        //add code here
+        int total = 0;
+        int itemPrice = itemList.get(name);
+        total = (itemPrice * 3 / 4) * amount;
+        player.updateMoney(total);
     }
 }
