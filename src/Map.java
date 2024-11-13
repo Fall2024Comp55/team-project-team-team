@@ -2,13 +2,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 
 import javax.swing.Timer;
 
-import acm.graphics.GImage;
-import acm.graphics.GLabel;
+import acm.graphics.*;
 import acm.program.GraphicsProgram;
-
 
 
 
@@ -24,7 +23,11 @@ public class Map extends GraphicsProgram implements ActionListener, KeyListener{
 	private int labelX =0, labelY = 0;
 	private PlayerTrainer userP = new PlayerTrainer();
 	
-
+	private Maps map = Maps.MAP1;
+	private GPoint nextPos = new GPoint(0,0);
+	private ArrayList<GImage> tiles = new ArrayList<GImage>();
+	
+	
 	public void actionPerformed(ActionEvent e) {
 		
 	}
@@ -32,6 +35,22 @@ public class Map extends GraphicsProgram implements ActionListener, KeyListener{
 	
 	public void init() {
 		setSize(PROGRAM_WIDTH, PROGRAM_HEIGHT);
+		int count = 0;
+		for(Space[] x : map.spaceMap) {
+			System.out.println("adding line");
+			for(Space y : x) {
+				System.out.println("adding tile");
+				y.tile.setLocation(nextPos);
+				add(y.tile);
+				tiles.add(y.tile);
+				nextPos.translate(16, 0);
+				count++;
+			}
+			nextPos.translate(-16*count,16);
+			count = 0;
+		}
+		
+		/*
 		add(grassBackground);
 		grassBackground.scale(2);
 		add(userPlayer);
@@ -41,32 +60,46 @@ public class Map extends GraphicsProgram implements ActionListener, KeyListener{
 		addKeyListeners();
 		requestFocus();
 		userPlayer.setLocation(450, 200);
+		*/
 	}
+	
+	public void move(Direction direction) {
+		switch(direction) {
+		case UP:
+			for(int i = 0; i < 16; i++) {
+				
+			}
+		case DOWN:
+			
+		case LEFT:
+			
+		case RIGHT:
+			
+		}
+	}
+	
 	@Override
 	public void keyPressed(KeyEvent e) {
 		int keyCode = e.getKeyCode();
 		
 		switch(keyCode) {
 		case KeyEvent.VK_W://up
-			labelY += 10;
+			move(Direction.UP);
 			userP.setDirection(Direction.UP);
 			System.out.println(userP.getDirection());
 			System.out.println("Moving Up");
 			break;
 		case KeyEvent.VK_S://down
-			labelY -= 10;
 			userP.setDirection(Direction.DOWN);
 			System.out.println(userP.getDirection());
 			System.out.println("Moving Down");
 			break;
 		case KeyEvent.VK_A://left
-			labelX += 10;
 			userP.setDirection(Direction.LEFT);
 			System.out.println(userP.getDirection());
 			System.out.println("Moving Left");
 			break;
 		case KeyEvent.VK_D://right
-			labelX -= 10;
 			userP.setDirection(Direction.RIGHT);
 			System.out.println(userP.getDirection());
 			System.out.println("Moving Right");
@@ -75,6 +108,7 @@ public class Map extends GraphicsProgram implements ActionListener, KeyListener{
 		grassBackground.setLocation(labelX, labelY);
 		
 	}
+	
 	public void run() {
 		
 		
@@ -82,7 +116,7 @@ public class Map extends GraphicsProgram implements ActionListener, KeyListener{
 	}
 	
 	public static void main(String[] args) {
-		new MyFirstTimer().start();
+		new Map().start();
 	}
 }
 
