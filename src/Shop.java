@@ -57,6 +57,7 @@ public class Shop {
     public void sell(ItemName name, int amount) {
         int total = 0;
         int itemPrice = itemList.get(name);
+        //the selling price is 75% of original price
         total = (itemPrice * 3 / 4) * amount;
         playerBag.removeItem(new Item(name), amount);
         player.updateMoney(total);
