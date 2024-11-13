@@ -22,7 +22,7 @@ public class Monster {
     public Monster(String name, int hp, int attack, int defense, int level, List<Move> moves2) {
         this.name = name;
         this.health = hp;
-        this.maxHealth = hp;
+        this.setMaxHealth(hp);
         this.atk = attack;
         this.def = defense;
         this.level = level;
@@ -239,6 +239,14 @@ public class Monster {
 
 	public void setHealth(int health) {
 		this.health = health;
+	}
+
+	public int getMaxHealth() {
+		return maxHealth;
+	}
+
+	public void setMaxHealth(int maxHealth) {
+		this.maxHealth = maxHealth;
 	}
 }
 
