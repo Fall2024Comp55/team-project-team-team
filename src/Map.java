@@ -15,6 +15,7 @@ public class Map extends GraphicsProgram implements ActionListener, KeyListener{
 	public static final int PROGRAM_HEIGHT = 600;
 	public static final int PROGRAM_WIDTH = 800;
 	public static final int MAX_STEPS = 20;
+	public static final double SCALE_FACTOR = 5.00;
 	private int numTimes ;
 	public Timer timer = new Timer(1000, this);
 	private GLabel myLabel;
@@ -41,13 +42,14 @@ public class Map extends GraphicsProgram implements ActionListener, KeyListener{
 			System.out.println("adding line");
 			for(Space y : x) {
 				nextTile = new GImage(y.tile);
+				nextTile.scale(SCALE_FACTOR);
 				nextTile.setLocation(nextPos);
 				add(nextTile);
 				tiles.add(nextTile);
-				nextPos.translate(16, 0);
+				nextPos.translate(16 * SCALE_FACTOR, 0);
 				count++;
 			}
-			nextPos.translate(-16*count,16);
+			nextPos.translate(-16 * count * SCALE_FACTOR, 16 * SCALE_FACTOR);
 			count = 0;
 		}
 		
