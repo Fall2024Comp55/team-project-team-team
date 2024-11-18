@@ -16,7 +16,7 @@ public class Map extends GraphicsProgram implements ActionListener, KeyListener{
 	public static final int PROGRAM_WIDTH = 800;
 	public static final int MAX_STEPS = 20;
 	public static final double SCALE_FACTOR = 5.00;
-	private int numTimes ;
+	private int numTimes;
 	public Timer timer = new Timer(1000, this);
 	private GLabel myLabel;
 	private GImage userPlayer = new GImage("media/user2BackProfile.png");
