@@ -4,7 +4,10 @@ enum Space {
 	PATH(true, "Path.png"),
 	GRASS(true, "Grass.png"),
 	TALLGRASS(true, "Tall_Grass.png"),
-	OBSTACLE(false, "Obstacle.png");
+	OBSTACLE(false, "Obstacle.png"),
+	WATER(true, "water.png"),
+	WATER_NONW(true, "water.png");
+	
 	
 	public boolean walkable;
 	public String tile;
