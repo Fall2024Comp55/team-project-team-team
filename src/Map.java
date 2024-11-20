@@ -9,7 +9,7 @@ import javax.swing.Timer;
 import acm.graphics.*;
 import acm.program.GraphicsProgram;
 
-// comment
+
 
 public class Map extends GraphicsProgram implements ActionListener, KeyListener{
 	public static final int SCREEN_TILES_WIDTH = 5;
