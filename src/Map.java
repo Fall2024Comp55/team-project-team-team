@@ -22,12 +22,10 @@ public class Map extends GraphicsProgram implements ActionListener, KeyListener{
 	private int screenWidth  = tileSize * SCREEN_TILES_WIDTH;
 	private int screenHeight = tileSize * SCREEN_TILES_HEIGHT;
 	
-	private int numTimes ;
+	
 	public Timer timer = new Timer(1000, this);
-	private GLabel myLabel;
 	private GImage userPlayer = new GImage("media/placeholderCharacter.png");
-	private GImage grassBackground = new GImage("media/grassBackground.jpg");
-	private int labelX =0, labelY = 0;
+	
 	private PlayerTrainer userP = new PlayerTrainer();
 	
 	private Maps map = Maps.MAP1;
@@ -38,6 +36,13 @@ public class Map extends GraphicsProgram implements ActionListener, KeyListener{
 	private boolean movable = true;
 	private int playerXOffset = 0;
 	private int playerYOffset = 0;
+	
+	/* unused variables
+	private int numTimes;
+	private int labelX =0, labelY = 0;
+	private GImage grassBackground = new GImage("media/grassBackground.jpg");
+	private GLabel myLabel;
+	*/
 	
 	
 	public void actionPerformed(ActionEvent e) {
@@ -75,6 +80,8 @@ public class Map extends GraphicsProgram implements ActionListener, KeyListener{
 		
 		addKeyListeners();
 		requestFocus();
+		
+		
 		/*
 		add(grassBackground);
 		grassBackground.scale(2);
@@ -147,7 +154,6 @@ public class Map extends GraphicsProgram implements ActionListener, KeyListener{
 			}
 			break;
 		}
-		movable = true;
 	}
 	
 	@Override
@@ -161,28 +167,23 @@ public class Map extends GraphicsProgram implements ActionListener, KeyListener{
 				move(Direction.UP);
 				userP.setDirection(Direction.UP);
 				System.out.println(userP.getDirection());
-				System.out.println("Moving Up");
 				break;
 			case KeyEvent.VK_S://down
 				move(Direction.DOWN);
 				userP.setDirection(Direction.DOWN);
 				System.out.println(userP.getDirection());
-				System.out.println("Moving Down");
 				break;
 			case KeyEvent.VK_A://left
 				move(Direction.LEFT);
 				userP.setDirection(Direction.LEFT);
 				System.out.println(userP.getDirection());
-				System.out.println("Moving Left");
 				break;
 			case KeyEvent.VK_D://right
 				move(Direction.RIGHT);
 				userP.setDirection(Direction.RIGHT);
 				System.out.println(userP.getDirection());
-				System.out.println("Moving Right");
 				break;
 			}
-			// grassBackground.setLocation(labelX, labelY);
 			movable = true;
 		}
 	}
