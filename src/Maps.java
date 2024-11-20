@@ -1,16 +1,16 @@
 
 public enum Maps {
 	MAP1(new Space[][] {
-		{Space.OBSTACLE,Space.OBSTACLE,Space.OBSTACLE,Space.PATH,Space.OBSTACLE,Space.OBSTACLE,Space.OBSTACLE},
-		{Space.OBSTACLE,Space.GRASS,Space.GRASS,Space.PATH,Space.GRASS,Space.GRASS,Space.OBSTACLE},
-		{Space.OBSTACLE,Space.GRASS,Space.GRASS,Space.PATH,Space.GRASS,Space.GRASS,Space.OBSTACLE},
-		{Space.OBSTACLE,Space.GRASS,Space.GRASS,Space.PATH,Space.GRASS,Space.GRASS,Space.OBSTACLE},
-		{Space.OBSTACLE,Space.GRASS,Space.GRASS,Space.PATH,Space.GRASS,Space.GRASS,Space.OBSTACLE},
-		{Space.OBSTACLE,Space.GRASS,Space.GRASS,Space.PATH,Space.GRASS,Space.GRASS,Space.OBSTACLE},
-		{Space.OBSTACLE,Space.GRASS,Space.GRASS,Space.PATH,Space.GRASS,Space.GRASS,Space.OBSTACLE},
-		{Space.OBSTACLE,Space.GRASS,Space.GRASS,Space.PATH,Space.GRASS,Space.GRASS,Space.OBSTACLE},
-		{Space.OBSTACLE,Space.OBSTACLE,Space.OBSTACLE,Space.PATH,Space.OBSTACLE,Space.OBSTACLE,Space.OBSTACLE}
-	}, 3, 8);
+		{Space.OBSTACLE,Space.OBSTACLE,Space.OBSTACLE,Space.OBSTACLE,Space.PATH,Space.OBSTACLE,Space.OBSTACLE,Space.OBSTACLE,Space.OBSTACLE},
+		{Space.OBSTACLE,Space.GRASS,Space.GRASS,Space.GRASS,Space.PATH,Space.GRASS,Space.GRASS,Space.GRASS,Space.OBSTACLE},
+		{Space.OBSTACLE,Space.GRASS,Space.GRASS,Space.GRASS,Space.PATH,Space.GRASS,Space.GRASS,Space.GRASS,Space.OBSTACLE},
+		{Space.OBSTACLE,Space.GRASS,Space.GRASS,Space.GRASS,Space.PATH,Space.GRASS,Space.GRASS,Space.GRASS,Space.OBSTACLE},
+		{Space.OBSTACLE,Space.GRASS,Space.GRASS,Space.GRASS,Space.PATH,Space.GRASS,Space.GRASS,Space.GRASS,Space.OBSTACLE},
+		{Space.OBSTACLE,Space.GRASS,Space.GRASS,Space.GRASS,Space.PATH,Space.GRASS,Space.GRASS,Space.GRASS,Space.OBSTACLE},
+		{Space.OBSTACLE,Space.GRASS,Space.GRASS,Space.GRASS,Space.PATH,Space.GRASS,Space.GRASS,Space.GRASS,Space.OBSTACLE},
+		{Space.OBSTACLE,Space.GRASS,Space.GRASS,Space.GRASS,Space.PATH,Space.GRASS,Space.GRASS,Space.GRASS,Space.OBSTACLE},
+		{Space.OBSTACLE,Space.OBSTACLE,Space.OBSTACLE,Space.OBSTACLE,Space.PATH,Space.OBSTACLE,Space.OBSTACLE,Space.OBSTACLE,Space.OBSTACLE}
+	}, 4, 8);
 	
 	Maps(Space[][] spaceMap, int x, int y) {
 		this.spaceMap = spaceMap;
