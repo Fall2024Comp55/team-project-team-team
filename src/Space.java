@@ -6,7 +6,9 @@ enum Space {
 	TALLGRASS(true, "Tall_Grass.png"),
 	OBSTACLE(false, "Obstacle.png"),
 	WATER(true, "water.png"),
-	WATER_NONW(true, "water.png");
+	WATER_NONW(true, "water.png"),
+	STARTERHOUSE(true, "housePOkemonGame2"),
+	POKECENTER(true, "pokecenterDone");
 	
 	
 	public boolean walkable;
