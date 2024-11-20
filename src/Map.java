@@ -59,12 +59,12 @@ public class Map extends GraphicsProgram implements ActionListener, KeyListener{
 			System.out.println("adding line");
 			for(Space y : x) {
 				nextTile = new GImage(y.tile);
-				nextTile.scale(tileSize / nextTile.getHeight());
-				nextTile.setLocation(nextPos);
+				nextTile.scale(tileSize / nextTile.getWidth());
+				nextTile.setLocation(nextPos.getX() - (nextTile.getWidth() - tileSize), nextPos.getY() - (nextTile.getHeight() - tileSize));
 				add(nextTile);
 				spaces.add(y);
 				tiles.add(nextTile);
-				nextPos.translate(16 * SCALE_FACTOR, 0);
+				nextPos.translate(tileSize, 0);
 				count++;
 			}
 			nextPos.translate(-16 * count * SCALE_FACTOR, 16 * SCALE_FACTOR);

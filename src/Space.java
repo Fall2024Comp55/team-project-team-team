@@ -5,8 +5,9 @@ enum Space {
 	GRASS(true, "Grass.png"),
 	TALLGRASS(true, "Tall_Grass.png"),
 	OBSTACLE(false, "Obstacle.png"),
-	WATER(true, "water.png"),
-	WATER_NONW(true, "water.png");
+	WATER(false, "water.png"),
+	WATER_NONW(true, "water.png"),
+	TREE(false, "Tree.png");
 	
 	
 	public boolean walkable;
