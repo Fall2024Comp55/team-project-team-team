@@ -31,6 +31,7 @@ public class Map extends GraphicsProgram implements ActionListener, KeyListener{
 	private Maps map = Maps.MAP1;
 	private GPoint nextPos = new GPoint(0,0);
 	private ArrayList<GImage> tiles = new ArrayList<GImage>();
+	private ArrayList<Space> spaces = new ArrayList<Space>();
 	private GImage nextTile;
 	
 	private boolean movable = true;
@@ -58,9 +59,10 @@ public class Map extends GraphicsProgram implements ActionListener, KeyListener{
 			System.out.println("adding line");
 			for(Space y : x) {
 				nextTile = new GImage(y.tile);
-				nextTile.scale(SCALE_FACTOR);
+				nextTile.scale(tileSize / nextTile.getHeight());
 				nextTile.setLocation(nextPos);
 				add(nextTile);
+				spaces.add(y);
 				tiles.add(nextTile);
 				nextPos.translate(16 * SCALE_FACTOR, 0);
 				count++;
@@ -122,6 +124,9 @@ public class Map extends GraphicsProgram implements ActionListener, KeyListener{
 					moveBackground(0, SCALE_FACTOR);
 				}
 			}
+			for(int x = 0; x < map.spaceMap[0].length; x++) {
+				userPlayer.sendBackward();
+			}
 			break;
 		case DOWN:
 			if(playerYOffset > 0 || tiles.get(tiles.size()-1).getY() <= screenHeight - tileSize) {
@@ -133,6 +138,9 @@ public class Map extends GraphicsProgram implements ActionListener, KeyListener{
 				for(int i = 0; i < TILE_RESOLUTION; i++) {
 					moveBackground(0, -SCALE_FACTOR);
 				}
+			}
+			for(int x = 0; x < map.spaceMap[0].length; x++) {
+				userPlayer.sendForward();
 			}
 			break;
 		case LEFT:
