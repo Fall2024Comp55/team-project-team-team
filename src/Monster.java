@@ -1,11 +1,13 @@
 import java.util.List;
 import java.util.ArrayList;
 import acm.graphics.*;
+import java.util.Random;
 //finshed but need review:
 public class Monster {
 	
 	private SpeciesType species;
     private GImage sprite;
+    private String description;
     private int experience = 0 ;
     private int level;
     private int atk;
@@ -19,14 +21,16 @@ public class Monster {
     String name;
     private List<Move> moves;
     
-    public Monster(String name, int hp, int attack, int defense, int level, List<Move> moves2) {
+    public Monster(String name, String description , int hp, int attack, int defense,  Type type1, Type type2, int maxhealth, int level) {
         this.name = name;
+        this.description = description;
         this.health = hp;
-        this.setMaxHealth(hp);
+        this.maxHealth = maxhealth;
         this.atk = attack;
         this.def = defense;
+        this.type1 = type1;
+        this.type2 = type2;
         this.level = level;
-        this.moves = moves2;
     }
     
     public void takeDamage(int damage) {
@@ -229,8 +233,15 @@ public class Monster {
 		return moves;
 	}
 
-	public void setMoves(ArrayList<Move> moves) {
+	public void setMoves(  List<Move> moves ) {
 		this.moves = moves;
+	}
+	
+	public void addmove(  Move move ) {
+		moves.add(move);
+	}
+	public void Switchmove( int num, Move move ) {
+		moves.set(num, move);
 	}
 
 	public int getHealth() {
@@ -248,6 +259,32 @@ public class Monster {
 	public void setMaxHealth(int maxHealth) {
 		this.maxHealth = maxHealth;
 	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
+	
+	public void setRandomMoves() {
+        Random rand = new Random();
+        List<Move> availableMoves = new ArrayList<>();
+        
+        for (Move move : Move.values()) {
+            availableMoves.add(move);
+        }
+
+        while (moves.size() < 4) {
+            Move randomMove = availableMoves.get(rand.nextInt(availableMoves.size()));
+           
+            if (!moves.contains(randomMove)) {
+                moves.add(randomMove);
+            }
+        }
+    }
 }
 
 
