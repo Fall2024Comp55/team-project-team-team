@@ -11,7 +11,7 @@ import acm.program.GraphicsProgram;
 
 
 
-public class Map extends GraphicsProgram implements ActionListener, KeyListener{
+public class Map extends GraphicsProgram implements ActionListener, KeyListener {
 	public static final int SCREEN_TILES_WIDTH = 5;
 	public static final int SCREEN_TILES_HEIGHT = 5;
 	public static final int MAX_STEPS = 20;
@@ -28,7 +28,8 @@ public class Map extends GraphicsProgram implements ActionListener, KeyListener{
 	
 	private PlayerTrainer userP = new PlayerTrainer();
 	
-	private Maps map = Maps.MAP1;
+	private Maps map;
+	private Game game;
 	private GPoint nextPos = new GPoint(0,0);
 	private ArrayList<GImage> tiles = new ArrayList<GImage>();
 	private ArrayList<ArrayList<Space>> spaces = new ArrayList<ArrayList<Space>>();
@@ -47,6 +48,18 @@ public class Map extends GraphicsProgram implements ActionListener, KeyListener{
 	private GLabel myLabel;
 	*/
 	
+	Map(Game game, Maps map) {
+		this.game = game;
+		this.map = map;
+		init();
+	}
+	
+	public void remove() {
+		for(GImage x : tiles) {
+			remove(x);
+		}
+		remove(userPlayer);
+	}
 	
 	public void actionPerformed(ActionEvent e) {
 		
@@ -231,9 +244,11 @@ public class Map extends GraphicsProgram implements ActionListener, KeyListener{
 		timer.start();
 	}
 	
+	
 	public static void main(String[] args) {
-		new Map().start();
+		new Map(game, map).start();
 	}
+	
 }
 
 
