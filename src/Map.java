@@ -31,12 +31,14 @@ public class Map extends GraphicsProgram implements ActionListener, KeyListener{
 	private Maps map = Maps.MAP1;
 	private GPoint nextPos = new GPoint(0,0);
 	private ArrayList<GImage> tiles = new ArrayList<GImage>();
-	private ArrayList<Space> spaces = new ArrayList<Space>();
+	private ArrayList<ArrayList<Space>> spaces = new ArrayList<ArrayList<Space>>();
 	private GImage nextTile;
 	
 	private boolean movable = true;
 	private int playerXOffset = 0;
 	private int playerYOffset = 0;
+	private int playerX;
+	private int playerY;
 	
 	/* unused variables
 	private int numTimes;
@@ -54,21 +56,24 @@ public class Map extends GraphicsProgram implements ActionListener, KeyListener{
 	public void init() {
 		setSize(tileSize * SCREEN_TILES_WIDTH, tileSize * SCREEN_TILES_HEIGHT);
 		
-		int count = 0;
+		int col = 0;
+		int row = 0;
 		for(Space[] x : map.spaceMap) {
 			System.out.println("adding line");
+			spaces.add(new ArrayList<Space>());
 			for(Space y : x) {
 				nextTile = new GImage(y.tile);
 				nextTile.scale(tileSize / nextTile.getWidth());
 				nextTile.setLocation(nextPos.getX() - (nextTile.getWidth() - tileSize), nextPos.getY() - (nextTile.getHeight() - tileSize));
 				add(nextTile);
-				spaces.add(y);
+				spaces.get(row).add(y);
 				tiles.add(nextTile);
 				nextPos.translate(tileSize, 0);
-				count++;
+				col++;
 			}
-			nextPos.translate(-16 * count * SCALE_FACTOR, 16 * SCALE_FACTOR);
-			count = 0;
+			nextPos.translate(-16 * col * SCALE_FACTOR, 16 * SCALE_FACTOR);
+			col = 0;
+			row++;
 		}
 		
 		add(userPlayer);
@@ -81,6 +86,8 @@ public class Map extends GraphicsProgram implements ActionListener, KeyListener{
 		
 		playerXOffset = (screenWidth/2 - (int)userPlayer.getX())/tileSize;
 		playerYOffset = (screenHeight/2 - (int)userPlayer.getY())/tileSize - 1;
+		playerX = map.startX;
+		playerY = map.startY;
 		
 		System.out.println(playerXOffset);
 		System.out.println(playerYOffset);
@@ -114,58 +121,74 @@ public class Map extends GraphicsProgram implements ActionListener, KeyListener{
 	public void move(Direction direction) {
 		switch(direction) {
 		case UP:
-			if(playerYOffset < 0 || tiles.get(0).getY() >= 0) {
-				for(int i = 0; i < TILE_RESOLUTION; i++) {
-					movePlayer(0, -SCALE_FACTOR);
+			if(spaces.get(playerY-1).get(playerX).walkable) {
+				if(playerYOffset < 0 || tiles.get(0).getY() >= 0) {
+					for(int i = 0; i < TILE_RESOLUTION; i++) {
+						movePlayer(0, -SCALE_FACTOR);
+					}
+					playerYOffset += 1;
+				} else {
+					for(int i = 0; i < TILE_RESOLUTION; i++) {
+						moveBackground(0, SCALE_FACTOR);
+					}
 				}
-				playerYOffset += 1;
-			} else {
-				for(int i = 0; i < TILE_RESOLUTION; i++) {
-					moveBackground(0, SCALE_FACTOR);
+				playerY--;
+				for(int x = 0; x < map.spaceMap[0].length; x++) {
+					userPlayer.sendBackward();
 				}
 			}
-			for(int x = 0; x < map.spaceMap[0].length; x++) {
-				userPlayer.sendBackward();
-			}
+			System.out.println(playerY);
 			break;
 		case DOWN:
-			if(playerYOffset > 0 || tiles.get(tiles.size()-1).getY() <= screenHeight - tileSize) {
-				for(int i = 0; i < TILE_RESOLUTION; i++) {
-					movePlayer(0, SCALE_FACTOR);
+			if(spaces.get(playerY+1).get(playerX).walkable) {
+				if(playerYOffset > 0 || tiles.get(tiles.size()-1).getY() <= screenHeight - tileSize) {
+					for(int i = 0; i < TILE_RESOLUTION; i++) {
+						movePlayer(0, SCALE_FACTOR);
+					}
+					playerYOffset -= 1;
+				} else {
+					for(int i = 0; i < TILE_RESOLUTION; i++) {
+						moveBackground(0, -SCALE_FACTOR);
+					}
 				}
-				playerYOffset -= 1;
-			} else {
-				for(int i = 0; i < TILE_RESOLUTION; i++) {
-					moveBackground(0, -SCALE_FACTOR);
+				playerY++;
+				for(int x = 0; x < map.spaceMap[0].length; x++) {
+					userPlayer.sendForward();
 				}
 			}
-			for(int x = 0; x < map.spaceMap[0].length; x++) {
-				userPlayer.sendForward();
-			}
+			System.out.println(playerY);
 			break;
 		case LEFT:
-			if(playerXOffset > 0 || tiles.get(0).getX() >= 0) {
-				for(int i = 0; i < TILE_RESOLUTION; i++) {
-					movePlayer(-SCALE_FACTOR, 0);
+			if(spaces.get(playerY).get(playerX-1).walkable) {
+				if(playerXOffset > 0 || tiles.get(0).getX() >= 0) {
+					for(int i = 0; i < TILE_RESOLUTION; i++) {
+						movePlayer(-SCALE_FACTOR, 0);
+					}
+					playerXOffset -= 1;
+				} else {
+					for(int i = 0; i < TILE_RESOLUTION; i++) {
+						moveBackground(SCALE_FACTOR, 0);
+					}
 				}
-				playerXOffset -= 1;
-			} else {
-				for(int i = 0; i < TILE_RESOLUTION; i++) {
-					moveBackground(SCALE_FACTOR, 0);
-				}
+				playerX--;
 			}
+			System.out.println(playerX);
 			break;
 		case RIGHT:
-			if(playerXOffset < 0 || tiles.get(tiles.size()-1).getX() <= screenWidth - tileSize) {
-				for(int i = 0; i < TILE_RESOLUTION; i++) {
-					movePlayer(SCALE_FACTOR, 0);
+			if(spaces.get(playerY).get(playerX+1).walkable) {
+				if(playerXOffset < 0 || tiles.get(tiles.size()-1).getX() <= screenWidth - tileSize) {
+					for(int i = 0; i < TILE_RESOLUTION; i++) {
+						movePlayer(SCALE_FACTOR, 0);
+					}
+					playerXOffset += 1;
+				} else {
+					for(int i = 0; i < TILE_RESOLUTION; i++) {
+						moveBackground(-SCALE_FACTOR, 0);
+					}
 				}
-				playerXOffset += 1;
-			} else {
-				for(int i = 0; i < TILE_RESOLUTION; i++) {
-					moveBackground(-SCALE_FACTOR, 0);
-				}
+				playerX++;
 			}
+			System.out.println(playerX);
 			break;
 		}
 	}
