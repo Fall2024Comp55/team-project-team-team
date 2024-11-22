@@ -48,7 +48,7 @@ public class Shop {
     		itemQuantity.remove(name);
     		itemQuantity.put(name, shopQuantity);
     		player.updateMoney(quantity);
-    		Pair<Item, Integer> newItem = new Pair<>(new Item(name), quantity);
+    		Pair<Item, Integer> newItem = new Pair<>(new Item(name, null), quantity);
     		playerBag.addItem(newItem);
     		System.out.println("Thank you for buying");
     	}
@@ -59,7 +59,7 @@ public class Shop {
         int itemPrice = itemList.get(name);
         //the selling price is 75% of original price
         total = (itemPrice * 3 / 4) * amount;
-        playerBag.removeItem(new Item(name), amount);
+        playerBag.removeItem(new Item(name, null), amount);
         player.updateMoney(total);
     }
 }
