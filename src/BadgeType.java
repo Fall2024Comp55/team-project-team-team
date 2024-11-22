@@ -5,7 +5,6 @@ enum BadgeType {
 	
 	public String toString() {
 		switch(this) {
-		//sdfsfssf
 			case NORMAL_BADGE: return "Normal Badge";
 			case FIRE_BADGE: return "Fire Badge";
 			case WATER_BADGE: return "Water Badge";
