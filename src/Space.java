@@ -1,29 +1,14 @@
-import acm.graphics.*;
-
-enum Space {
-	PATH(true, "Path.png"),
-	GRASS(true, "Grass.png"),
-	TALLGRASS(true, "Tall_Grass.png"),
-	OBSTACLE(false, "Obstacle.png"),
-	WATER(false, "water.png"),
-	WATER_NONW(false, "water.png"),
-	STARTERHOUSE(true, "housePOkemonGame2"),
-	POKECENTER(true, "pokecenterDone"),
-	TREE(false, "Tree.png"),
-	HOME1(false, "House1.png"),
-	HOME2(false, "House2.png"),
-	HOME3(false, "House3.png"),
-	HOME4(false, "House4.png"),
-	HOME5(false, "House5.png"),
-	HOME6(false, "House6.png"),
-	HOME7(false, "House7.png");
+class Space {
+	public Tile tile;
+	public MapName destination = null;
+	public int spawn;
 	
-	
-	public boolean walkable;
-	public String tile;
-	
-	Space(boolean walkable, String tile) {
-		this.walkable = walkable;
+	Space(Tile tile) {
 		this.tile = tile;
+	}
+	
+	public void setDestination(MapName destination, int spawn) {
+		this.destination = destination;
+		this.spawn = spawn;
 	}
 }

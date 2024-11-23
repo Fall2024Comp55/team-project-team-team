@@ -12,8 +12,8 @@ import acm.program.GraphicsProgram;
 
 
 public class Map extends GraphicsProgram implements ActionListener, KeyListener {
-	public static final int SCREEN_TILES_WIDTH = 5;
-	public static final int SCREEN_TILES_HEIGHT = 5;
+	public static final int SCREEN_TILES_WIDTH = 9;
+	public static final int SCREEN_TILES_HEIGHT = 7;
 	public static final int MAX_STEPS = 20;
 	public static final int TILE_RESOLUTION = 16;
 	public static final int SCALE_FACTOR = 5;
@@ -28,8 +28,8 @@ public class Map extends GraphicsProgram implements ActionListener, KeyListener 
 	
 	private PlayerTrainer userP = new PlayerTrainer();
 	
-	private Maps map;
-	private Game game;
+	private Maps map = Maps.HOMETOWN;
+	private int spawn = 0;
 	private GPoint nextPos = new GPoint(0,0);
 	private ArrayList<GImage> tiles = new ArrayList<GImage>();
 	private ArrayList<ArrayList<Space>> spaces = new ArrayList<ArrayList<Space>>();
@@ -48,34 +48,37 @@ public class Map extends GraphicsProgram implements ActionListener, KeyListener 
 	private GLabel myLabel;
 	*/
 	
-	Map(Game game, Maps map) {
-		this.game = game;
-		this.map = map;
-		init();
-	}
-	
-	public void remove() {
+	public void clearMap() {
 		for(GImage x : tiles) {
 			remove(x);
 		}
 		remove(userPlayer);
+		tiles.clear();
+		spaces.clear();
+		nextPos.setLocation(0, 0);
 	}
 	
 	public void actionPerformed(ActionEvent e) {
 		
 	}
 	
-	
 	public void init() {
 		setSize(tileSize * SCREEN_TILES_WIDTH, tileSize * SCREEN_TILES_HEIGHT);
+		addKeyListeners();
+		requestFocus();
 		
+		printMap();
+		addPlayer();
+	}
+	
+	public void printMap() {
 		int col = 0;
 		int row = 0;
 		for(Space[] x : map.spaceMap) {
 			System.out.println("adding line");
 			spaces.add(new ArrayList<Space>());
 			for(Space y : x) {
-				nextTile = new GImage(y.tile);
+				nextTile = new GImage(y.tile.image);
 				nextTile.scale(tileSize / nextTile.getWidth());
 				nextTile.setLocation(nextPos.getX() - (nextTile.getWidth() - tileSize), nextPos.getY() - (nextTile.getHeight() - tileSize));
 				add(nextTile);
@@ -88,37 +91,37 @@ public class Map extends GraphicsProgram implements ActionListener, KeyListener 
 			col = 0;
 			row++;
 		}
-		
+	}
+	
+	public void addPlayer() {
+		int startX = map.starts[spawn][0];
+		int startY = map.starts[spawn][1];
+
 		add(userPlayer);
+		userPlayer.scale(tileSize / userPlayer.getWidth());
+		userPlayer.setLocation(tileSize * startX, tileSize * startY);
 		
-		userPlayer.scale(SCALE_FACTOR);
-		userPlayer.setLocation(tileSize * map.startX, tileSize * map.startY);
-		
-		moveBackground(-1 * tileSize * (map.startX - (int)(SCREEN_TILES_WIDTH/2)), -1 * tileSize * (map.startY - SCREEN_TILES_HEIGHT + 1));
-		movePlayer(-1 * tileSize * (map.startX - (int)(SCREEN_TILES_WIDTH/2)), -1 * tileSize * (map.startY - SCREEN_TILES_HEIGHT + 1));
+		moveBackground(-1 * tileSize * (startX - (int)(SCREEN_TILES_WIDTH/2)), -1 * tileSize * (startY - (int)(SCREEN_TILES_HEIGHT/2)));
+		movePlayer(-1 * tileSize * (startX - (int)(SCREEN_TILES_WIDTH/2)), -1 * tileSize * (startY - (int)(SCREEN_TILES_HEIGHT/2)));
 		
 		playerXOffset = (screenWidth/2 - (int)userPlayer.getX())/tileSize;
-		playerYOffset = (screenHeight/2 - (int)userPlayer.getY())/tileSize - 1;
-		playerX = map.startX;
-		playerY = map.startY;
+		playerYOffset = (screenHeight/2 - (int)userPlayer.getY())/tileSize;
+		playerX = startX;
+		playerY = startY;
 		
 		System.out.println(playerXOffset);
 		System.out.println(playerYOffset);
-		
-		
-		addKeyListeners();
-		requestFocus();
-		
-		
-		/*
-		add(grassBackground);
-		grassBackground.scale(2);
-		add(userPlayer);
-		grassBackground.setLocation(labelX, labelY);
-		userPlayer.setLocation(labelX, labelY);
-		userPlayer.scale(0.2);
-		userPlayer.setLocation(450, 200);
-		*/
+	}
+	
+	public void reInit(MapName newMap, int spawn) {
+		clearMap();
+		switch(newMap) {
+		case HOMETOWN: this.map = Maps.HOMETOWN; break;
+		case ROUTE1: this.map = Maps.ROUTE1; break;
+		}
+		this.spawn = spawn;
+		printMap();
+		addPlayer();
 	}
 	
 	public void moveBackground(int x, int y) {
@@ -134,7 +137,7 @@ public class Map extends GraphicsProgram implements ActionListener, KeyListener 
 	public void move(Direction direction) {
 		switch(direction) {
 		case UP:
-			if(spaces.get(playerY-1).get(playerX).walkable) {
+			if(spaces.get(playerY-1).get(playerX).tile.walkable) {
 				if(playerYOffset < 0 || tiles.get(0).getY() >= 0) {
 					for(int i = 0; i < TILE_RESOLUTION; i++) {
 						movePlayer(0, -SCALE_FACTOR);
@@ -153,7 +156,7 @@ public class Map extends GraphicsProgram implements ActionListener, KeyListener 
 			System.out.println(playerY);
 			break;
 		case DOWN:
-			if(spaces.get(playerY+1).get(playerX).walkable) {
+			if(spaces.get(playerY+1).get(playerX).tile.walkable) {
 				if(playerYOffset > 0 || tiles.get(tiles.size()-1).getY() <= screenHeight - tileSize) {
 					for(int i = 0; i < TILE_RESOLUTION; i++) {
 						movePlayer(0, SCALE_FACTOR);
@@ -172,7 +175,7 @@ public class Map extends GraphicsProgram implements ActionListener, KeyListener 
 			System.out.println(playerY);
 			break;
 		case LEFT:
-			if(spaces.get(playerY).get(playerX-1).walkable) {
+			if(spaces.get(playerY).get(playerX-1).tile.walkable) {
 				if(playerXOffset > 0 || tiles.get(0).getX() >= 0) {
 					for(int i = 0; i < TILE_RESOLUTION; i++) {
 						movePlayer(-SCALE_FACTOR, 0);
@@ -188,7 +191,7 @@ public class Map extends GraphicsProgram implements ActionListener, KeyListener 
 			System.out.println(playerX);
 			break;
 		case RIGHT:
-			if(spaces.get(playerY).get(playerX+1).walkable) {
+			if(spaces.get(playerY).get(playerX+1).tile.walkable) {
 				if(playerXOffset < 0 || tiles.get(tiles.size()-1).getX() <= screenWidth - tileSize) {
 					for(int i = 0; i < TILE_RESOLUTION; i++) {
 						movePlayer(SCALE_FACTOR, 0);
@@ -204,6 +207,12 @@ public class Map extends GraphicsProgram implements ActionListener, KeyListener 
 			System.out.println(playerX);
 			break;
 		}
+		Space newSpace = spaces.get(playerY).get(playerX);
+		System.out.println(newSpace.tile);
+		System.out.println(newSpace.destination);
+		if(newSpace.destination != null) {
+			reInit(newSpace.destination, newSpace.spawn);
+		}
 	}
 	
 	@Override
@@ -216,22 +225,18 @@ public class Map extends GraphicsProgram implements ActionListener, KeyListener 
 			case KeyEvent.VK_W://up
 				move(Direction.UP);
 				userP.setDirection(Direction.UP);
-				System.out.println(userP.getDirection());
 				break;
 			case KeyEvent.VK_S://down
 				move(Direction.DOWN);
 				userP.setDirection(Direction.DOWN);
-				System.out.println(userP.getDirection());
 				break;
 			case KeyEvent.VK_A://left
 				move(Direction.LEFT);
 				userP.setDirection(Direction.LEFT);
-				System.out.println(userP.getDirection());
 				break;
 			case KeyEvent.VK_D://right
 				move(Direction.RIGHT);
 				userP.setDirection(Direction.RIGHT);
-				System.out.println(userP.getDirection());
 				break;
 			}
 			movable = true;
@@ -246,7 +251,7 @@ public class Map extends GraphicsProgram implements ActionListener, KeyListener 
 	
 	
 	public static void main(String[] args) {
-		new Map(game, map).start();
+		new Map().start();
 	}
 	
 }
