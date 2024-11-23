@@ -49,10 +49,7 @@ public class Map extends GraphicsProgram implements ActionListener, KeyListener 
 	*/
 	
 	public void clearMap() {
-		for(GImage x : tiles) {
-			remove(x);
-		}
-		remove(userPlayer);
+		removeAll();
 		tiles.clear();
 		spaces.clear();
 		nextPos.setLocation(0, 0);
@@ -128,6 +125,12 @@ public class Map extends GraphicsProgram implements ActionListener, KeyListener 
 		
 		playerXOffset = (int)(SCREEN_TILES_WIDTH / 2) - (int)(userPlayer.getX() / tileSize);
 		playerYOffset = (int)(SCREEN_TILES_HEIGHT / 2) - (int)(userPlayer.getY() / tileSize);
+		
+		for(int x = 0; x < (SCREEN_TILES_HEIGHT/2 + playerYOffset); x++) {
+			for(int y = 0; y < map.spaceMap[0].length; y++) {
+				userPlayer.sendBackward();
+			}
+		}
 	}
 	
 	public void reInit(MapName newMap, int spawn) {
