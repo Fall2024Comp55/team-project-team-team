@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import acm.graphics.GImage;
 
+// comment
 enum MapName {
 	HOMETOWN, ROUTE1;
 }
