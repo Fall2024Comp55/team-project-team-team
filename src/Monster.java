@@ -19,7 +19,7 @@ public class Monster {
     private int maxHealth;
     private Type type1;
     private Type type2;
-    String name;
+    String name = "";
     private List<Move> moves;
     
     public Monster(String name, String description , int hp, int attack, int defense,  Type type1, Type type2, int maxhealth, int level) {
@@ -34,6 +34,19 @@ public class Monster {
         this.level = level;
 
         moves = new ArrayList<Move>();
+    }
+    
+    Monster(SpeciesType specType) {
+    	this.name = specType.getName();
+    	this.species = specType;
+    	this.experience = 0;
+    	this.level = 1;
+    	this.atk = species.getAttack();
+    	this.def = species.getDefense();
+    	this.health = species.getHealth();
+    	this.type1 = species.getType1();
+    	this.type2 = species.getType2();
+    	moves = new ArrayList<Move>();
     }
     
     public void takeDamage(int damage) {
@@ -65,17 +78,6 @@ public class Monster {
         return moves;
     }
     
-    Monster(SpeciesType specType) {
-    	this.species = specType;
-    	this.experience = 0;
-    	this.level = 1;
-    	this.atk = species.getAttack();
-    	this.def = species.getDefense();
-    	this.health = species.getHealth();
-    	this.type1 = species.getType1();
-    	this.type2 = species.getType2();
-    	moves = new ArrayList<Move>();
-    }
 
     public boolean updateHP(int hpChange) {
     	this.health = this.health + hpChange;

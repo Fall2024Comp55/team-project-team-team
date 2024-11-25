@@ -48,6 +48,8 @@ public class Map extends GraphicsProgram implements ActionListener, KeyListener 
 	private GLabel myLabel;
 	*/
 	
+
+
 	public void clearMap() {
 		removeAll();
 		tiles.clear();
