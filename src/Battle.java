@@ -32,4 +32,5 @@ public class Battle {
         playerMonster.takeDamage(damage);
         System.out.println(opponentMonster.getName() + " used " + move.name() + " and dealt " + damage + " damage.");
     }
+    
 }

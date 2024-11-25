@@ -22,7 +22,9 @@ public class BattleSimulator {
     public void startBattle() {
         System.out.println("A battle has begun between " + playerMonster.getName() + " and " + opponentMonster.getName() + "!");
         while (!playerMonster.isFainted() && !opponentMonster.isFainted()) {
+        	
             takeTurn();
+            
         }
         
         if (playerMonster.isFainted()) {
@@ -45,9 +47,9 @@ public class BattleSimulator {
     // Handle the player's turn
     private void playerTurn() {
         System.out.println(playerMonster.getName() + "'s turn!");
-        // For simplicity, let's pick a random move
+   
         Move move = selectRandomMove(playerMonster);
-        move.animate(); // Display the move animation
+        //move.animate(); // Display the move animation
         int damage = move.calculateDamage(playerMonster, opponentMonster);
         System.out.println(playerMonster.getName() + " used " + move.name + "!");
         opponentMonster.takeDamage(damage);
@@ -57,9 +59,9 @@ public class BattleSimulator {
     // Handle the opponent's turn
     private void opponentTurn() {
         System.out.println(opponentMonster.getName() + "'s turn!");
-        // For simplicity, let's pick a random move
+        
         Move move = selectRandomMove(opponentMonster);
-        move.animate(); // Display the move animation
+      
         int damage = move.calculateDamage(opponentMonster, playerMonster);
         System.out.println(opponentMonster.getName() + " used " + move.name + "!");
         playerMonster.takeDamage(damage);
@@ -72,36 +74,13 @@ public class BattleSimulator {
         Random rand = new Random();
         return moves.get(rand.nextInt(moves.size())); // Random move selection
     }
-    
-    public class Main {
-        public static void main(String[] args) {
-            // Create the player's trainer and monster
-            PlayerTrainer playerTrainer = new PlayerTrainer();
-            Monster playerMonster = new Monster(SpeciesType.SPIDER);
-            playerMonster.addmove(Move.TACKLE);
-            playerMonster.addmove(Move.EMBER);
-            
-            // Add the monster to the player's team
-            playerTrainer.addMon(playerMonster);
 
-            // Create the opponent's trainer and monster
-            Trainer opponentTrainer = new Trainer();
-            Monster opponentMonster = new Monster(SpeciesType.FLAMECLAW);
-            opponentMonster.addmove(Move.FLAMETHROWER);
-            opponentMonster.addmove(Move.EMBER);
-            opponentTrainer.addMon(opponentMonster);
 
-            // Start a battle between the player and opponent
-            BattleSimulator battle = new BattleSimulator(playerTrainer, opponentTrainer);
-            battle.startBattle(); // This will run the battle until one monster faints
 
-            // After the battle, the player might earn money or badges
-            playerTrainer.updateMoney(100);  // Player earns 100 money after the battle
-            playerTrainer.addNumBadges();   // Player earns a badge
-            System.out.println("Player's money: " + playerTrainer.getMoney());
-            System.out.println("Player's badges: " + playerTrainer.getNumBadges());
-        }
-    }
+
 
 }
+
+
+
 

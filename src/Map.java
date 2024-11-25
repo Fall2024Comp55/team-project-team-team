@@ -212,5 +212,3 @@ public class Map extends GraphicsProgram implements ActionListener, KeyListener{
 		new Map().start();
 	}
 }
-
-

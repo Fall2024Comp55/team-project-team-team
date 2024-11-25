@@ -1,3 +1,4 @@
+
 import java.util.List;
 import java.util.ArrayList;
 import acm.graphics.*;
@@ -31,6 +32,8 @@ public class Monster {
         this.type1 = type1;
         this.type2 = type2;
         this.level = level;
+
+        moves = new ArrayList<Move>();
     }
     
     public void takeDamage(int damage) {
@@ -71,6 +74,7 @@ public class Monster {
     	this.health = species.getHealth();
     	this.type1 = species.getType1();
     	this.type2 = species.getType2();
+    	moves = new ArrayList<Move>();
     }
 
     public boolean updateHP(int hpChange) {

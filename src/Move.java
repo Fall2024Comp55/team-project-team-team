@@ -15,6 +15,13 @@ public enum Move {
     public int power;
     public int accuracy;
     
+    Move(){
+    	this.name = "Tackle";
+        this.type = Type.NORMAL;
+        this.power = 40;
+        this.accuracy = 100;
+    }
+    
 	Move(String name, Type type, int power, int accuracy) {
         this.name = name;
         this.type = type;
