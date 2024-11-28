@@ -24,7 +24,7 @@ public class Map extends GraphicsProgram implements ActionListener, KeyListener 
 	
 	
 	public Timer timer = new Timer(1000, this);
-	private GImage userPlayer = new GImage("media/placeholderCharacter.png");
+	private GImage userPlayer = new GImage("media/playerDown.png");
 	
 	private PlayerTrainer userP = new PlayerTrainer();
 	
@@ -165,6 +165,7 @@ public class Map extends GraphicsProgram implements ActionListener, KeyListener 
 	public void move(Direction direction) {
 		switch(direction) {
 		case UP:
+			userPlayer.setImage("playerUp.png");
 			if(playerY > 0 && spaces.get(playerY-1).get(playerX).tile.walkable) {
 				if(playerYOffset < 0 || tiles.get(0).getY() >= 0) {
 					for(int i = 0; i < TILE_RESOLUTION; i++) {
@@ -184,6 +185,7 @@ public class Map extends GraphicsProgram implements ActionListener, KeyListener 
 			System.out.println(playerYOffset);
 			break;
 		case DOWN:
+			userPlayer.setImage("playerDown.png");
 			if(playerY < spaces.size()-1 && spaces.get(playerY+1).get(playerX).tile.walkable) {
 				if(playerYOffset > 0 || tiles.get(tiles.size()-1).getY() <= screenHeight - tileSize) {
 					for(int i = 0; i < TILE_RESOLUTION; i++) {
@@ -203,6 +205,7 @@ public class Map extends GraphicsProgram implements ActionListener, KeyListener 
 			System.out.println(playerYOffset);
 			break;
 		case LEFT:
+			userPlayer.setImage("playerLeft.png");
 			if(playerX > 0 && spaces.get(playerY).get(playerX-1).tile.walkable) {
 				if(playerXOffset > 0 || tiles.get(0).getX() >= 0) {
 					for(int i = 0; i < TILE_RESOLUTION; i++) {
@@ -219,6 +222,7 @@ public class Map extends GraphicsProgram implements ActionListener, KeyListener 
 			System.out.println(playerXOffset);
 			break;
 		case RIGHT:
+			userPlayer.setImage("playerRight.png");
 			if(playerX < spaces.get(0).size()-1 && spaces.get(playerY).get(playerX+1).tile.walkable) {
 				if(playerXOffset < 0 || tiles.get(tiles.size()-1).getX() <= screenWidth - tileSize) {
 					for(int i = 0; i < TILE_RESOLUTION; i++) {
