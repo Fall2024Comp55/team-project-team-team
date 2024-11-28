@@ -49,7 +49,7 @@ public enum SpeciesType {
 	
 	@Override
 	public String toString() {
-		return String.format("%s: %s (HP: %d, Attack: %d, Defense: %d)", name, description, baseHP, baseATK, baseDEF, type1, type2);
+		return String.format("%s: %s (HP: %d, Attack: %d, Defense: %d)", name, description, baseHP, baseATK, baseDEF);
 	}
 }
 
