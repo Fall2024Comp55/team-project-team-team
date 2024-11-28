@@ -22,14 +22,14 @@ public class Battle {
     private void playerTurn() {
         Move move = playerMonster.getMoves().get(0);
         int damage = move.calculateDamage(playerMonster, opponentMonster);
-        opponentMonster.takeDamage(damage);
+        opponentMonster.updateHP(-damage);
         System.out.println(playerMonster.getName() + " used " + move.name() + " and dealt " + damage + " damage.");
     }
 
     private void opponentTurn() {
         Move move = opponentMonster.getMoves().get(0);
         int damage = move.calculateDamage(opponentMonster, playerMonster);
-        playerMonster.takeDamage(damage);
+        playerMonster.updateHP(-damage);
         System.out.println(opponentMonster.getName() + " used " + move.name() + " and dealt " + damage + " damage.");
     }
     
