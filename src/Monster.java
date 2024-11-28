@@ -41,11 +41,11 @@ public class Monster {
     	this.species = specType;
     	this.experience = 0;
     	this.level = 1;
-    	this.atk = species.getAttack();
-    	this.def = species.getDefense();
-    	this.health = species.getHealth();
-    	this.type1 = species.getType1();
-    	this.type2 = species.getType2();
+    	this.atk = specType.getAttack();
+    	this.def = specType.getDefense();
+    	this.health = specType.getHealth();
+    	this.type1 = specType.getType1();
+    	this.type2 = specType.getType2();
     	moves = new ArrayList<Move>();
     }
     
