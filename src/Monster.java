@@ -36,7 +36,7 @@ public class Monster {
         moves = new ArrayList<Move>();
     }
     
-    Monster(SpeciesType specType) {
+    Monster(SpeciesType specType, int level) {
     	this.name = specType.getName();
     	this.species = specType;
     	this.experience = 0;
@@ -46,6 +46,7 @@ public class Monster {
     	this.health = specType.getHealth();
     	this.type1 = specType.getType1();
     	this.type2 = specType.getType2();
+    	this.level = level;
     	moves = new ArrayList<Move>();
     }
     
