@@ -5,85 +5,117 @@ import acm.graphics.*;
 import java.util.Random;
 //finshed but need review:
 public class Monster {
-	
-	private SpeciesType species;
-    private GImage sprite;
+
+    private String name;
     private String description;
-    private int experience = 0 ;
-    private int level;
-    private int atk;
-    private int def;
-    private int spatk;
-    private int spdef;
-    private int health;
+    private GImage sprite;
+
+    private int curHealth;
     private int maxHealth;
+    private double atk;
+    private double def;
+    
     private Type type1;
     private Type type2;
-    String name = "";
-    private List<Move> moves;
+    private ArrayList<Move> moves;
     
-    public Monster(String name, String description , int hp, int attack, int defense,  Type type1, Type type2, int maxhealth, int level) {
+    private int level;
+    private int experience;
+    private boolean fainted;
+    
+    public Monster(String name, String description , int hp, int attack, int defense,  Type type1, Type type2, int maxhealth, int level, String image) {
         this.name = name;
         this.description = description;
-        this.health = hp;
-        this.maxHealth = maxhealth;
-        this.atk = attack;
-        this.def = defense;
+        this.sprite = new GImage(image);
+        
+        this.curHealth = hp;
+        this.maxHealth = hp;
+        this.atk = (double)attack;
+        this.def = (double)defense;
+        
         this.type1 = type1;
         this.type2 = type2;
+        this.moves = new ArrayList<Move>();
+        
         this.level = level;
-
-        moves = new ArrayList<Move>();
+        this.experience = lvlToExp(level);
+        this.fainted = false;
     }
     
-    Monster(SpeciesType specType) {
-    	this.name = specType.getName();
-    	this.species = specType;
-    	this.experience = 0;
-    	this.level = 1;
-    	this.atk = specType.getAttack();
-    	this.def = specType.getDefense();
-    	this.health = specType.getHealth();
-    	this.type1 = specType.getType1();
-    	this.type2 = specType.getType2();
-    	moves = new ArrayList<Move>();
+    Monster(SpeciesType specType, int level) {
+    	this.name = specType.name;
+        this.description = specType.description;
+        this.sprite = specType.sprite;
+        
+        this.curHealth = specType.baseHP;
+        this.maxHealth = specType.baseHP;
+        this.atk = (double)specType.baseATK;
+        this.def = (double)specType.baseDEF;
+        
+        this.type1 = specType.type1;
+        this.type2 = specType.type2;
+        this.moves = new ArrayList<Move>();
+        
+        this.level = level;
+        this.experience = lvlToExp(level);
+        this.fainted = false;
     }
     
-    public void takeDamage(int damage) {
-        health -= damage;
-        if (health < 0) health = 0;
+    public int lvlToExp(int n) {
+    	int xp = 0;
+    	int next = 300;
+    	for(int x = 0; x < n; x++) {
+    		xp += next;
+    		next += 100;
+    	}
+    	return xp;
     }
-
+    
+    public void setName(String name) { this.name = name; }
+    public String getName() { return this.name; }
+    
+    public String getDescription() { return this.description; }
+    
+    public GImage getSprite() { return this.sprite; }
+    
+    public void updateHP(int hpChange) {
+    	this.curHealth += hpChange;
+    	if(this.curHealth <= 0) {
+    		this.curHealth = 0;
+    		this.fainted = true;
+    	} else if(this.curHealth > this.maxHealth) {
+    		this.curHealth = this.maxHealth;
+    	}
+    }
+    
+    public void fullHeal() {
+    	this.curHealth = this.maxHealth;
+    	this.fainted = false;
+    }
+    
     public boolean isFainted() {
-        return health <= 0;
+        return fainted;
     }
+    
     public int getAttack() {
-        return atk;
+        return (int)atk;
     }
 
     public int getDefense() {
-        return def;
+        return (int)def;
     }
 
     public int getlevel() {
         return level;
     }
     
-    public String getName() {
-        
-		return name;
-    }
     
     public List<Move> getMoves1() {
         return moves;
     }
     
-
-    public boolean updateHP(int hpChange) {
-    	this.health = this.health + hpChange;
-        return true;
-    }
-
+    
+    
     public void gainXP(int xp) {
        this.experience = this.experience +  xp;
     }
@@ -92,83 +124,62 @@ public class Monster {
     	  this.moves.set(index, newMove);
     }
 
-    public void levelUp() {
-        if(experience == 300 && level == 5 ) {
-        	level++;
-        	experience = 0;
-        }else if(experience == 400 && level == 6 ) {
-        	level++;
-        	experience = 0;
+    public void updateLevel() {
+    	if (experience == 22800) {
+        	level = 20;
+        } else if (experience >= 20700) {
+        	level = 19;
+        } else if (experience >= 18700) {
+        	level = 18;
+        } else if (experience >= 16800) {
+        	level = 17;
+        } else if (experience >= 15000) {
+        	level = 16;
+        } else if (experience >= 13300) {
+        	level = 15;
+        } else if (experience >= 11700) {
+        	level = 14;
+        } else if (experience >= 10200) {
+        	level = 13;
+        } else if (experience >= 8800) {
+        	level = 12;
+        } else if (experience >= 7500) {
+        	level = 11;
+        } else if (experience >= 6300) {
+        	level = 10;
+        } else if (experience >= 5200) {
+        	level = 9;
+        } else if (experience >= 4200) {
+        	level = 8;
+        } else if (experience >= 3300) {
+        	level = 7;
+        } else if (experience >= 2500) {
+        	level = 6;
+        } else if (experience >= 1800) {
+        	level = 5;
+        } else if (experience >= 1200) {
+        	level = 4;
+        } else if (experience >= 700) {
+        	level = 3;
+        } else if (experience >= 300) {
+        	level = 2;
+        } else {
+        	level = 1;
         }
-        else if (experience == 500 && level == 6 ) {
-        	level++;
-        	experience = 0;
-        }else if (experience == 600 && level == 8 ) {
-        	level++;
-        	experience = 0;
-        }
-        else if (experience == 700 && level == 9 ) {
-        	level++;
-        	experience = 0;
-        }
-        else if (experience == 800 && level == 10 ) {
-        	level++;
-        	experience = 0;
-        }
-        else if (experience == 900 && level == 11 ) {
-        	level++;
-        	experience = 0;
-        }
-        else if (experience == 1000 && level == 12 ) {
-        	level++;
-        	experience = 0;
-        }else if (experience == 1000 && level == 13 ) {
-        	level++;
-        	experience = 0;
-        }else if (experience == 1000 && level == 14 ) {
-        	level++;
-        	experience = 0;
-        }else if (experience == 1000 && level == 15 ) {
-        	level++;
-        	experience = 0;
-        }else if (experience == 1000 && level == 16 ) {
-        	level++;
-        	experience = 0;
-        }else if (experience == 1000 && level == 17 ) {
-        	level++;
-        	experience = 0;
-        }else if (experience == 1000 && level == 18 ) {
-        	level++;
-        	experience = 0;
-        }else if (experience == 1000 && level == 19 ) {
-        	level++;
-        	experience = 0;
-        }else if (experience == 1000 && level == 20 ) {
-        	level++;
-        	experience = 0;
-        }
-        
     }
 
     public void evolve() {
         //add code here
     }
 
-    /// getters and setters 
-	public SpeciesType getSpecies() {
-		return species;
-	}
+    /// getters and setters
 
-	public void setSpecies(SpeciesType species) {
-		this.species = species;
-	}
-
-	public GImage getSprite() {
-		return sprite;
-	}
 
 	public void setSprite(GImage sprite) {
 		this.sprite = sprite;
+	}
+	public GImage getImage() {
+		return sprite;
 	}
 
 	public int getExperience() {
@@ -179,44 +190,18 @@ public class Monster {
 		this.experience = experience;
 	}
 
-	public int getLevel() {
-		return level;
-	}
+	
 
 	public void setLevel(int level) {
 		this.level = level;
-	}
-
-	public int getAtk() {
-		return atk;
 	}
 
 	public void setAtk(int atk) {
 		this.atk = atk;
 	}
 
-	public int getDef() {
-		return def;
-	}
-
 	public void setDef(int def) {
 		this.def = def;
-	}
-
-	public int getSpatk() {
-		return spatk;
-	}
-
-	public void setSpatk(int spatk) {
-		this.spatk = spatk;
-	}
-
-	public int getSpdef() {
-		return spdef;
-	}
-
-	public void setSpdef(int spdef) {
-		this.spdef = spdef;
 	}
 
 	public Type getType1() {
@@ -235,11 +220,11 @@ public class Monster {
 		this.type2 = type2;
 	}
 
-	public List<Move> getMoves() {
+	public ArrayList<Move> getMoves() {
 		return moves;
 	}
 
-	public void setMoves(  List<Move> moves ) {
+	public void setMoves(  ArrayList<Move> moves ) {
 		this.moves = moves;
 	}
 	
@@ -251,11 +236,11 @@ public class Monster {
 	}
 
 	public int getHealth() {
-		return health;
+		return curHealth;
 	}
 
 	public void setHealth(int health) {
-		this.health = health;
+		this.curHealth = health;
 	}
 
 	public int getMaxHealth() {
@@ -264,10 +249,6 @@ public class Monster {
 
 	public void setMaxHealth(int maxHealth) {
 		this.maxHealth = maxHealth;
-	}
-
-	public String getDescription() {
-		return description;
 	}
 
 	public void setDescription(String description) {

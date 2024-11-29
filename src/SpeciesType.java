@@ -9,13 +9,13 @@ import acm.graphics.GImage;
 
 public enum SpeciesType {
 
-	SPIDER		("Spider", "A small, agile creature.", 											30, 10, 5,  Type.BUG,    null,			""),
-	GLIMMERBUG	("Glimmerbug", "A glowing insect with magical properties.", 					25, 15, 7,  Type.BUG,    Type.FAIRY,	""),
+	SPIDER		("Spider", "A small, agile creature.", 											30, 10, 5,  Type.BUG,    null,			"placeholderCharacter.png"),
+	GLIMMERBUG	("Glimmerbug", "A glowing insect with magical properties.", 					25, 15, 7,  Type.BUG,    Type.FAIRY,	"placeholderCharacter.png"),
 	STONEJAW	("Stonejaw", "A rock-like monster with a strong bite.", 						50, 20, 15, Type.ROCK,   null,			""),
 	IRONWHISKER	("Ironwhisker", "A steel Pokémon known for its durability.", 					40, 25, 20, Type.STEEL,  null,			""),
 	SHADOWMATH	("Shadowmath", "A mysterious monster that blends into the shadows.", 			35, 18, 12, Type.DARK,   null,			""),
 	WATERWISP	("Waterwisp", "A mystical water Pokémon that flows gracefully.", 				28, 12, 8,  Type.WATER,  Type.GHOST,	""),
-	FLAMECLAW	("Flameclaw", "A fiery creature with sharp claws and fierce temper.", 			40, 22, 10, Type.FIRE,   Type.FIGHTING,	""),
+	FLAMECLAW	("Flameclaw", "A fiery creature with sharp claws and fierce temper.", 			40, 22, 10, Type.FIRE,   Type.FIGHTING,	"placeholderCharacter.png"),
 	FROSTBEAK	("Frostbeak", "An icy bird that can freeze its foes with a glance.", 			32, 18, 15, Type.ICE,    Type.FLYING,	""),
 	ROCKSHIELD	("Rockshield", "A stout Pokémon that defends its allies with a sturdy shell.", 	55, 15, 25, Type.ROCK,   null,			""),
 	GHOSTFLARE	("Ghostflare", "An ethereal being that flickers in and out of existence.", 		30, 20, 10, Type.GHOST,  null,			""),
@@ -70,6 +70,9 @@ public enum SpeciesType {
 	}
 	public Type getType2() {
 		return type2;
+	}
+	public GImage getimage() {
+		return sprite;
 	}
 	@Override
 	public String toString() {

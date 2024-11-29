@@ -49,7 +49,7 @@ public class Trainer {
 	    for (int i = 0; i < 4; i++) {
 	        SpeciesType species = availableSpecies[rand.nextInt(availableSpecies.length)];
 
-	        Monster randomMonster = new Monster(species); // Assuming Monster constructor takes SpeciesType
+	        Monster randomMonster = new Monster(species ,5); // Assuming Monster constructor takes SpeciesType
 
 	        team.add(randomMonster);
 	    }

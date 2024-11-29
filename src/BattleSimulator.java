@@ -52,7 +52,7 @@ public class BattleSimulator {
         //move.animate(); // Display the move animation
         int damage = move.calculateDamage(playerMonster, opponentMonster);
         System.out.println(playerMonster.getName() + " used " + move.name + "!");
-        opponentMonster.takeDamage(damage);
+        opponentMonster.updateHP(-damage);
         System.out.println(opponentMonster.getName() + " took " + damage + " damage!");
     }
 
@@ -64,7 +64,7 @@ public class BattleSimulator {
       
         int damage = move.calculateDamage(opponentMonster, playerMonster);
         System.out.println(opponentMonster.getName() + " used " + move.name + "!");
-        playerMonster.takeDamage(damage);
+        playerMonster.updateHP(-damage);
         System.out.println(playerMonster.getName() + " took " + damage + " damage!");
     }
 
