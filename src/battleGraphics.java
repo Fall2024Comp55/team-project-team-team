@@ -174,19 +174,17 @@ public class battleGraphics extends GraphicsProgram {
     	background.setSize(720,390);
     	add(background);
     	
-    	background = new GImage("grassbackground.png"); 
-    	background.setSize(720,390);
-    	add(background);
-    	
-    	background = new GImage("grassbackground.png"); 
-    	background.setSize(720,390);
-    	add(background);
     		
     	setupMainB();
     	
     	if (playerTrainer != null && enemy != null) {
             trainterMon = enemy.getTeam().getFirst().getImage();
+            trainterMon.setLocation(535,230);
+            
+            
             playerMon = playerTrainer.getTeam().get(0).getImage();
+            playerMon.setLocation(158,363);
+            
             
             add(trainterMon);
             add(playerMon);
