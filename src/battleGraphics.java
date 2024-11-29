@@ -171,15 +171,31 @@ public class battleGraphics extends GraphicsProgram {
   
     public void run() {
     	background = new GImage("grassbackground.png"); 
-    	background.setSize(720,560);
+    	background.setSize(720,390);
     	add(background);
-    			
-    	trainterMon = enemy.getTeam().getFirst().getImage();
-    	playerMon = playerTrainer.getTeam().get(0).getImage();
     	
+    	background = new GImage("grassbackground.png"); 
+    	background.setSize(720,390);
+    	add(background);
     	
-    	
+    	background = new GImage("grassbackground.png"); 
+    	background.setSize(720,390);
+    	add(background);
+    		
     	setupMainB();
+    	
+    	if (playerTrainer != null && enemy != null) {
+            trainterMon = enemy.getTeam().getFirst().getImage();
+            playerMon = playerTrainer.getTeam().get(0).getImage();
+            
+            add(trainterMon);
+            add(playerMon);
+        }
+        
+        addMouseListeners();
+    	
+    	
+    	
         addMouseListeners();    
         
     }
@@ -191,8 +207,23 @@ public class battleGraphics extends GraphicsProgram {
         int y = e.getY();
         
         if (runicon != null && runicon.contains(x, y)) {
-            clearIconsB();  
+            clearIconsB(); 
             
+            
+            if (background != null) {
+            	remove(background);
+            	background = null;
+            }
+            if(trainterMon != null) {
+            	remove(trainterMon);
+            	trainterMon = null;
+            }
+            if(playerMon != null) {
+            	remove(playerMon);
+            	playerMon = null;
+            }
+           
+
         }
         
         if (fighticon != null && fighticon.contains(x, y)) {
@@ -234,7 +265,10 @@ public class battleGraphics extends GraphicsProgram {
 	    opponentMonster.addmove(Move.EMBER);
 	    opponentTrainer.addMon(opponentMonster);
 	    
-    	 new battleGraphics().start();  
+	    
+    	  battleGraphics s = new battleGraphics();
+    	  s.setplayer(playerTrainer,opponentTrainer);
+    	  s.start();
     }
 
 }
