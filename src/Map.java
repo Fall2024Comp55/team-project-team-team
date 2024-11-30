@@ -12,8 +12,8 @@ import acm.program.GraphicsProgram;
 
 
 public class Map extends GraphicsProgram implements ActionListener, KeyListener {
-	public static final int SCREEN_TILES_WIDTH = 9;
-	public static final int SCREEN_TILES_HEIGHT = 7;
+	public static final int SCREEN_TILES_WIDTH = 11;
+	public static final int SCREEN_TILES_HEIGHT = 9;
 	public static final int MAX_STEPS = 20;
 	public static final int TILE_RESOLUTION = 16;
 	public static final int SCALE_FACTOR = 5;
@@ -34,6 +34,7 @@ public class Map extends GraphicsProgram implements ActionListener, KeyListener 
 	private ArrayList<GImage> tiles = new ArrayList<GImage>();
 	private ArrayList<ArrayList<Space>> spaces = new ArrayList<ArrayList<Space>>();
 	private GImage nextTile;
+	private GImage enemyTile;
 	
 	private boolean movable = true;
 	private int playerXOffset = 0;
@@ -78,11 +79,24 @@ public class Map extends GraphicsProgram implements ActionListener, KeyListener 
 			System.out.println("adding line");
 			spaces.add(new ArrayList<Space>());
 			for(Space y : x) {
+				spaces.get(row).add(y);
 				nextTile = new GImage(y.tile.image);
 				nextTile.scale(tileSize / nextTile.getWidth());
 				nextTile.setLocation(nextPos.getX() - (nextTile.getWidth() - tileSize), nextPos.getY() - (nextTile.getHeight() - tileSize));
 				add(nextTile);
-				spaces.get(row).add(y);
+				if(y.enemy != null) {
+					switch(y.enemy.facing) {
+					case UP:    enemyTile = new GImage("TrainerU.png"); break;
+					case DOWN:  enemyTile = new GImage("TrainerD.png"); break;
+					case LEFT:  enemyTile = new GImage("TrainerL.png"); break;
+					case RIGHT: enemyTile = new GImage("TrainerR.png"); break;
+					}
+					enemyTile.scale(tileSize / enemyTile.getWidth());
+					enemyTile.setLocation(nextPos.getX() - (enemyTile.getWidth() - tileSize), nextPos.getY() - (enemyTile.getHeight() - tileSize));
+					add(enemyTile);
+					tiles.add(enemyTile);
+					spaces.get(row).get(col).walkable = false;
+				}
 				tiles.add(nextTile);
 				nextPos.translate(tileSize, 0);
 				col++;
@@ -165,7 +179,8 @@ public class Map extends GraphicsProgram implements ActionListener, KeyListener 
 	public void move(Direction direction) {
 		switch(direction) {
 		case UP:
-			if(playerY > 0 && spaces.get(playerY-1).get(playerX).tile.walkable) {
+			userPlayer.setImage("playerUp.png");
+			if(playerY > 0 && spaces.get(playerY-1).get(playerX).walkable) {
 				if(playerYOffset < 0 || tiles.get(0).getY() >= 0) {
 					for(int i = 0; i < TILE_RESOLUTION; i++) {
 						movePlayer(0, -SCALE_FACTOR);
@@ -181,10 +196,10 @@ public class Map extends GraphicsProgram implements ActionListener, KeyListener 
 					userPlayer.sendBackward();
 				}
 			}
-			System.out.println(playerYOffset);
 			break;
 		case DOWN:
-			if(playerY < spaces.size()-1 && spaces.get(playerY+1).get(playerX).tile.walkable) {
+			userPlayer.setImage("playerDown.png");
+			if(playerY < spaces.size()-1 && spaces.get(playerY+1).get(playerX).walkable) {
 				if(playerYOffset > 0 || tiles.get(tiles.size()-1).getY() <= screenHeight - tileSize) {
 					for(int i = 0; i < TILE_RESOLUTION; i++) {
 						movePlayer(0, SCALE_FACTOR);
@@ -200,10 +215,10 @@ public class Map extends GraphicsProgram implements ActionListener, KeyListener 
 					userPlayer.sendForward();
 				}
 			}
-			System.out.println(playerYOffset);
 			break;
 		case LEFT:
-			if(playerX > 0 && spaces.get(playerY).get(playerX-1).tile.walkable) {
+			userPlayer.setImage("playerLeft.png");
+			if(playerX > 0 && spaces.get(playerY).get(playerX-1).walkable) {
 				if(playerXOffset > 0 || tiles.get(0).getX() >= 0) {
 					for(int i = 0; i < TILE_RESOLUTION; i++) {
 						movePlayer(-SCALE_FACTOR, 0);
@@ -216,10 +231,10 @@ public class Map extends GraphicsProgram implements ActionListener, KeyListener 
 				}
 				playerX--;
 			}
-			System.out.println(playerXOffset);
 			break;
 		case RIGHT:
-			if(playerX < spaces.get(0).size()-1 && spaces.get(playerY).get(playerX+1).tile.walkable) {
+			userPlayer.setImage("playerRight.png");
+			if(playerX < spaces.get(0).size()-1 && spaces.get(playerY).get(playerX+1).walkable) {
 				if(playerXOffset < 0 || tiles.get(tiles.size()-1).getX() <= screenWidth - tileSize) {
 					for(int i = 0; i < TILE_RESOLUTION; i++) {
 						movePlayer(SCALE_FACTOR, 0);
@@ -232,10 +247,12 @@ public class Map extends GraphicsProgram implements ActionListener, KeyListener 
 				}
 				playerX++;
 			}
-			System.out.println(playerXOffset);
 			break;
 		}
 		Space newSpace = spaces.get(playerY).get(playerX);
+		if(newSpace.sightline != null) {
+			System.out.println(newSpace.sightline.name);
+		}
 		if(newSpace.destination != null) {
 			reInit(newSpace.destination, newSpace.spawn);
 		}

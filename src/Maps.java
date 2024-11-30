@@ -22,22 +22,28 @@ public enum Maps {
 	}),
 	
 	ROUTE1(new char[][] { // Array of characters corresponding to tile types
-		{'o','o','o','o','p','o','o','o','o','o','o','o','o','o','o','o'},
-		{'o','G','G','g','p','g','g','g','g','g','g','g','g','g','g','o'},
-		{'o','G','G','g','p','g','g','g','g','g','g','g','g','g','g','o'},
-		{'o','G','G','g','p','g','t','g','g','g','g','g','g','g','g','o'},
-		{'o','g','g','g','p','g','g','g','g','g','g','g','g','g','g','o'},
-		{'o','g','g','g','p','g','p','p','p','p','p','p','g','g','g','o'},
-		{'o','g','g','g','p','g','g','g','g','g','g','g','g','g','g','o'},
-		{'o','g','g','g','p','g','G','G','g','g','g','g','g','g','g','o'},
-		{'w','g','g','g','p','g','g','g','g','g','g','g','g','g','g','o'},
-		{'w','w','g','g','p','g','g','g','g','g','g','g','g','g','g','o'},
-		{'w','w','g','g','p','g','g','g','g','g','g','g','g','g','g','o'},
-		{'w','w','w','g','p','g','g','g','g','g','g','g','g','g','g','o'},
-		{'w','w','w','g','p','g','g','g','g','g','g','g','g','g','g','o'},
-		{'w','w','w','o','p','o','o','o','o','o','o','o','o','o','o','o'}
+		{'o','o','o','o','o','o','o','o','o','o','p','o','o','o','o','o','o','o','o','o'},
+		{'o','t','G','g','G','G','G','G','G','g','p','g','G','G','G','G','G','G','G','o'},
+		{'o','t','G','g','G','G','G','G','g','g','p','g','g','g','g','G','G','G','G','o'},
+		{'o','t','G','g','G','G','G','G','g','g','p','g','g','g','g','g','g','G','G','o'},
+		{'o','t','g','g','G','G','G','g','g','g','p','g','g','g','g','g','g','g','G','o'},
+		{'o','t','g','g','G','G','G','g','g','g','p','g','g','g','g','g','g','g','g','o'},
+		{'o','t','g','g','G','G','g','g','g','g','p','p','p','p','p','p','g','g','g','o'},
+		{'o','t','t','g','G','G','g','g','g','g','g','g','g','g','g','p','g','g','G','o'},
+		{'o','t','t','t','t','G','G','g','g','g','g','g','g','g','g','g','g','G','G','o'},
+		{'o','t','t','t','t','t','t','t','t','g','g','g','g','g','G','G','G','G','G','o'},
+		{'o','t','t','t','t','t','t','t','t','t','t','t','G','G','G','G','G','G','G','o'},
+		{'o','t','t','t','G','G','G','G','g','g','g','G','G','G','G','G','G','G','G','o'},
+		{'o','t','G','G','G','g','g','g','g','g','g','g','g','g','g','G','G','G','G','o'},
+		{'o','G','G','g','g','g','g','g','g','g','g','g','g','g','g','g','G','G','G','o'},
+		{'w','G','g','g','p','p','p','p','p','p','p','p','p','g','g','g','G','G','G','o'},
+		{'w','w','g','g','p','g','g','g','g','g','g','g','g','g','G','G','G','G','G','o'},
+		{'w','w','g','g','p','g','g','g','g','g','g','g','G','G','G','G','G','G','t','o'},
+		{'w','w','w','g','p','g','g','g','g','G','G','G','G','G','G','G','G','t','t','o'},
+		{'w','w','w','g','p','g','g','g','G','G','G','G','t','t','t','t','t','t','t','o'},
+		{'w','w','w','o','p','o','o','o','o','o','o','o','o','o','o','o','o','o','o','o'}
 	}, new int[][] { // Array containing all possible starting coordinates on the map
-		{4, 13}, {4, 0}
+		{4, 19}, {10, 0}
 	});
 	
 	Maps(char[][] spaces, int[][] starts) {
@@ -76,7 +82,12 @@ public enum Maps {
 	static {
 		HOMETOWN.spaceMap[0][4].setDestination(MapName.ROUTE1, 0);
 		
-		ROUTE1.spaceMap[13][4].setDestination(MapName.HOMETOWN, 1);
+		ROUTE1.spaceMap[19][4].setDestination(MapName.HOMETOWN, 1);
+		ROUTE1.spaceMap[2][8].enemy = Trainers.ROUTE1TRAINER0;
+		ROUTE1.spaceMap[2][9].sightline = Trainers.ROUTE1TRAINER0;
+		ROUTE1.spaceMap[2][10].sightline = Trainers.ROUTE1TRAINER0;
+		ROUTE1.spaceMap[2][11].sightline = Trainers.ROUTE1TRAINER0;
+		ROUTE1.spaceMap[2][12].sightline = Trainers.ROUTE1TRAINER0;
 	}
 }
 
