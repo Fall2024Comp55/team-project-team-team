@@ -180,8 +180,7 @@ public class battleGraphics extends GraphicsProgram {
     	if (playerTrainer != null && enemy != null) {
             trainterMon = enemy.getTeam().getFirst().getImage();
             trainterMon.setLocation(535,230);
-            
-            
+           
             playerMon = playerTrainer.getTeam().get(0).getImage();
             playerMon.setLocation(158,363);
             
@@ -191,10 +190,6 @@ public class battleGraphics extends GraphicsProgram {
         }
         
         addMouseListeners();
-    	
-    	
-    	
-        addMouseListeners();    
         
     }
     
