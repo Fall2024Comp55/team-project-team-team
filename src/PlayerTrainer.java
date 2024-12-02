@@ -29,6 +29,19 @@ public class PlayerTrainer extends Trainer{
 		//bag = new Bag();
 		System.out.println("Opening bag with " + bag.getItems().size()+ " items.");
 		//rest of bag menu
+		String currentTab = bag.getCurrentTab();
+	    System.out.println("Currently viewing " + currentTab + " tab.");
+
+	    for (Pair<Item, Integer> pair : bag.getItems()) {
+	        Item item = pair.getKey();
+	        if (currentTab.equals("Heal") && item.getBagTab().equals("Heal")) {
+	            System.out.println(item.getName() + " - Quantity: " + pair.getValue());
+	        } else if (currentTab.equals("Ball") && item.getBagTab().equals("Ball")) {
+	            System.out.println(item.getName() + " - Quantity: " + pair.getValue());
+	        } else if (currentTab.equals("Badge") && item.getBagTab().equals("Badge")) {
+	            System.out.println(item.getName() + " - Quantity: " + pair.getValue());
+	        }
+	    }
 	}
 	
 	public Bag getBag() {

@@ -50,7 +50,7 @@ public class Item {
 		description = d;
 	}
 	
-	public String bagTab() {
+	public String getBagTab() {
 		return bagTab;
 	}
 	
