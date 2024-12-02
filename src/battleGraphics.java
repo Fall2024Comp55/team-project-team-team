@@ -6,12 +6,17 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Vector;
 
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class battleGraphics extends GraphicsProgram {
 	
 	PlayerTrainer playerTrainer;
 	Trainer enemy ;
+	Monster playerMonster;
+	Monster trainerMonster;
+	
 	
     private int screenWidth  = 720;
     private int screenHeight = 560;
@@ -33,6 +38,7 @@ public class battleGraphics extends GraphicsProgram {
     
     private GImage trainterMon;
     private GImage playerMon;
+    
     
     public void setplayer(PlayerTrainer playerTrainer,Trainer enemy  ) {
        this.playerTrainer = playerTrainer;
@@ -148,15 +154,17 @@ public class battleGraphics extends GraphicsProgram {
     	
     	move2 = new GImage("move.png"); 
     	move2.setSize(265,90);
-    	move2.setLocation(5,467);
+    	move2.setLocation(273,385);
     	
     	move3 = new GImage("move.png"); 
     	move3.setSize(265,90);
-    	move3.setLocation(273,467);
+    	move3.setLocation(5,467);
     	
     	move4 = new GImage("move.png"); 
     	move4.setSize(265,90);
-    	move4.setLocation(273,385);
+    	move4.setLocation(273,467);
+    	
+    	
     	
         add(bscreen);
         add(exit); 
@@ -178,10 +186,13 @@ public class battleGraphics extends GraphicsProgram {
     	setupMainB();
     	
     	if (playerTrainer != null && enemy != null) {
-            trainterMon = enemy.getTeam().getFirst().getImage();
+    		trainerMonster = enemy.getTeam().getFirst();
+            trainterMon = trainerMonster.getImage();
             trainterMon.setLocation(535,230);
            
-            playerMon = playerTrainer.getTeam().get(0).getImage();
+            
+            playerMonster = playerTrainer.getTeam().get(0);
+            playerMon = playerMonster.getImage();
             playerMon.setLocation(158,363);
             
             
@@ -199,6 +210,7 @@ public class battleGraphics extends GraphicsProgram {
     	int x = e.getX();
         int y = e.getY();
         
+        // clears everything 
         if (runicon != null && runicon.contains(x, y)) {
             clearIconsB(); 
             
@@ -228,6 +240,24 @@ public class battleGraphics extends GraphicsProgram {
             setupMainB(); 
         }
         
+        
+        if(move1 != null && move1.contains(x, y)  && playerMonster.getMoves().size() > 0  ) {
+        	moveAnimation(playerMonster.getMoves().get(0).getName());
+        	
+        }
+        if(move2 != null && move1.contains(x, y) &&  playerMonster.getMoves().size() > 1  ) {
+        	moveAnimation(playerMonster.getMoves().get(1).getName());
+        }
+        if(move3 != null && move1.contains(x, y) &&  playerMonster.getMoves().size() > 2  ) {
+        	moveAnimation(playerMonster.getMoves().get(2).getName());
+        	
+        }
+        if(move4 != null && move1.contains(x, y) &&  playerMonster.getMoves().size() > 3  ) {
+        	moveAnimation(playerMonster.getMoves().get(3).getName());
+        }
+        
+        
+        
         if (bagicon != null && bagicon.contains(x, y)) {
             // Handle Bag icon click (not implemented here)
         }
@@ -238,8 +268,82 @@ public class battleGraphics extends GraphicsProgram {
         System.out.println("Mouse clicked at: (" + x + ", " + y + ")");
     }
     
-  
+
+public void moveAnimation(String moveName) {
+   
+    if (moveName.equals("Tackle")) {
+        animateTackle();
+    } else if (moveName.equals("Ember")) {
+        //animateEmber();
+    } else if (moveName.equals("Flamethrower")) {
+        //animateFlamethrower();
+    } else if (moveName.equals("Fire Blast")) {
+        //animateFireBlast();
+    } else if (moveName.equals("Water Gun")) {
+       // animateWaterGun();
+    } else if (moveName.equals("Surf")) {
+       // animateSurf();
+    } else if (moveName.equals("Thunderbolt")) {
+        //animateThunderbolt();
+    } else if (moveName.equals("Earthquake")) {
+       // animateEarthquake();
+    } 
+   
+}
+
+private void animateTackle() {
+    // Create the tackle effect image
+    GImage tackleEffect = playerMonster.getImage();  
+    //tackleEffect.setSize(100, 100);  
+    tackleEffect.setLocation(158, 363);  
+    add(tackleEffect);
+
     
+    final int targetX = 535;
+    final int targetY = 230;
+
+   
+    final int moveDistance = 10;
+
+    // Calculate the total number of frames needed to move horizontally and vertically
+    // We divide the distance by the move distance, rounded up, so it covers the full distance
+    final int totalFramesX = (int) Math.ceil((double) Math.abs(targetX - tackleEffect.getX()) / moveDistance);
+    final int totalFramesY = (int) Math.ceil((double) Math.abs(targetY - tackleEffect.getY()) / moveDistance);
+
+    // We want to take the maximum of both X and Y frame counts so the image finishes in sync
+    final int totalFrames = Math.max(totalFramesX, totalFramesY);
+
+    // Create a timer to animate the image's movement
+    Timer timer = new Timer();
+    timer.scheduleAtFixedRate(new TimerTask() {
+        private int framesMoved = 0;
+
+        @Override
+        public void run() {
+            if (framesMoved < totalFrames) {
+               
+                int moveX = (int) ((targetX - tackleEffect.getX()) / (totalFrames - framesMoved));
+                int moveY = (int) ((targetY - tackleEffect.getY()) / (totalFrames - framesMoved));
+
+               
+                tackleEffect.move(moveX, moveY);
+
+                framesMoved++;
+            } else {
+                
+                cancel();
+                playerMon.setLocation(158,363);
+            }
+        }
+    }, 0, 30); 
+    
+}
+
+    
+
+
+
+
 
     // Main method to launch the program
     public static void main(String[] args) {

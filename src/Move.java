@@ -21,6 +21,7 @@ public enum Move {
         this.power = 40;
         this.accuracy = 100;
     }
+   
     
 	Move(String name, Type type, int power, int accuracy) {
         this.name = name;
@@ -38,6 +39,10 @@ public enum Move {
         // Simplified damage calculation using base power, attack, and defense
         int baseDamage = ((2 * attacker.getlevel() / 5 + 2) * power * attacker.getAttack() / defender.getDefense()) / 50 + 2;
         return baseDamage;
+    }
+    
+    public String getName() {
+    	return name;
     }
 }
 //done
