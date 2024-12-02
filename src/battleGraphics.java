@@ -277,7 +277,7 @@ public void moveAnimation(String moveName) {
     } else if (moveName.equals("Ember")) {
         //animateEmber();
     } else if (moveName.equals("Flamethrower")) {
-        //animateFlamethrower();
+       animateFlamethrower();
     } else if (moveName.equals("Fire Blast")) {
        animateFireBlast();
     } else if (moveName.equals("Water Gun")) {
@@ -389,7 +389,88 @@ private void animateFireBlast() {
     
 }
 
+
+private void animateFlamethrower() {
     
+    int numFireBlasts = 50;
+
+    final int targetX = 535;
+    final int targetY = 230;
+
+    final int moveDistance = 10;
+
+    GImage[] fireBlasts = new GImage[numFireBlasts];
+
+    for (int i = 0; i < numFireBlasts; i++) {
+        GImage fireBlast = new GImage("FireAttack.png");  
+        fireBlast.setSize(30, 30);  
+        
+        fireBlast.setLocation(158, 363);
+        add(fireBlast);
+        fireBlasts[i] = fireBlast;  
+    }
+
+   
+    Timer launchTimer = new Timer();
+    launchTimer.scheduleAtFixedRate(new TimerTask() {
+        private int currentBlastIndex = 0;  
+
+        @Override
+        public void run() {
+            if (currentBlastIndex < numFireBlasts) {
+                
+                GImage currentBlast = fireBlasts[currentBlastIndex];
+
+               
+                animateFireBlast(currentBlast, targetX, targetY, moveDistance);
+
+                currentBlastIndex++;
+            } else {
+                cancel();  
+            }
+        }
+    }, 0, 40);  
+}
+
+
+private void animateFireBlast(GImage fireBlast, final int targetX, final int targetY, final int moveDistance) {
+    Timer moveTimer = new Timer();
+    moveTimer.scheduleAtFixedRate(new TimerTask() {
+        
+
+        @Override
+        public void run() {
+           
+            double deltaX = targetX - fireBlast.getX();
+            double deltaY = targetY - fireBlast.getY();
+
+           
+            double totalDistance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+          
+            if (totalDistance > moveDistance) {
+               
+                double moveRatioX = deltaX / totalDistance;
+                double moveRatioY = deltaY / totalDistance;
+
+                
+                int moveX = (int) (moveRatioX * moveDistance);
+                int moveY = (int) (moveRatioY * moveDistance);
+
+              
+                fireBlast.move(moveX, moveY);
+            } else {
+               
+                fireBlast.setLocation(targetX, targetY);
+                remove(fireBlast);  
+                cancel();  
+            }
+
+          
+        }
+    }, 0, 30); 
+}
+
 
 
 
@@ -399,7 +480,7 @@ private void animateFireBlast() {
     public static void main(String[] args) {
     	PlayerTrainer playerTrainer = new PlayerTrainer();
 	    Monster playerMonster = new Monster(SpeciesType.SPIDER,5);
-	    playerMonster.addmove(Move.FIREBLAST);
+	    playerMonster.addmove(Move.FLAMETHROWER);
 	    playerMonster.addmove(Move.EMBER);
 	    
 	    // Add the monster to the player's team
