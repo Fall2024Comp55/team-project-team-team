@@ -38,6 +38,7 @@ public class battleGraphics extends GraphicsProgram {
     
     private GImage trainterMon;
     private GImage playerMon;
+    private boolean isPlayerTurn;
     
     
     public void setplayer(PlayerTrainer playerTrainer,Trainer enemy  ) {
@@ -243,18 +244,58 @@ public class battleGraphics extends GraphicsProgram {
         
         
         if(move1 != null && move1.contains(x, y)  && playerMonster.getMoves().size() > 0  ) {
+        	Move move = playerMonster.getMoves().get(0);
+        	int damage = move.calculateDamage(playerMonster, trainerMonster);
         	moveAnimation(playerMonster.getMoves().get(0).getName());
+        	playerMonster.updateHP(-damage);
+        	
+        	Move move2 = selectRandomMove(trainerMonster);
+            int damage2 = move2.calculateDamage(trainerMonster, playerMonster);
+            playerMonster.updateHP(-damage2);
+            
+            clearIconsF(); 
+            setupMainB(); 
         	
         }
         if(move2 != null && move1.contains(x, y) &&  playerMonster.getMoves().size() > 1  ) {
+        	Move move = playerMonster.getMoves().get(1);
+        	int damage = move.calculateDamage(playerMonster, trainerMonster);
         	moveAnimation(playerMonster.getMoves().get(1).getName());
+        	playerMonster.updateHP(-damage);
+        	
+        	Move move2 = selectRandomMove(trainerMonster);
+            int damage2 = move2.calculateDamage(trainerMonster, playerMonster);
+            playerMonster.updateHP(-damage2);
+            
+            clearIconsF(); 
+            setupMainB(); 
         }
         if(move3 != null && move1.contains(x, y) &&  playerMonster.getMoves().size() > 2  ) {
+        	Move move = playerMonster.getMoves().get(2);
+        	int damage = move.calculateDamage(playerMonster, trainerMonster);
         	moveAnimation(playerMonster.getMoves().get(2).getName());
+        	playerMonster.updateHP(-damage);
+        	
+        	Move move2 = selectRandomMove(trainerMonster);
+            int damage2 = move2.calculateDamage(trainerMonster, playerMonster);
+            playerMonster.updateHP(-damage2);
+            
+            clearIconsF(); 
+            setupMainB(); 
         	
         }
         if(move4 != null && move1.contains(x, y) &&  playerMonster.getMoves().size() > 3  ) {
+        	Move move = playerMonster.getMoves().get(3);
+        	int damage = move.calculateDamage(playerMonster, trainerMonster);
         	moveAnimation(playerMonster.getMoves().get(3).getName());
+        	playerMonster.updateHP(-damage);
+        	
+        	Move move2 = selectRandomMove(trainerMonster);
+            int damage2 = move2.calculateDamage(trainerMonster, playerMonster);
+            playerMonster.updateHP(-damage2);
+            
+            clearIconsF(); 
+            setupMainB(); 
         }
         
         
@@ -269,6 +310,12 @@ public class battleGraphics extends GraphicsProgram {
         System.out.println("Mouse clicked at: (" + x + ", " + y + ")");
     }
     
+
+private Move selectRandomMove(Monster trainerMonster2) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 public void moveAnimation(String moveName) {
    
@@ -537,6 +584,8 @@ private void animateWaterGun() {
 	    Monster opponentMonster = new Monster(SpeciesType.FLAMECLAW,5);
 	    opponentMonster.addmove(Move.FLAMETHROWER);
 	    opponentMonster.addmove(Move.EMBER);
+	    opponentMonster.addmove(Move.EARTHQUAKE);
+	    opponentMonster.addmove(Move.WATERGUN);
 	    opponentTrainer.addMon(opponentMonster);
 	    
 	    
