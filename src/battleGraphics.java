@@ -281,7 +281,7 @@ public void moveAnimation(String moveName) {
     } else if (moveName.equals("Fire Blast")) {
        animateFireBlast();
     } else if (moveName.equals("Water Gun")) {
-       // animateWaterGun();
+        animateWaterGun();
     } else if (moveName.equals("Surf")) {
        // animateSurf();
     } else if (moveName.equals("Thunderbolt")) {
@@ -392,7 +392,7 @@ private void animateFireBlast() {
 
 private void animateFlamethrower() {
     
-    int numFireBlasts = 50;
+    int numFireBlasts = 25;
 
     final int targetX = 535;
     final int targetY = 230;
@@ -429,7 +429,7 @@ private void animateFlamethrower() {
                 cancel();  
             }
         }
-    }, 0, 40);  
+    }, 0, 100);  
 }
 
 
@@ -472,6 +472,52 @@ private void animateFireBlast(GImage fireBlast, final int targetX, final int tar
 }
 
 
+private void animateWaterGun() {
+    
+    int numFireBlasts = 25;
+
+    final int targetX = 535;
+    final int targetY = 230;
+
+    final int moveDistance = 10;
+
+    GImage[] fireBlasts = new GImage[numFireBlasts];
+
+    for (int i = 0; i < numFireBlasts; i++) {
+        GImage fireBlast = new GImage("bubble.png");  
+        fireBlast.setSize(30, 30);  
+        
+        fireBlast.setLocation(158, 363);
+        add(fireBlast);
+        fireBlasts[i] = fireBlast;  
+    }
+
+   
+    Timer launchTimer = new Timer();
+    launchTimer.scheduleAtFixedRate(new TimerTask() {
+        private int currentBlastIndex = 0;  
+
+        @Override
+        public void run() {
+            if (currentBlastIndex < numFireBlasts) {
+                
+                GImage currentBlast = fireBlasts[currentBlastIndex];
+
+               
+                animateFireBlast(currentBlast, targetX, targetY, moveDistance);
+
+                currentBlastIndex++;
+            } else {
+                cancel();  
+            }
+        }
+    }, 0, 100);  
+}
+
+
+
+
+
 
 
 
@@ -480,7 +526,7 @@ private void animateFireBlast(GImage fireBlast, final int targetX, final int tar
     public static void main(String[] args) {
     	PlayerTrainer playerTrainer = new PlayerTrainer();
 	    Monster playerMonster = new Monster(SpeciesType.SPIDER,5);
-	    playerMonster.addmove(Move.FLAMETHROWER);
+	    playerMonster.addmove(Move.WATERGUN);
 	    playerMonster.addmove(Move.EMBER);
 	    
 	    // Add the monster to the player's team
