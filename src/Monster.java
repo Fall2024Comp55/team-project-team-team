@@ -3,15 +3,15 @@ import java.util.List;
 import java.util.ArrayList;
 import acm.graphics.*;
 import java.util.Random;
-//finshed but need review:
+// finished but need review:
 public class Monster {
-
+	
     private String name;
     private String description;
     private GImage sprite;
-
+    
     private int curHealth;
-    private int maxHealth;
+    private double maxHealth;
     private double atk;
     private double def;
     
@@ -64,7 +64,7 @@ public class Monster {
     public int lvlToExp(int n) {
     	int xp = 0;
     	int next = 300;
-    	for(int x = 0; x < n; x++) {
+    	for(int x = 1; x < n; x++) {
     		xp += next;
     		next += 100;
     	}
@@ -73,10 +73,21 @@ public class Monster {
     
     public void setName(String name) { this.name = name; }
     public String getName() { return this.name; }
-    
     public String getDescription() { return this.description; }
-    
     public GImage getSprite() { return this.sprite; }
+    
+    public int getCurHealth() { return this.curHealth; }
+    public int getMaxHealth() { return (int)this.maxHealth; }
+    public int getAtk() { return (int)this.atk; }
+    public int getDef() { return (int)this.def; }
+    
+    public Type getType1() { return this.type1; }
+    public Type getType2() { return this.type2; }
+    public ArrayList<Move> getMoves() { return this.moves; }
+    
+    public int getLevel() { return this.level; }
+    public int getExperience() { return this.experience; }
+    public boolean isFainted() { return this.fainted; }
     
     public void updateHP(int hpChange) {
     	this.curHealth += hpChange;
@@ -84,46 +95,47 @@ public class Monster {
     		this.curHealth = 0;
     		this.fainted = true;
     	} else if(this.curHealth > this.maxHealth) {
-    		this.curHealth = this.maxHealth;
+    		this.curHealth = (int)this.maxHealth;
     	}
     }
     
     public void fullHeal() {
-    	this.curHealth = this.maxHealth;
+    	this.curHealth = (int)this.maxHealth;
     	this.fainted = false;
     }
     
-    public boolean isFainted() {
-        return fainted;
-    }
-    
-    public int getAttack() {
-        return (int)atk;
-    }
-
-    public int getDefense() {
-        return (int)def;
-    }
-
-    public int getlevel() {
-        return level;
-    }
-    
-    
-    public List<Move> getMoves1() {
-        return moves;
-    }
-    
-    
-    
     public void gainXP(int xp) {
        this.experience = this.experience +  xp;
+       int oldLevel = this.level;
+       updateLevel();
+       if(this.level > oldLevel) {
+    	   levelUp(this.level - oldLevel);
+       }
     }
+    
+    public void levelUp(int n) {
+    	for(int x = 0; x < n; x++) {
+    		this.atk *= 1.12;
+    		this.def *= 1.12;
+    		int oldHP = (int)this.maxHealth;
+    		this.maxHealth *= 1.15;
+    		this.curHealth += (this.maxHealth = oldHP);
+    	}
+    }
+    
+    
+    public void setExperience(int experience) {
+		this.experience = experience;
+	}
 
+	public void setMoves(  ArrayList<Move> moves ) {
+		this.moves = moves;
+	}
+    
     public void changeMove(int index, Move newMove) {
     	  this.moves.set(index, newMove);
     }
-
+    
     public void updateLevel() {
     	if (experience == 22800) {
         	level = 20;
@@ -167,92 +179,23 @@ public class Monster {
         	level = 1;
         }
     }
-
+    
     public void evolve() {
         //add code here
     }
-
-    /// getters and setters
-
-
-	public void setSprite(GImage sprite) {
-		this.sprite = sprite;
-	}
-	public GImage getImage() {
-		return sprite;
-	}
-
-	public int getExperience() {
-		return experience;
-	}
-
-	public void setExperience(int experience) {
-		this.experience = experience;
-	}
-
+    
 	
-
-	public void setLevel(int level) {
-		this.level = level;
-	}
-
-	public void setAtk(int atk) {
-		this.atk = atk;
-	}
-
-	public void setDef(int def) {
-		this.def = def;
-	}
-
-	public Type getType1() {
-		return type1;
-	}
-
-	public void setType1(Type type1) {
-		this.type1 = type1;
-	}
-
-	public Type getType2() {
-		return type2;
-	}
-
-	public void setType2(Type type2) {
-		this.type2 = type2;
-	}
-
-	public ArrayList<Move> getMoves() {
-		return moves;
-	}
-
-	public void setMoves(  ArrayList<Move> moves ) {
-		this.moves = moves;
-	}
 	
 	public void addmove(  Move move ) {
-		moves.add(move);
+		if(moves.size() < 4) {
+			moves.add(move);
+		} else {
+			moves.set(3, move);
+		}
+		
 	}
 	public void Switchmove( int num, Move move ) {
 		moves.set(num, move);
-	}
-
-	public int getHealth() {
-		return curHealth;
-	}
-
-	public void setHealth(int health) {
-		this.curHealth = health;
-	}
-
-	public int getMaxHealth() {
-		return maxHealth;
-	}
-
-	public void setMaxHealth(int maxHealth) {
-		this.maxHealth = maxHealth;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
 	}
 	
 	
