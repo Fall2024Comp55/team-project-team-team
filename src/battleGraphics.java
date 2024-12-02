@@ -189,6 +189,7 @@ public class battleGraphics extends GraphicsProgram {
     		trainerMonster = enemy.getTeam().getFirst();
             trainterMon = trainerMonster.getImage();
             trainterMon.setLocation(535,230);
+            
            
             
             playerMonster = playerTrainer.getTeam().get(0);
@@ -278,7 +279,7 @@ public void moveAnimation(String moveName) {
     } else if (moveName.equals("Flamethrower")) {
         //animateFlamethrower();
     } else if (moveName.equals("Fire Blast")) {
-        //animateFireBlast();
+       animateFireBlast();
     } else if (moveName.equals("Water Gun")) {
        // animateWaterGun();
     } else if (moveName.equals("Surf")) {
@@ -339,6 +340,55 @@ private void animateTackle() {
     
 }
 
+private void animateFireBlast() {
+    // Create the tackle effect image
+    GImage FireBlast = new GImage("FireAttack.png");  
+    //tackleEffect.setSize(100, 100);  
+    FireBlast.setSize(30, 30);
+    FireBlast.setLocation(158, 363);  
+    add(FireBlast);
+
+    
+    final int targetX = 535;
+    final int targetY = 230;
+
+   
+    final int moveDistance = 10;
+
+    // Calculate the total number of frames needed to move horizontally and vertically
+    // We divide the distance by the move distance, rounded up, so it covers the full distance
+    final int totalFramesX = (int) Math.ceil((double) Math.abs(targetX - FireBlast.getX()) / moveDistance);
+    final int totalFramesY = (int) Math.ceil((double) Math.abs(targetY - FireBlast.getY()) / moveDistance);
+
+    // We want to take the maximum of both X and Y frame counts so the image finishes in sync
+    final int totalFrames = Math.max(totalFramesX, totalFramesY);
+
+    // Create a timer to animate the image's movement
+    Timer timer = new Timer();
+    timer.scheduleAtFixedRate(new TimerTask() {
+        private int framesMoved = 0;
+
+        @Override
+        public void run() {
+            if (framesMoved < totalFrames) {
+               
+                int moveX = (int) ((targetX - FireBlast.getX()) / (totalFrames - framesMoved));
+                int moveY = (int) ((targetY - FireBlast.getY()) / (totalFrames - framesMoved));
+
+               
+                FireBlast.move(moveX, moveY);
+
+                framesMoved++;
+            } else {
+                
+                cancel();
+                remove(FireBlast);
+            }
+        }
+    }, 0, 30); 
+    
+}
+
     
 
 
@@ -349,7 +399,7 @@ private void animateTackle() {
     public static void main(String[] args) {
     	PlayerTrainer playerTrainer = new PlayerTrainer();
 	    Monster playerMonster = new Monster(SpeciesType.SPIDER,5);
-	    playerMonster.addmove(Move.TACKLE);
+	    playerMonster.addmove(Move.FIREBLAST);
 	    playerMonster.addmove(Move.EMBER);
 	    
 	    // Add the monster to the player's team
