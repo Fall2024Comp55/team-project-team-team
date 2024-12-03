@@ -13,7 +13,7 @@ public class HealingCenter extends PlayerTrainer {
 		ArrayList<Monster> Monsters = p.getTeam(); 
 		for (int i = 0; i < Monsters.size(); i++) {
 		    int maxhealth = Monsters.get(i).getMaxHealth(); 
-		    Monsters.get(i).setHealth(maxhealth);
+		    Monsters.get(i).fullHeal();;
 		}
 	 }
 	
