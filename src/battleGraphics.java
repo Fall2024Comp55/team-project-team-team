@@ -10,62 +10,91 @@ import java.util.TimerTask;
 
 public class battleGraphics extends GraphicsProgram {
     
-    PlayerTrainer playerTrainer;
-    Trainer enemy;
+	private Map map;
+	private double screenSizeX;
+	private double screenSizeY;
+	
+    Trainer player;
+    Trainer opponent;
     Monster playerMonster;
-    Monster trainerMonster;
+    Monster opponentMonster;
+    Monster wildMonster;
     
-    private int screenWidth  = 880;  // Updated screen width
-    private int screenHeight = 720; // Updated screen height
+    private GImage playerMonsterSprite;
+    private GImage opponentMonsterSprite;
     
     private GImage background;
     private GImage battleScreen;
+    
     private GImage fighticon;
-    private GImage bagicon;
     private GImage Monstericon;
+    private GImage bagicon;
     private GImage runicon;
+    
     private GImage bscreen;
     private GImage exit;
+    
     private GImage move1;
     private GImage move2;
     private GImage move3;
     private GImage move4;
-    private GImage trainterMon;
-    private GImage playerMon;
+    
     private boolean isPlayerTurn;
-
-    public void setplayer(PlayerTrainer playerTrainer, Trainer enemy) {
-        this.playerTrainer = playerTrainer;
-        this.enemy = enemy;
+    
+    public battleGraphics(Map map, Trainer player, Trainer opponent) {
+    	this.map = map;
+    	this.screenSizeX = map.getWidth();
+    	this.screenSizeY = map.getHeight();
+    	
+    	this.player = player;
+    	this.opponent = opponent;
+    	this.playerMonster = player.getTeam().get(0);
+    	this.opponentMonster = opponent.getTeam().get(0);
+    	
+    	this.playerMonsterSprite = player.getTeam().get(0).getSprite();
+    	this.opponentMonsterSprite = opponent.getTeam().get(0).getSprite();
     }
-
+    
+    public battleGraphics(Map map, Trainer player, Monster wildMonster) {
+    	this.map = map;
+    	this.screenSizeX = map.getWidth();
+    	this.screenSizeY = map.getHeight();
+    	
+    	this.player = player;
+    	this.wildMonster = wildMonster;
+    	this.playerMonster = player.getTeam().get(0);
+    	
+    	this.playerMonsterSprite = player.getTeam().get(0).getSprite();
+    	this.opponentMonsterSprite = wildMonster.getSprite();
+    }
+    
     public void init() {
-        setSize(screenWidth, screenHeight);  // Set the updated screen size
+    	this.background = new GImage("grassBackground.png");
+    	this.battleScreen = new GImage("battle.png");
+    	
+    	this.fighticon = new GImage("fighticon.png");
+    	this.Monstericon = new GImage("Monstericon.png");
+    	this.bagicon = new GImage("bagicon.png");
+    	this.runicon = new GImage("runicon");
+    	
+    	this.bscreen = new GImage("Battle_Moves.png");
+    	this.exit = new GImage("exit.png");
+    	
+    	this.move1 = new GImage("move.png");
+    	this.move2 = new GImage("move.png");
+    	this.move3 = new GImage("move.png");
+    	this.move4 = new GImage("move.png");
+    	
         addKeyListeners();                   
         requestFocus();                      
     }
-
+    
     public void clearIconsB() {
-        if (fighticon != null) {
-            remove(fighticon);
-            fighticon = null;
-        }
-        if (bagicon != null) {
-            remove(bagicon);
-            bagicon = null;  
-        }
-        if (Monstericon != null) {
-            remove(Monstericon);
-            Monstericon = null;  
-        }
-        if (runicon != null) {
-            remove(runicon);
-            runicon = null;  
-        }
-        if (battleScreen != null) {
-            remove(battleScreen);
-            battleScreen = null;  
-        }
+        map.remove(fighticon);
+        map.remove(bagicon);
+        map.remove(playerMonsterSprite);
+        map.remove(runicon);
+        map.remove(battleScreen);
     }
 
     public void setupMainB() {
@@ -89,36 +118,36 @@ public class battleGraphics extends GraphicsProgram {
         runicon.setSize(250, 100);
         runicon.setLocation(630, 620); // Adjust location for new screen size
         
-        add(battleScreen);
-        add(fighticon);
-        add(bagicon);
-        add(Monstericon);
-        add(runicon);
+        map.add(battleScreen);
+        map.add(fighticon);
+        map.add(bagicon);
+        map.add(Monstericon);
+        map.add(runicon);
     }
 
     public void clearIconsF() {
         if (bscreen != null) {
-            remove(bscreen);
+        	map.remove(bscreen);
             bscreen = null; 
         }
         if (exit != null) {
-            remove(exit);
+        	map.remove(exit);
             exit = null;  
         }
         if (move1 != null) {
-            remove(move1);
+        	map.remove(move1);
             move1 = null;  
         }
         if (move2 != null) {
-            remove(move2);
+        	map.remove(move2);
             move2 = null;  
         }
         if (move3 != null) {
-            remove(move3);
+        	map.remove(move3);
             move3 = null; 
         }
         if (move4 != null) {
-            remove(move4);
+        	map.remove(move4);
             move4 = null; 
         }
     }
@@ -126,7 +155,7 @@ public class battleGraphics extends GraphicsProgram {
     public void setupMainF() {
         clearIconsB();
         
-        bscreen = new GImage("Battle_Moves.png"); 
+        
         bscreen.setSize(880, 200); 
         bscreen.setLocation(0, 520); 
         
@@ -150,39 +179,31 @@ public class battleGraphics extends GraphicsProgram {
         move4.setSize(327, 98);
         move4.setLocation(330, 620);
         
-        add(bscreen);
-        add(exit); 
-        add(move1);
-        add(move2);
-        add(move3);
-        add(move4);
+        map.add(bscreen);
+        map.add(exit); 
+        map.add(move1);
+        map.add(move2);
+        map.add(move3);
+        map.add(move4);
     }
 
     public void run() {
         background = new GImage("grassbackground.png"); 
         background.setSize(880, 530); 
-        add(background);
+        map.add(background);
         
         setupMainB();
         
-        if (playerTrainer != null && enemy != null) {
-            trainerMonster = enemy.getTeam().getFirst();
-            trainterMon = trainerMonster.getSprite();
-            trainterMon.setSize(50, 50);
-            trainterMon.setLocation(630, 280); 
-            
-            playerMonster = playerTrainer.getTeam().get(0);
-            playerMon = playerMonster.getSprite();
-            playerMon.setSize(50, 50);
-            playerMon.setLocation(200, 460); 
-            
-            add(trainterMon);
-            add(playerMon);
-        }
+        playerMonsterSprite.setSize(50, 50);
+        playerMonsterSprite.setLocation(200, 460); 
+        map.add(playerMonsterSprite);
+        
+        opponentMonsterSprite.setSize(50, 50);
+        opponentMonsterSprite.setLocation(630, 280);
+        map.add(opponentMonsterSprite);
         
         addMouseListeners();
     }
-
   
     public void mousePressed(MouseEvent e) {
     	int x = e.getX();
@@ -194,16 +215,16 @@ public class battleGraphics extends GraphicsProgram {
             
             
             if (background != null) {
-            	remove(background);
+            	map.remove(background);
             	background = null;
             }
-            if(trainterMon != null) {
-            	remove(trainterMon);
-            	trainterMon = null;
+            if(trainerMon != null) {
+            	map.remove(trainerMon);
+            	trainerMon = null;
             }
-            if(playerMon != null) {
-            	remove(playerMon);
-            	playerMon = null;
+            if(playerMonster != null) {
+            	map.remove(playerMonster);
+            	playerMonster = null;
             }
            
 
@@ -221,12 +242,12 @@ public class battleGraphics extends GraphicsProgram {
         
         if(move1 != null && move1.contains(x, y)  && playerMonster.getMoves().size() > 0  ) {
         	Move move = playerMonster.getMoves().get(0);
-        	int damage = move.calculateDamage(playerMonster, trainerMonster);
+        	int damage = move.calculateDamage(playerMonster, opponentMonster);
         	moveAnimation(playerMonster.getMoves().get(0).getName());
         	playerMonster.updateHP(-damage);
         	
-        	Move move2 = selectRandomMove(trainerMonster);
-            int damage2 = move2.calculateDamage(trainerMonster, playerMonster);
+        	Move move2 = selectRandomMove(opponentMonster);
+            int damage2 = move2.calculateDamage(opponentMonster, playerMonster);
             playerMonster.updateHP(-damage2);
             
             clearIconsF(); 
@@ -235,12 +256,12 @@ public class battleGraphics extends GraphicsProgram {
         }
         if(move2 != null && move1.contains(x, y) &&  playerMonster.getMoves().size() > 1  ) {
         	Move move = playerMonster.getMoves().get(1);
-        	int damage = move.calculateDamage(playerMonster, trainerMonster);
+        	int damage = move.calculateDamage(playerMonster, opponentMonster);
         	moveAnimation(playerMonster.getMoves().get(1).getName());
         	playerMonster.updateHP(-damage);
         	
-        	Move move2 = selectRandomMove(trainerMonster);
-            int damage2 = move2.calculateDamage(trainerMonster, playerMonster);
+        	Move move2 = selectRandomMove(opponentMonster);
+            int damage2 = move2.calculateDamage(opponentMonster, playerMonster);
             playerMonster.updateHP(-damage2);
             
             clearIconsF(); 
@@ -248,12 +269,12 @@ public class battleGraphics extends GraphicsProgram {
         }
         if(move3 != null && move1.contains(x, y) &&  playerMonster.getMoves().size() > 2  ) {
         	Move move = playerMonster.getMoves().get(2);
-        	int damage = move.calculateDamage(playerMonster, trainerMonster);
+        	int damage = move.calculateDamage(playerMonster, opponentMonster);
         	moveAnimation(playerMonster.getMoves().get(2).getName());
         	playerMonster.updateHP(-damage);
         	
-        	Move move2 = selectRandomMove(trainerMonster);
-            int damage2 = move2.calculateDamage(trainerMonster, playerMonster);
+        	Move move2 = selectRandomMove(opponentMonster);
+            int damage2 = move2.calculateDamage(opponentMonster, playerMonster);
             playerMonster.updateHP(-damage2);
             
             clearIconsF(); 
@@ -262,12 +283,12 @@ public class battleGraphics extends GraphicsProgram {
         }
         if(move4 != null && move1.contains(x, y) &&  playerMonster.getMoves().size() > 3  ) {
         	Move move = playerMonster.getMoves().get(3);
-        	int damage = move.calculateDamage(playerMonster, trainerMonster);
+        	int damage = move.calculateDamage(playerMonster, opponentMonster);
         	moveAnimation(playerMonster.getMoves().get(3).getName());
         	playerMonster.updateHP(-damage);
         	
-        	Move move2 = selectRandomMove(trainerMonster);
-            int damage2 = move2.calculateDamage(trainerMonster, playerMonster);
+        	Move move2 = selectRandomMove(opponentMonster);
+            int damage2 = move2.calculateDamage(opponentMonster, playerMonster);
             playerMonster.updateHP(-damage2);
             
             clearIconsF(); 
@@ -320,7 +341,7 @@ private void animateTackle() {
     GImage tackleEffect = playerMonster.getSprite();  
     //tackleEffect.setSize(100, 100);  
     tackleEffect.setLocation(200, 460);  
-    add(tackleEffect);
+    map.add(tackleEffect);
 
     
     final int targetX = 630;
@@ -356,7 +377,7 @@ private void animateTackle() {
             } else {
                 
                 cancel();
-                playerMon.setLocation(200, 460);
+                playerMonsterSprite.setLocation(200, 460);
             }
         }
     }, 0, 30); 
@@ -405,7 +426,7 @@ private void animateFireBlast() {
             } else {
                 
                 cancel();
-                remove(FireBlast);
+                map.remove(FireBlast);
             }
         }
     }, 0, 30); 
@@ -429,7 +450,7 @@ private void animateFlamethrower() {
         fireBlast.setSize(50, 50);  
         
         fireBlast.setLocation(200, 460);
-        add(fireBlast);
+        map.add(fireBlast);
         fireBlasts[i] = fireBlast;  
     }
 
@@ -485,7 +506,7 @@ private void animateFireBlast(GImage fireBlast, final int targetX, final int tar
             } else {
                
                 fireBlast.setLocation(targetX, targetY);
-                remove(fireBlast);  
+                map.remove(fireBlast);  
                 cancel();  
             }
 
@@ -511,7 +532,7 @@ private void animateWaterGun() {
         fireBlast.setSize(50, 50);  
         
         fireBlast.setLocation(200, 460);
-        add(fireBlast);
+        map.add(fireBlast);
         fireBlasts[i] = fireBlast;  
     }
 

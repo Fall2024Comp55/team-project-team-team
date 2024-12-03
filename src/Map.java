@@ -1,4 +1,3 @@
-import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
@@ -41,6 +40,8 @@ public class Map extends GraphicsProgram implements KeyListener {
 	private int playerX;
 	private int playerY;
 	
+	private battleGraphics battle;
+	
 	/* unused variables
 	private int numTimes;
 	private int labelX =0, labelY = 0;
@@ -48,8 +49,8 @@ public class Map extends GraphicsProgram implements KeyListener {
 	private GLabel myLabel;
 	*/
 	
-
-
+	
+	
 	public void clearMap() {
 		removeAll();
 		tiles.clear();
@@ -57,21 +58,17 @@ public class Map extends GraphicsProgram implements KeyListener {
 		nextPos.setLocation(0, 0);
 	}
 	
-	public void actionPerformed(ActionEvent e) {
-		
-	}
-	
 	public void init() {
 		setSize(tileSize * SCREEN_TILES_WIDTH, tileSize * SCREEN_TILES_HEIGHT);
 		addKeyListeners();
 		requestFocus();
 		
-		printMap();
+		createMap();
 		addPlayer();
 		adjustMap();
 	}
 	
-	public void printMap() {
+	public void createMap() {
 		int col = 0;
 		int row = 0;
 		for(Space[] x : map.spaceMap) {
@@ -110,9 +107,9 @@ public class Map extends GraphicsProgram implements KeyListener {
 		int startX = map.starts[spawn][0];
 		int startY = map.starts[spawn][1];
 
-		add(userPlayer);
 		userPlayer.scale(tileSize / userPlayer.getWidth());
 		userPlayer.setLocation(tileSize * startX, tileSize * startY);
+		add(userPlayer);
 
 		playerX = startX;
 		playerY = startY;
@@ -155,7 +152,7 @@ public class Map extends GraphicsProgram implements KeyListener {
 		case ROUTE1: this.map = Maps.ROUTE1; break;
 		}
 		this.spawn = spawn;
-		printMap();
+		createMap();
 		addPlayer();
 		adjustMap();
 	}

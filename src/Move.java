@@ -7,6 +7,7 @@ public enum Move {
     WATERGUN		("Water Gun", Type.WATER , 40, 100),
     SURF			("Surf", Type.WATER, 90, 100),
     HYDROPUMP		("Hydro Pump", Type.WATER, 110, 80),
+    SHOCK           ("Shock", Type.ELECTRIC, 40, 100),
     THUNDERBOLT		("Thunderbolt", Type.ELECTRIC, 90, 100),
     EARTHQUAKE		("Earthquake", Type.GROUND, 100, 100);
 	
@@ -15,13 +16,13 @@ public enum Move {
     public int power;
     public int accuracy;
     
-    Move(){
+    Move() {
     	this.name = "Tackle";
         this.type = Type.NORMAL;
         this.power = 40;
         this.accuracy = 100;
     }
-   
+    
     
 	Move(String name, Type type, int power, int accuracy) {
         this.name = name;
@@ -29,7 +30,7 @@ public enum Move {
         this.power = power;
         this.accuracy = accuracy;
     }
-
+	
     public void animate() {
         System.out.println(name + " is being used!");
         // Additional animation logic can be added here
