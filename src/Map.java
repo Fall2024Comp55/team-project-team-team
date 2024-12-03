@@ -1,6 +1,7 @@
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.swing.Timer;
 
@@ -20,10 +21,10 @@ public class Map extends GraphicsProgram implements KeyListener {
 	private int screenWidth  = tileSize * SCREEN_TILES_WIDTH;
 	private int screenHeight = tileSize * SCREEN_TILES_HEIGHT;
 	
-	
 	public Timer timer = new Timer(1000, this);
-	private GImage userPlayer = new GImage("TrainerD.png");
+	public Random rand = new Random();
 	
+	private GImage userPlayer = new GImage("TrainerD.png");
 	private PlayerTrainer userP = new PlayerTrainer();
 	
 	private Maps map = Maps.HOMETOWN;
@@ -248,10 +249,31 @@ public class Map extends GraphicsProgram implements KeyListener {
 		Space newSpace = spaces.get(playerY).get(playerX);
 		if(newSpace.sightline != null) {
 			System.out.println(newSpace.sightline.name);
+			setTrainerEncounter(newSpace.sightline);
 		}
 		if(newSpace.destination != null) {
 			reInit(newSpace.destination, newSpace.spawn);
 		}
+		if(newSpace.tile == Tile.TALLGRASS) {
+			setWildEncounter();
+		}
+	}
+	
+	public void setWildEncounter() {
+		System.out.println("On Tall Grass!!!");
+		// Define the threshold for an encounter (e.g., 20% chance)
+		if (rand.nextInt(100) < 20) { // Adjust 20 to your desired encounter rate
+		    // pick a random monster
+			Monster wildMon = new Monster(SpeciesType.values()[rand.nextInt(SpeciesType.values().length)], userP.getTeam().get(0).getLevel());
+			// Start the battle
+			battleGraphics battle = new battleGraphics(this, userP, wildMon);
+		    battle.start();
+		}
+	}
+	
+	public void setTrainerEncounter(Trainers opponent) {
+		battleGraphics battle = new battleGraphics(this, userP, new Trainer(opponent));
+	    battle.start();
 	}
 	
 	@Override

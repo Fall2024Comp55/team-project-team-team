@@ -2,10 +2,17 @@ import java.util.ArrayList;
 import java.util.Random;
 //test2
 public class Trainer {
+	private String name;
 	private ArrayList<Monster> team;
 	private int money;
 	
-	
+	public Trainer(Trainers trainer) {
+		this.name = trainer.name;
+		for(int x = 0; x < trainer.team.length; x++) {
+			team.add(trainer.team[x]);
+		}
+		this.money = trainer.money;
+	}
 	
 	public Trainer() {
 		team = new ArrayList<Monster>();
