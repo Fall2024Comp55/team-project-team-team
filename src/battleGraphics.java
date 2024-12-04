@@ -92,7 +92,7 @@ public class battleGraphics extends GraphicsProgram {
     public void clearIconsB() {
         map.remove(fighticon);
         map.remove(bagicon);
-        map.remove(playerMonsterSprite);
+        map.remove(Monstericon);
         map.remove(runicon);
         map.remove(battleScreen);
     }
@@ -211,7 +211,7 @@ public class battleGraphics extends GraphicsProgram {
         // clears everything 
         if (runicon != null && runicon.contains(x, y)) {
             clearIconsB(); 
-            
+            clearIconsF();
             
             if (background != null) {
             	map.remove(background);
