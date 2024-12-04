@@ -246,7 +246,9 @@ public class battleGraphics extends GraphicsProgram {
         	
         	Move move2 = selectRandomMove(opponentMonster);
             int damage2 = move2.calculateDamage(opponentMonster, playerMonster);
+            moveAnimationTrainer(move2.getName());
             playerMonster.updateHP(-damage2);
+           
             
             clearIconsF(); 
             setupMainB(); 
@@ -261,6 +263,7 @@ public class battleGraphics extends GraphicsProgram {
         	Move move2 = selectRandomMove(opponentMonster);
             int damage2 = move2.calculateDamage(opponentMonster, playerMonster);
             playerMonster.updateHP(-damage2);
+            moveAnimationTrainer(move2.getName());
             
             clearIconsF(); 
             setupMainB(); 
@@ -271,8 +274,10 @@ public class battleGraphics extends GraphicsProgram {
         	moveAnimation(playerMonster.getMoves().get(2).getName());
         	playerMonster.updateHP(-damage);
         	
+        	
         	Move move2 = selectRandomMove(opponentMonster);
             int damage2 = move2.calculateDamage(opponentMonster, playerMonster);
+            moveAnimationTrainer(move2.getName());
             playerMonster.updateHP(-damage2);
             
             clearIconsF(); 
@@ -287,6 +292,7 @@ public class battleGraphics extends GraphicsProgram {
         	
         	Move move2 = selectRandomMove(opponentMonster);
             int damage2 = move2.calculateDamage(opponentMonster, playerMonster);
+            moveAnimationTrainer(move2.getName());
             playerMonster.updateHP(-damage2);
             
             clearIconsF(); 
@@ -333,6 +339,7 @@ public void moveAnimation(String moveName) {
     } 
    
 }
+
 
 private void animateTackle() {
     // Create the tackle effect image
@@ -556,6 +563,28 @@ private void animateWaterGun() {
     }, 0, 100);  
 }
 
+
+public void moveAnimationTrainer(String moveName) {
+	   
+    if (moveName.equals("Tackle")) {
+    	animateTackleTrainer();
+    } else if (moveName.equals("Ember")) {
+        //animateEmber();
+    } else if (moveName.equals("Flamethrower")) {
+    	animateFlamethrowerTrainer();
+    } else if (moveName.equals("Fire Blast")) {
+    	animateFireBlastTrainer();
+    } else if (moveName.equals("Water Gun")) {
+    	animateWaterGunTrainer();
+    } else if (moveName.equals("Surf")) {
+       // animateSurf();
+    } else if (moveName.equals("Thunderbolt")) {
+        //animateThunderbolt();
+    } else if (moveName.equals("Earthquake")) {
+       // animateEarthquake();
+    } 
+   
+}
 
 private void animateTackleTrainer() {
     // Create the tackle effect image
