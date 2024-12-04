@@ -188,6 +188,7 @@ public class battleGraphics extends GraphicsProgram {
     }
 
     public void run() {
+    	background.setSize(screenSizeX ,  screenSizeY - 200);
         map.add(background);
         
         setupMainB();
