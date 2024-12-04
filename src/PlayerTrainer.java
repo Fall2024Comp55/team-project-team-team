@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 public class PlayerTrainer extends Trainer{
 	private int numBadges;
@@ -11,6 +12,8 @@ public class PlayerTrainer extends Trainer{
 		 currMoney = 0;
 		 bag = new Bag();
 		 this.direction = Direction.DOWN;
+		 this.team = new ArrayList<Monster>();
+		 this.team.add(new Monster(SpeciesType.SHADOWMATH, 5));
 	 }
 	
 	public void updateMoney(int amount) {

@@ -51,8 +51,8 @@ public class battleGraphics extends GraphicsProgram {
     	this.playerMonster = player.getTeam().get(0);
     	this.opponentMonster = opponent.getTeam().get(0);
     	
-    	this.playerMonsterSprite = player.getTeam().get(0).getSprite();
-    	this.opponentMonsterSprite = opponent.getTeam().get(0).getSprite();
+    	this.playerMonsterSprite = player.getTeam().get(0).getBackSprite();
+    	this.opponentMonsterSprite = opponent.getTeam().get(0).getFrontSprite();
     }
     
     public battleGraphics(Map map, Trainer player, Monster wildMonster) {
@@ -64,8 +64,8 @@ public class battleGraphics extends GraphicsProgram {
     	this.wildMonster = wildMonster;
     	this.playerMonster = player.getTeam().get(0);
     	
-    	this.playerMonsterSprite = player.getTeam().get(0).getSprite();
-    	this.opponentMonsterSprite = wildMonster.getSprite();
+    	this.playerMonsterSprite = player.getTeam().get(0).getBackSprite();
+    	this.opponentMonsterSprite = wildMonster.getFrontSprite();
     }
     
     public void init() {
@@ -75,7 +75,7 @@ public class battleGraphics extends GraphicsProgram {
     	this.fighticon = new GImage("fighticon.png");
     	this.Monstericon = new GImage("Monstericon.png");
     	this.bagicon = new GImage("bagicon.png");
-    	this.runicon = new GImage("runicon");
+    	this.runicon = new GImage("runicon.png");
     	
     	this.bscreen = new GImage("Battle_Moves.png");
     	this.exit = new GImage("exit.png");
@@ -188,8 +188,6 @@ public class battleGraphics extends GraphicsProgram {
     }
 
     public void run() {
-        background = new GImage("grassbackground.png"); 
-        background.setSize(880, 530); 
         map.add(background);
         
         setupMainB();
@@ -218,12 +216,12 @@ public class battleGraphics extends GraphicsProgram {
             	map.remove(background);
             	background = null;
             }
-            if(trainerMon != null) {
-            	map.remove(trainerMon);
-            	trainerMon = null;
+            if(opponentMonsterSprite != null) {
+            	map.remove(opponentMonsterSprite);
+            	opponentMonsterSprite = null;
             }
-            if(playerMonster != null) {
-            	map.remove(playerMonster);
+            if(playerMonsterSprite != null) {
+            	map.remove(playerMonsterSprite);
             	playerMonster = null;
             }
            
@@ -338,7 +336,7 @@ public void moveAnimation(String moveName) {
 
 private void animateTackle() {
     // Create the tackle effect image
-    GImage tackleEffect = playerMonster.getSprite();  
+    GImage tackleEffect = playerMonster.getBackSprite();  
     //tackleEffect.setSize(100, 100);  
     tackleEffect.setLocation(200, 460);  
     map.add(tackleEffect);
@@ -567,6 +565,7 @@ private void animateWaterGun() {
 
 
     // Main method to launch the program
+	/*
     public static void main(String[] args) {
     	PlayerTrainer playerTrainer = new PlayerTrainer();
 	    Monster playerMonster = new Monster(SpeciesType.SPIDER,5);
@@ -590,5 +589,5 @@ private void animateWaterGun() {
     	  s.setplayer(playerTrainer,opponentTrainer);
     	  s.start();
     }
-
+	*/
 }

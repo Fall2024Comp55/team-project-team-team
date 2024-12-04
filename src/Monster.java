@@ -8,7 +8,8 @@ public class Monster {
 	
     private String name;
     private String description;
-    private GImage sprite;
+    private GImage frontSprite;
+    private GImage backSprite;
     
     private int curHealth;
     private double maxHealth;
@@ -23,10 +24,11 @@ public class Monster {
     private int experience;
     private boolean fainted;
     
-    public Monster(String name, String description , int hp, int attack, int defense,  Type type1, Type type2, int maxhealth, int level, String image) {
+    public Monster(String name, String description , int hp, int attack, int defense,  Type type1, Type type2, int maxhealth, int level, String front, String back) {
         this.name = name;
         this.description = description;
-        this.sprite = new GImage(image);
+		this.frontSprite = new GImage(front);
+		this.backSprite = new GImage(back);
         
         this.curHealth = hp;
         this.maxHealth = hp;
@@ -45,7 +47,8 @@ public class Monster {
     Monster(SpeciesType specType, int level) {
     	this.name = specType.name;
         this.description = specType.description;
-        this.sprite = specType.sprite;
+        this.frontSprite = specType.frontSprite;
+        this.backSprite = specType.backSprite;
         
         this.curHealth = specType.baseHP;
         this.maxHealth = specType.baseHP;
@@ -74,7 +77,8 @@ public class Monster {
     public void setName(String name) { this.name = name; }
     public String getName() { return this.name; }
     public String getDescription() { return this.description; }
-    public GImage getSprite() { return this.sprite; }
+    public GImage getFrontSprite() { return this.frontSprite; }
+    public GImage getBackSprite() { return this.backSprite; }
     
     public int getCurHealth() { return this.curHealth; }
     public int getMaxHealth() { return (int)this.maxHealth; }

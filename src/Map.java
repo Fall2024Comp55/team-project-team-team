@@ -264,7 +264,8 @@ public class Map extends GraphicsProgram implements KeyListener {
 		// Define the threshold for an encounter (e.g., 20% chance)
 		if (rand.nextInt(100) < 20) { // Adjust 20 to your desired encounter rate
 		    // pick a random monster
-			Monster wildMon = new Monster(SpeciesType.values()[rand.nextInt(SpeciesType.values().length)], userP.getTeam().get(0).getLevel());
+			// Monster wildMon = new Monster(SpeciesType.values()[rand.nextInt(SpeciesType.values().length)], userP.getTeam().get(0).getLevel());
+			Monster wildMon = new Monster(SpeciesType.VENOMSPIT, 5);
 			// Start the battle
 			battleGraphics battle = new battleGraphics(this, userP, wildMon);
 		    battle.start();

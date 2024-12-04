@@ -3,7 +3,7 @@ import java.util.Random;
 //test2
 public class Trainer {
 	private String name;
-	private ArrayList<Monster> team;
+	protected ArrayList<Monster> team;
 	private int money;
 	
 	public Trainer(Trainers trainer) {
