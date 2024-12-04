@@ -387,7 +387,7 @@ private void animateFireBlast() {
     GImage FireBlast = new GImage("FireAttack.png");  
    
     FireBlast.setSize(50, 50);
-    FireBlast.setLocation(158, 363);  
+    FireBlast.setLocation(200, 460);  
     add(FireBlast);
 
     
@@ -557,6 +557,188 @@ private void animateWaterGun() {
 }
 
 
+private void animateTackleTrainer() {
+    // Create the tackle effect image
+    GImage tackleEffect = playerMonster.getBackSprite();  
+    //tackleEffect.setSize(100, 100);  
+    tackleEffect.setLocation( 630, 280);  
+    map.add(tackleEffect);
+
+    
+    final int targetX = 200;
+    final int targetY = 460;
+
+   
+    final int moveDistance = 10;
+
+    // Calculate the total number of frames needed to move horizontally and vertically
+    // We divide the distance by the move distance, rounded up, so it covers the full distance
+    final int totalFramesX = (int) Math.ceil((double) Math.abs(targetX - tackleEffect.getX()) / moveDistance);
+    final int totalFramesY = (int) Math.ceil((double) Math.abs(targetY - tackleEffect.getY()) / moveDistance);
+
+    // We want to take the maximum of both X and Y frame counts so the image finishes in sync
+    final int totalFrames = Math.max(totalFramesX, totalFramesY);
+
+    // Create a timer to animate the image's movement
+    Timer timer = new Timer();
+    timer.scheduleAtFixedRate(new TimerTask() {
+        private int framesMoved = 0;
+
+        @Override
+        public void run() {
+            if (framesMoved < totalFrames) {
+               
+                int moveX = (int) ((targetX - tackleEffect.getX()) / (totalFrames - framesMoved));
+                int moveY = (int) ((targetY - tackleEffect.getY()) / (totalFrames - framesMoved));
+
+               
+                tackleEffect.move(moveX, moveY);
+
+                framesMoved++;
+            } else {
+                
+                cancel();
+                playerMonsterSprite.setLocation(200, 460);
+            }
+        }
+    }, 0, 30); 
+    
+}
+
+private void animateFireBlastTrainer() {
+    
+    GImage FireBlast = new GImage("FireAttack.png");  
+   
+    FireBlast.setSize(50, 50);
+    FireBlast.setLocation(630, 280);  
+    add(FireBlast);
+
+    
+    final int targetX = 200;
+    final int targetY = 460;
+
+   
+    final int moveDistance = 10;
+
+    // Calculate the total number of frames needed to move horizontally and vertically
+    // We divide the distance by the move distance, rounded up, so it covers the full distance
+    final int totalFramesX = (int) Math.ceil((double) Math.abs(targetX - FireBlast.getX()) / moveDistance);
+    final int totalFramesY = (int) Math.ceil((double) Math.abs(targetY - FireBlast.getY()) / moveDistance);
+
+    // We want to take the maximum of both X and Y frame counts so the image finishes in sync
+    final int totalFrames = Math.max(totalFramesX, totalFramesY);
+
+    // Create a timer to animate the image's movement
+    Timer timer = new Timer();
+    timer.scheduleAtFixedRate(new TimerTask() {
+        private int framesMoved = 0;
+
+        @Override
+        public void run() {
+            if (framesMoved < totalFrames) {
+               
+                int moveX = (int) ((targetX - FireBlast.getX()) / (totalFrames - framesMoved));
+                int moveY = (int) ((targetY - FireBlast.getY()) / (totalFrames - framesMoved));
+
+               
+                FireBlast.move(moveX, moveY);
+
+                framesMoved++;
+            } else {
+                
+                cancel();
+                map.remove(FireBlast);
+            }
+        }
+    }, 0, 30); 
+    
+}
+
+
+private void animateFlamethrowerTrainer() {
+    
+    int numFireBlasts = 25;
+
+    final int targetX = 200;
+    final int targetY = 460;
+
+    final int moveDistance = 10;
+
+    GImage[] fireBlasts = new GImage[numFireBlasts];
+
+    for (int i = 0; i < numFireBlasts; i++) {
+        GImage fireBlast = new GImage("FireAttack.png");  
+        fireBlast.setSize(50, 50);  
+        
+        fireBlast.setLocation(630, 280);
+        map.add(fireBlast);
+        fireBlasts[i] = fireBlast;  
+    }
+
+   
+    Timer launchTimer = new Timer();
+    launchTimer.scheduleAtFixedRate(new TimerTask() {
+        private int currentBlastIndex = 0;  
+
+        @Override
+        public void run() {
+            if (currentBlastIndex < numFireBlasts) {
+                
+                GImage currentBlast = fireBlasts[currentBlastIndex];
+
+               
+                animateFireBlast(currentBlast, targetX, targetY, moveDistance);
+
+                currentBlastIndex++;
+            } else {
+                cancel();  
+            }
+        }
+    }, 0, 100);  
+}
+
+
+private void animateWaterGunTrainer() {
+    
+    int numFireBlasts = 25;
+
+    final int targetX = 200;
+    final int targetY = 460;
+
+    final int moveDistance = 10;
+
+    GImage[] fireBlasts = new GImage[numFireBlasts];
+
+    for (int i = 0; i < numFireBlasts; i++) {
+        GImage fireBlast = new GImage("bubble.png");  
+        fireBlast.setSize(50, 50);  
+        
+        fireBlast.setLocation(630, 280);
+        map.add(fireBlast);
+        fireBlasts[i] = fireBlast;  
+    }
+
+   
+    Timer launchTimer = new Timer();
+    launchTimer.scheduleAtFixedRate(new TimerTask() {
+        private int currentBlastIndex = 0;  
+
+        @Override
+        public void run() {
+            if (currentBlastIndex < numFireBlasts) {
+                
+                GImage currentBlast = fireBlasts[currentBlastIndex];
+
+               
+                animateFireBlast(currentBlast, targetX, targetY, moveDistance);
+
+                currentBlastIndex++;
+            } else {
+                cancel();  
+            }
+        }
+    }, 0, 100);  
+}
 
 
 
