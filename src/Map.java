@@ -65,6 +65,7 @@ public class Map extends GraphicsProgram implements KeyListener {
 	public void init() {
 		setSize(tileSize * SCREEN_TILES_WIDTH, tileSize * SCREEN_TILES_HEIGHT);
 		addKeyListeners();
+		addMouseListeners();
 		requestFocus();
 		
 		createMap();
@@ -323,6 +324,11 @@ public class Map extends GraphicsProgram implements KeyListener {
 			movable = true;
 		}
 	}
+	 
+	public void endBattle() {
+		currentPage = "Map";
+	}
+	
 	
 	public void run() {
 		

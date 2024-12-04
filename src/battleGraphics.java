@@ -126,30 +126,12 @@ public class battleGraphics  {
     }
 
     public void clearIconsF() {
-        if (bscreen != null) {
         	map.remove(bscreen);
-            bscreen = null; 
-        }
-        if (exit != null) {
         	map.remove(exit);
-            exit = null;  
-        }
-        if (move1 != null) {
         	map.remove(move1);
-            move1 = null;  
-        }
-        if (move2 != null) {
         	map.remove(move2);
-            move2 = null;  
-        }
-        if (move3 != null) {
-        	map.remove(move3);
-            move3 = null; 
-        }
-        if (move4 != null) {
+        	map.remove(move3);  
         	map.remove(move4);
-            move4 = null; 
-        }
     }
 
     public void setupMainF() {
@@ -209,37 +191,26 @@ public class battleGraphics  {
         int y = e.getY();
         
         // clears everything 
-        if (runicon != null && runicon.contains(x, y)) {
+        if ( map.getElementAt(x, y) == runicon ) {
             clearIconsB(); 
             clearIconsF();
             
-            if (background != null) {
-            	map.remove(background);
-            	background = null;
-            }
-            if(opponentMonsterSprite != null) {
-            	map.remove(opponentMonsterSprite);
-            	opponentMonsterSprite = null;
-            }
-            if(playerMonsterSprite != null) {
-            	map.remove(playerMonsterSprite);
-            	playerMonster = null;
-            }
-           
-
+            map.remove(background);
+            map.remove(opponentMonsterSprite);
+            map.remove(playerMonsterSprite); 	
+            map.endBattle();
         }
         
-        if (fighticon != null && fighticon.contains(x, y)) {
+        if (map.getElementAt(x, y) == fighticon ) {
             setupMainF();  
         }
         
-        if (exit != null && exit.contains(x, y)) {
+        if (map.getElementAt(x, y) == exit ) {
             clearIconsF(); 
             setupMainB(); 
         }
         
-        
-        if(move1 != null && move1.contains(x, y)  && playerMonster.getMoves().size() > 0  ) {
+        if(map.getElementAt(x, y) == move1 &&  playerMonster.getMoves().size() > 0 ) {
         	Move move = playerMonster.getMoves().get(0);
         	int damage = move.calculateDamage(playerMonster, opponentMonster);
         	moveAnimation(playerMonster.getMoves().get(0).getName());
@@ -253,9 +224,10 @@ public class battleGraphics  {
             
             clearIconsF(); 
             setupMainB(); 
-        	
         }
-        if(move2 != null && move1.contains(x, y) &&  playerMonster.getMoves().size() > 1  ) {
+        
+     
+        if( map.getElementAt(x, y) == move2  &&  playerMonster.getMoves().size() > 1  ) {
         	Move move = playerMonster.getMoves().get(1);
         	int damage = move.calculateDamage(playerMonster, opponentMonster);
         	moveAnimation(playerMonster.getMoves().get(1).getName());
@@ -269,7 +241,7 @@ public class battleGraphics  {
             clearIconsF(); 
             setupMainB(); 
         }
-        if(move3 != null && move1.contains(x, y) &&  playerMonster.getMoves().size() > 2  ) {
+        if(map.getElementAt(x, y) == move3  &&  playerMonster.getMoves().size() > 2  ) {
         	Move move = playerMonster.getMoves().get(2);
         	int damage = move.calculateDamage(playerMonster, opponentMonster);
         	moveAnimation(playerMonster.getMoves().get(2).getName());
@@ -285,7 +257,7 @@ public class battleGraphics  {
             setupMainB(); 
         	
         }
-        if(move4 != null && move1.contains(x, y) &&  playerMonster.getMoves().size() > 3  ) {
+        if(map.getElementAt(x, y) == move4 &&  playerMonster.getMoves().size() > 3  ) {
         	Move move = playerMonster.getMoves().get(3);
         	int damage = move.calculateDamage(playerMonster, opponentMonster);
         	moveAnimation(playerMonster.getMoves().get(3).getName());
