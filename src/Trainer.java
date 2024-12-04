@@ -8,7 +8,7 @@ public class Trainer {
 	
 	public Trainer(Trainers trainer) {
 		this.name = trainer.name;
-		this.team = new ArrayList<Monster>();
+		this.team = new ArrayList<Monster>(); //sets trainer team
 		for(int x = 0; x < trainer.team.length; x++) {
 			team.add(trainer.team[x]);
 		}
