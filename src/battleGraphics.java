@@ -8,7 +8,7 @@ import java.util.Vector;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class battleGraphics extends GraphicsProgram {
+public class battleGraphics  {
     
 	private Map map;
 	private double screenSizeX;
@@ -85,8 +85,8 @@ public class battleGraphics extends GraphicsProgram {
     	this.move3 = new GImage("move.png");
     	this.move4 = new GImage("move.png");
     	
-        addKeyListeners();                   
-        requestFocus();                      
+       // addKeyListeners();                   
+        //requestFocus();                      
     }
     
     public void clearIconsB() {
@@ -201,7 +201,7 @@ public class battleGraphics extends GraphicsProgram {
         opponentMonsterSprite.setLocation(630, 280);
         map.add(opponentMonsterSprite);
         
-        addMouseListeners();
+       // addMouseListeners();
     }
   
     public void mousePressed(MouseEvent e) {
@@ -396,7 +396,7 @@ private void animateFireBlast() {
    
     FireBlast.setSize(50, 50);
     FireBlast.setLocation(200, 460);  
-    add(FireBlast);
+    map.add(FireBlast);
 
     
     final int targetX = 630;
@@ -641,7 +641,7 @@ private void animateFireBlastTrainer() {
    
     FireBlast.setSize(50, 50);
     FireBlast.setLocation(630, 280);  
-    add(FireBlast);
+    map.add(FireBlast);
 
     
     final int targetX = 200;

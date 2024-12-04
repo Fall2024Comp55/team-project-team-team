@@ -1,9 +1,11 @@
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Random;
 
 import javax.swing.Timer;
+import javax.swing.event.MenuKeyEvent;
 
 import acm.graphics.*;
 import acm.program.GraphicsProgram;
@@ -42,6 +44,7 @@ public class Map extends GraphicsProgram implements KeyListener {
 	private int playerY;
 	
 	private battleGraphics battle;
+	private String currentPage;
 	
 	/* unused variables
 	private int numTimes;
@@ -267,18 +270,34 @@ public class Map extends GraphicsProgram implements KeyListener {
 			// Monster wildMon = new Monster(SpeciesType.values()[rand.nextInt(SpeciesType.values().length)], userP.getTeam().get(0).getLevel());
 			Monster wildMon = new Monster(SpeciesType.VENOMSPIT, 5);
 			// Start the battle
-			battleGraphics battle = new battleGraphics(this, userP, wildMon);
-		    battle.start();
+			battle = new battleGraphics(this, userP, wildMon);
+		    battle.init();
+		    battle.run();
+		    currentPage = "Battle";
 		}
 	}
 	
 	public void setTrainerEncounter(Trainers opponent) {
-		battleGraphics battle = new battleGraphics(this, userP, new Trainer(opponent));
-	    battle.start();
+		battle = new battleGraphics(this, userP, new Trainer(opponent));
+		battle.init();
+	    battle.run();
+	    currentPage = "Battle";
+	}
+	
+	@Override
+	public void mousePressed(MouseEvent e) {
+		if (currentPage == "Battle") {
+			battle.mousePressed(e);
+		}
+		
 	}
 	
 	@Override
 	public void keyPressed(KeyEvent e) {
+		if (currentPage == "Battle") {
+			return;
+		}
+		
 		if(movable) {
 			movable = false;
 			int keyCode = e.getKeyCode();
