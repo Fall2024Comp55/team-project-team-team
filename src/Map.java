@@ -32,6 +32,7 @@ public class Map extends GraphicsProgram implements KeyListener {
 	
 	private GImage userPlayer = new GImage("TrainerD.png");
 	private PlayerTrainer userP = new PlayerTrainer();
+	private Clip sound;
 	
 	private Maps map = Maps.HOMETOWN;
 	private int spawn = 0;
@@ -83,11 +84,11 @@ public class Map extends GraphicsProgram implements KeyListener {
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(soundFile);
 
             // Get a sound clip resource
-            Clip clip = AudioSystem.getClip();
+            sound = AudioSystem.getClip();
 
             // Open the audio stream and start playback
-            clip.open(audioStream);
-            clip.start();
+            sound.open(audioStream);
+            sound.start();
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             e.printStackTrace();
         }
@@ -347,6 +348,7 @@ public class Map extends GraphicsProgram implements KeyListener {
 	 
 	public void endBattle() {
 		currentPage = "Map";
+		sound.stop();
 	}
 	
 	
