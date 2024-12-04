@@ -9,7 +9,11 @@ import javax.swing.event.MenuKeyEvent;
 
 import acm.graphics.*;
 import acm.program.GraphicsProgram;
-
+import javax.sound.sampled.*;
+import java.io.File;
+import java.io.IOException;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 
 
 public class Map extends GraphicsProgram implements KeyListener {
@@ -72,7 +76,22 @@ public class Map extends GraphicsProgram implements KeyListener {
 		addPlayer();
 		adjustMap();
 	}
-	
+	public void playSound(String filePath) {
+        try {
+            // Load the audio file
+            File soundFile = new File(filePath);
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(soundFile);
+
+            // Get a sound clip resource
+            Clip clip = AudioSystem.getClip();
+
+            // Open the audio stream and start playback
+            clip.open(audioStream);
+            clip.start();
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            e.printStackTrace();
+        }
+    }
 	public void createMap() {
 		int col = 0;
 		int row = 0;
@@ -275,6 +294,7 @@ public class Map extends GraphicsProgram implements KeyListener {
 		    battle.init();
 		    battle.run();
 		    currentPage = "Battle";
+		    playSound("media/Pokemon Black & White 2 OST Trainer Battle Music.wav");
 		}
 	}
 	
