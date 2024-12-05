@@ -32,11 +32,20 @@ public class Map extends GraphicsProgram implements KeyListener {
 	
 	private GImage userPlayer = new GImage("TrainerD.png");
 	private PlayerTrainer userP = new PlayerTrainer();
+	
+	//backgroundMusic
 	private Clip battleMusic;
 	private Clip lobbyMusic;
+	
+	//sfx
 	private Clip dirtPathSound;
 	private Clip normalGrassSound;
 	private Clip mouseClickSound;
+	
+	//currentBackgroundMusic
+	private Clip currMusic = lobbyMusic;
+	
+	
 	//private Clip 
 	
 	private Maps map = Maps.HOMETOWN;
@@ -63,6 +72,116 @@ public class Map extends GraphicsProgram implements KeyListener {
 	private GLabel myLabel;
 	*/
 	
+	public void playSound(String filePath, Clip clip, boolean loop) {
+        try {
+        	if(clip != null && clip.isRunning()) {clip.stop();}
+            // Load the audio file
+            File soundFile = new File(filePath);
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(soundFile);
+            
+            
+            //get or reuse the clip
+            if(clip == null) {
+            	clip = AudioSystem.getClip();
+            }
+            
+            
+            //open audio stream and start playback
+            clip.open(audioStream);
+            clip.start();
+            
+            //if loop
+            if(loop) {
+            	clip.loop(Clip.LOOP_CONTINUOUSLY);
+            }
+            
+            
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            e.printStackTrace();
+        }
+    }
+	
+	
+	//Stop a currently playing clip
+	public void stopSound(Clip clip) {
+		if(clip != null && clip.isRunning()) {
+			clip.stop();
+		}
+	}
+	
+	
+	
+	private Clip createClip(String filepath) {
+		try {
+	        File soundFile = new File(filepath);
+	        AudioInputStream audioStream = AudioSystem.getAudioInputStream(soundFile);
+	        Clip clip = AudioSystem.getClip();
+	        clip.open(audioStream);
+	        return clip;
+	    } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+	        e.printStackTrace();
+	        return null;
+	    }
+	}
+	//preload sounds
+	public void preloadSounds() {
+		battleMusic = createClip("media/Pokemon Black & White 2 OST Trainer Battle Music.wav");
+		lobbyMusic = createClip("media/Pokemon Black & White Music： Driftveil City Music.wav");
+		dirtPathSound = createClip("media/walkOnDirt 1.wav");
+		normalGrassSound = createClip("media/walkOnGrass1.wav");
+		mouseClickSound = createClip("media/Mouse Click Sound Effect.wav");
+		
+	}
+	
+	
+	public void playBackgroundMusic(Clip newMusic) {
+	    // Stop the current music
+		if(currMusic == lobbyMusic) {
+			stopSound(currMusic);
+		}
+		else if(currMusic == battleMusic){
+			stopSound(currMusic);
+			
+			currMusic.setFramePosition(-1000);
+		}
+	    
+
+	    // Play the new music
+	    currMusic = newMusic;
+	    if (currMusic != null) {
+	    	currMusic.loop(Clip.LOOP_CONTINUOUSLY);
+	    }
+	}
+	
+	
+	public void playStepSound(String terrainType) {
+	    switch (terrainType.toLowerCase()) {
+	        case "dirt":
+	            playSound("/COMP55TimerLab/media/walkOnDirt 1.wav", dirtPathSound, false);
+	            break;
+	        case "grass":
+	            playSound("/COMP55TimerLab/media/walkOnGrass1.wav", normalGrassSound, false);
+	            break;
+	        default:
+	            System.out.println("Unknown terrain type: " + terrainType);
+	    }
+	}
+	
+	public void playSpecificSound() {
+		switch (currentPage) {
+        case "Map":
+            playBackgroundMusic(lobbyMusic);
+            break;
+        case "Battle":
+        	System.out.println("playingBattleMusic");
+        	stopSound(battleMusic);
+            playBackgroundMusic(battleMusic);
+            break;
+        default:
+            stopSound(currMusic); // Stop music if no valid page
+            System.out.println("No music for page: " + currentPage);
+    }
+	}
 	
 	
 	public void clearMap() {
@@ -78,26 +197,27 @@ public class Map extends GraphicsProgram implements KeyListener {
 		addMouseListeners();
 		requestFocus();
 		
+		currentPage = "Map";
+		
 		createMap();
 		addPlayer();
 		adjustMap();
+		preloadSounds();
+		playSpecificSound();
 	}
-	public void playSound(String filePath) {
-        try {
-            // Load the audio file
-            File soundFile = new File(filePath);
-            AudioInputStream audioStream = AudioSystem.getAudioInputStream(soundFile);
-
-            // Get a sound clip resource
-            battleMusic = AudioSystem.getClip();
-
-            // Open the audio stream and start playback
-            battleMusic.open(audioStream);
-            battleMusic.start();
-        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
-            e.printStackTrace();
-        }
-    }
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public void createMap() {
 		int col = 0;
 		int row = 0;
@@ -131,6 +251,7 @@ public class Map extends GraphicsProgram implements KeyListener {
 			col = 0;
 			row++;
 		}
+		
 	}
 	
 	public void addPlayer() {
@@ -150,7 +271,7 @@ public class Map extends GraphicsProgram implements KeyListener {
 		System.out.println(playerXOffset);
 		System.out.println(playerYOffset);
 		
-		playSound();
+		
 	}
 	
 	public void adjustMap() {
@@ -302,7 +423,9 @@ public class Map extends GraphicsProgram implements KeyListener {
 		    battle.init();
 		    battle.run();
 		    currentPage = "Battle";
-		    playSound("media/Pokemon Black & White 2 OST Trainer Battle Music.wav");
+		    playSpecificSound();
+		    //battleMusic.stop();
+		    //playSound("media/Pokemon Black & White 2 OST Trainer Battle Music.wav");
 		}
 	}
 	
@@ -311,6 +434,7 @@ public class Map extends GraphicsProgram implements KeyListener {
 		battle.init();
 	    battle.run();
 	    currentPage = "Battle";
+	    playSpecificSound();
 	}
 	
 	@Override
@@ -355,7 +479,9 @@ public class Map extends GraphicsProgram implements KeyListener {
 	 
 	public void endBattle() {
 		currentPage = "Map";
-		battleMusic.stop();
+		playSpecificSound();
+		//battleMusic.stop();
+		//playSound("media/Pokemon Black & White Music： Driftveil City Music.wav");
 	}
 	
 	
@@ -363,11 +489,13 @@ public class Map extends GraphicsProgram implements KeyListener {
 		
 		
 		timer.start();
+		
 	}
 	
 	
 	public static void main(String[] args) {
 		new Map().start();
+		
 	}
 	
 }
