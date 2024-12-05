@@ -101,6 +101,21 @@ public class Map extends GraphicsProgram implements KeyListener {
         }
     }
 	
+	public void setVolume(Clip clip, float volume) {
+	    if (clip.isControlSupported(FloatControl.Type.MASTER_GAIN)) {
+	        FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+
+	        // Convert volume percentage (0.0 to 1.0) to decibels
+	        float min = gainControl.getMinimum(); // Lowest possible volume (e.g., -80.0 dB)
+	        float max = gainControl.getMaximum(); // Highest possible volume (e.g., 6.0 dB)
+	        float newVolume = min + (max - min) * volume; // Scale volume to dB range
+
+	        // Set the volume
+	        gainControl.setValue(newVolume);
+	    } else {
+	        System.out.println("Volume control not supported.");
+	    }
+	}
 	
 	//Stop a currently playing clip
 	public void stopSound(Clip clip) {
@@ -157,10 +172,12 @@ public class Map extends GraphicsProgram implements KeyListener {
 	public void playStepSound(String terrainType) {
 	    switch (terrainType.toLowerCase()) {
 	        case "dirt":
-	            playSound("/COMP55TimerLab/media/walkOnDirt 1.wav", dirtPathSound, false);
+	        dirtPathSound.start();
+	        dirtPathSound.setFramePosition(0);
 	            break;
 	        case "grass":
-	            playSound("/COMP55TimerLab/media/walkOnGrass1.wav", normalGrassSound, false);
+	            normalGrassSound.start();
+	            normalGrassSound.setFramePosition(0);
 	            break;
 	        default:
 	            System.out.println("Unknown terrain type: " + terrainType);
@@ -171,6 +188,7 @@ public class Map extends GraphicsProgram implements KeyListener {
 		switch (currentPage) {
         case "Map":
             playBackgroundMusic(lobbyMusic);
+            setVolume(lobbyMusic, 0.1f);
             break;
         case "Battle":
         	System.out.println("playingBattleMusic");
@@ -408,6 +426,12 @@ public class Map extends GraphicsProgram implements KeyListener {
 		}
 		if(newSpace.tile == Tile.TALLGRASS) {
 			setWildEncounter();
+		}
+		if(newSpace.tile == Tile.PATH) {
+			playStepSound("dirt");
+		}
+		if(newSpace.tile == Tile.GRASS) {
+			playStepSound("grass");
 		}
 	}
 	
