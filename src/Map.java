@@ -172,10 +172,12 @@ public class Map extends GraphicsProgram implements KeyListener {
 	public void playStepSound(String terrainType) {
 	    switch (terrainType.toLowerCase()) {
 	        case "dirt":
+	        setVolume(dirtPathSound, 0.75f);
 	        dirtPathSound.start();
 	        dirtPathSound.setFramePosition(0);
 	            break;
 	        case "grass":
+	        	 setVolume(normalGrassSound, 0.75f);
 	            normalGrassSound.start();
 	            normalGrassSound.setFramePosition(0);
 	            break;
@@ -188,7 +190,7 @@ public class Map extends GraphicsProgram implements KeyListener {
 		switch (currentPage) {
         case "Map":
             playBackgroundMusic(lobbyMusic);
-            setVolume(lobbyMusic, 0.1f);
+            setVolume(lobbyMusic, 0.5f);
             break;
         case "Battle":
         	System.out.println("playingBattleMusic");
