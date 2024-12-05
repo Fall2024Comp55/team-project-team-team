@@ -33,6 +33,11 @@ public class Map extends GraphicsProgram implements KeyListener {
 	private GImage userPlayer = new GImage("TrainerD.png");
 	private PlayerTrainer userP = new PlayerTrainer();
 	private Clip battleMusic;
+	private Clip lobbyMusic;
+	private Clip dirtPathSound;
+	private Clip normalGrassSound;
+	private Clip mouseClickSound;
+	//private Clip 
 	
 	private Maps map = Maps.HOMETOWN;
 	private int spawn = 0;
@@ -144,6 +149,8 @@ public class Map extends GraphicsProgram implements KeyListener {
 		
 		System.out.println(playerXOffset);
 		System.out.println(playerYOffset);
+		
+		playSound();
 	}
 	
 	public void adjustMap() {
