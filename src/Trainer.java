@@ -10,7 +10,7 @@ public class Trainer {
 		this.name = trainer.name;
 		this.team = new ArrayList<Monster>(); //sets trainer team
 		for(int x = 0; x < trainer.team.length; x++) {
-			team.add(trainer.team[x]);
+			team.add(new Monster(trainer.team[x], trainer.levels[x]));
 		}
 		this.money = trainer.money;
 	}

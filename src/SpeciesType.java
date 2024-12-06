@@ -8,23 +8,51 @@
 import acm.graphics.GImage;
 
 public enum SpeciesType {
-
-	SPIDER		("Spider", "A small, agile creature.", 											30, 10, 5,  Type.BUG,    null,			"placeholderCharacter.png", ""),
-	GLIMMERBUG	("Glimmerbug", "A glowing insect with magical properties.", 					25, 15, 7,  Type.BUG,    Type.FAIRY,	"placeholderCharacter.png", ""),
-	STONEJAW	("Stonejaw", "A rock-like monster with a strong bite.", 						50, 20, 15, Type.ROCK,   null,			"", ""),
-	IRONWHISKER	("Ironwhisker", "A steel Pokémon known for its durability.", 					40, 25, 20, Type.STEEL,  null,			"", ""),
-	SHADOWMATH	("Shadowmath", "A mysterious monster that blends into the shadows.", 			35, 18, 12, Type.DARK,   null,			"octoMonsterEv1Front.png", "octoMonsterEv1Back.png"),
-	WATERWISP	("Waterwisp", "A mystical water Pokémon that flows gracefully.", 				28, 12, 8,  Type.WATER,  Type.GHOST,	"", ""),
-	FLAMECLAW	("Flameclaw", "A fiery creature with sharp claws and fierce temper.", 			40, 22, 10, Type.FIRE,   Type.FIGHTING,	"placeholderCharacter.png", ""),
-	FROSTBEAK	("Frostbeak", "An icy bird that can freeze its foes with a glance.", 			32, 18, 15, Type.ICE,    Type.FLYING,	"", ""),
-	ROCKSHIELD	("Rockshield", "A stout Pokémon that defends its allies with a sturdy shell.", 	55, 15, 25, Type.ROCK,   null,			"", ""),
-	GHOSTFLARE	("Ghostflare", "An ethereal being that flickers in and out of existence.", 		30, 20, 10, Type.GHOST,  null,			"", ""),
-	STORMWIND	("Stormwind", "A powerful creature that harnesses the energy of storms.", 		45, 30, 12, Type.FLYING, Type.ELECTRIC,	"", ""),
-	GREENHORN	("Greenhorn", "A powerful creature that harnesses the energy of storms.", 		50, 15, 25, Type.GRASS,  null,	        "", ""),
-	THORNTAIL	("Thorntail", "A reptilian Pokémon covered in sharp thorns.", 					38, 17, 18, Type.GROUND, Type.GRASS,	"", ""),
-	VENOMSPIT	("Venomspit", "A toxic Pokémon that can paralyze its enemies.", 				26, 25, 5,  Type.POISON, null,			"excitedGibliEv1Front.png", "excitedGibliEv1Back.png");
-
-
+	
+	SPIDER		("Spider", "A small, agile creature.", 											30, 10, 5,  Type.BUG,    null,			"placeholderCharacter.png", "", new Move[] {
+			Move.TACKLE, Move.BODYSLAM, Move.EMBER, Move.SHOCK
+	}),
+	GLIMMERBUG	("Glimmerbug", "A glowing insect with magical properties.", 					25, 15, 7,  Type.BUG,    Type.FAIRY,	"placeholderCharacter.png", "", new Move[] {
+			Move.TACKLE, Move.BODYSLAM, Move.EMBER, Move.SHOCK
+	}),
+	STONEJAW	("Stonejaw", "A rock-like monster with a strong bite.", 						50, 20, 15, Type.ROCK,   null,			"placeholderCharacter.png", "", new Move[] {
+			Move.TACKLE, Move.BODYSLAM, Move.EMBER, Move.SHOCK
+	}),
+	IRONWHISKER	("Ironwhisker", "A steel Pokémon known for its durability.", 					40, 25, 20, Type.STEEL,  null,			"placeholderCharacter.png", "", new Move[] {
+			Move.TACKLE, Move.BODYSLAM, Move.EMBER, Move.SHOCK
+	}),
+	SHADOWMATH	("Shadowmath", "A mysterious monster that blends into the shadows.", 			35, 18, 12, Type.DARK,   null,			"octoMonsterEv1Front.png", "octoMonsterEv1Back.png", new Move[] {
+			Move.TACKLE, Move.BODYSLAM, Move.EMBER, Move.SHOCK
+	}),
+	WATERWISP	("Waterwisp", "A mystical water Pokémon that flows gracefully.", 				28, 12, 8,  Type.WATER,  Type.GHOST,	"placeholderCharacter.png", "", new Move[] {
+			Move.TACKLE, Move.BODYSLAM, Move.EMBER, Move.SHOCK
+	}),
+	FLAMECLAW	("Flameclaw", "A fiery creature with sharp claws and fierce temper.", 			40, 22, 10, Type.FIRE,   Type.FIGHTING,	"placeholderCharacter.png", "", new Move[] {
+			Move.TACKLE, Move.BODYSLAM, Move.EMBER, Move.SHOCK
+	}),
+	FROSTBEAK	("Frostbeak", "An icy bird that can freeze its foes with a glance.", 			32, 18, 15, Type.ICE,    Type.FLYING,	"placeholderCharacter.png", "", new Move[] {
+			Move.TACKLE, Move.BODYSLAM, Move.EMBER, Move.SHOCK
+	}),
+	ROCKSHIELD	("Rockshield", "A stout Pokémon that defends its allies with a sturdy shell.", 	55, 15, 25, Type.ROCK,   null,			"placeholderCharacter.png", "", new Move[] {
+			Move.TACKLE, Move.BODYSLAM, Move.EMBER, Move.SHOCK
+	}),
+	GHOSTFLARE	("Ghostflare", "An ethereal being that flickers in and out of existence.", 		30, 20, 10, Type.GHOST,  null,			"placeholderCharacter.png", "", new Move[] {
+			Move.TACKLE, Move.BODYSLAM, Move.EMBER, Move.SHOCK
+	}),
+	STORMWIND	("Stormwind", "A powerful creature that harnesses the energy of storms.", 		45, 30, 12, Type.FLYING, Type.ELECTRIC,	"placeholderCharacter.png", "", new Move[] {
+			Move.TACKLE, Move.BODYSLAM, Move.EMBER, Move.SHOCK
+	}),
+	GREENHORN	("Greenhorn", "A powerful creature that harnesses the energy of storms.", 		50, 15, 25, Type.GRASS,  null,	        "placeholderCharacter.png", "", new Move[] {
+			Move.TACKLE, Move.BODYSLAM, Move.EMBER, Move.SHOCK
+	}),
+	THORNTAIL	("Thorntail", "A reptilian Pokémon covered in sharp thorns.", 					38, 17, 18, Type.GROUND, Type.GRASS,	"placeholderCharacter.png", "", new Move[] {
+			Move.TACKLE, Move.BODYSLAM, Move.EMBER, Move.SHOCK
+	}),
+	VENOMSPIT	("Venomspit", "A toxic Pokémon that can paralyze its enemies.", 				26, 25, 5,  Type.POISON, null,			"excitedGibliEv1Front.png", "excitedGibliEv1Back.png", new Move[] {
+			Move.TACKLE, Move.BODYSLAM, Move.EMBER, Move.SHOCK
+	});
+	
+	
 	public String name;
 	public String description;
 	public GImage frontSprite;
@@ -37,8 +65,10 @@ public enum SpeciesType {
 	public Type type1;
 	public Type type2;
 	
+	public Move[] moves;
 	
-	SpeciesType(String name, String description, int baseHP, int baseATK, int baseDEF, Type type1, Type type2, String front, String back) {
+	
+	SpeciesType(String name, String description, int baseHP, int baseATK, int baseDEF, Type type1, Type type2, String front, String back, Move[] moves) {
 		this.name = name;
 		this.description = description;
 
@@ -48,8 +78,11 @@ public enum SpeciesType {
 		this.baseHP = baseHP;
 		this.baseATK = baseATK;
 		this.baseDEF = baseDEF;
+		
 		this.type1 = type1;
 		this.type2 = type2;
+		
+		this.moves = moves;
 	}
 	
 	
