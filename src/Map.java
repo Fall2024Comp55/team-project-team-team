@@ -325,6 +325,7 @@ public class Map extends GraphicsProgram implements KeyListener {
 		switch(newMap) {
 		case HOMETOWN: this.map = Maps.HOMETOWN; break;
 		case ROUTE1: this.map = Maps.ROUTE1; break;
+		case GYM: this.map = Maps.GYM; break;
 		}
 		this.spawn = spawn;
 		createMap();

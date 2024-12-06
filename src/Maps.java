@@ -3,7 +3,7 @@ import acm.graphics.GImage;
 
 // comment
 enum MapName {
-	HOMETOWN, ROUTE1;
+	HOMETOWN, ROUTE1, GYM;
 }
 
 public enum Maps {
@@ -44,8 +44,20 @@ public enum Maps {
 		{'w','w','w','o','p','o','o','o','o','o','o','o','o','o','o','o','o','o','o','o'}
 	}, new int[][] { // Array containing all possible starting coordinates on the map
 		{4, 19}, {10, 0}
+	}),
+	GYM(new char[][] { // Array of characters corresponding to tile types
+		{'o','o','o','o','o','o','o','o','o','o','o','o','o','o','o','o'},
+		{'o','g','g','g','g','g','g','g','g','g','g','g','g','g','g','o'},
+		{'o','g','g','g','g','g','g','g','g','g','g','g','g','g','g','o'},
+		{'o','g','g','g','g','g','g','g','g','g','g','g','g','g','g','o'},
+		{'o','g','g','g','g','g','g','g','g','g','g','g','g','g','g','o'},
+		{'o','g','g','g','g','g','g','g','g','g','g','g','g','g','g','o'},
+		{'o','g','g','g','g','g','g','g','g','g','g','g','g','g','g','o'},
+		{'o','g','g','g','g','g','g','g','g','g','g','g','g','g','g','o'},
+		{'o','o','o','o','o','o','o','p','o','o','o','o','o','o','o','o'}
+	}, new int[][] { // Array containing all possible starting coordinates on the map
+		{7,8}
 	});
-	
 	Maps(char[][] spaces, int[][] starts) {
 		this.spaceMap = new Space[spaces.length][spaces[0].length];
 		int nextX = 0, nextY = 0;
@@ -83,11 +95,15 @@ public enum Maps {
 		HOMETOWN.spaceMap[0][4].setDestination(MapName.ROUTE1, 0);
 		
 		ROUTE1.spaceMap[19][4].setDestination(MapName.HOMETOWN, 1);
+		ROUTE1.spaceMap[0][10].setDestination(MapName.GYM, 0);
+		
 		ROUTE1.spaceMap[2][8].enemy = Trainers.ROUTE1TRAINER0;
 		ROUTE1.spaceMap[2][9].sightline = Trainers.ROUTE1TRAINER0;
 		ROUTE1.spaceMap[2][10].sightline = Trainers.ROUTE1TRAINER0;
 		ROUTE1.spaceMap[2][11].sightline = Trainers.ROUTE1TRAINER0;
 		ROUTE1.spaceMap[2][12].sightline = Trainers.ROUTE1TRAINER0;
+		
+		GYM.spaceMap[8][7].setDestination(MapName.ROUTE1, 1);
 	}
 }
 
