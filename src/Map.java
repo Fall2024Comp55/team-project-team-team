@@ -507,6 +507,7 @@ public class Map extends GraphicsProgram implements KeyListener {
 	}
 	 
 	public void endBattle() {
+		 battle = null;
 		currentPage = "Map";
 		playSpecificSound();
 		//battleMusic.stop();

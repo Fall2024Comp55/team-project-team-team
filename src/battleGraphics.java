@@ -63,11 +63,7 @@ public class battleGraphics  {
     
     public battleGraphics(Map map, Trainer player, Monster wildMonster) {
     	
-    	wildMonster.addmove(Move.FIREBLAST);
-    	wildMonster.addmove(Move.TACKLE);
-    	wildMonster.addmove(Move.WATERGUN);
-    	wildMonster.addmove(Move.FLAMETHROWER);
-    	
+    
     	this.map = map;
     	this.screenSizeX = map.getWidth();
     	this.screenSizeY = map.getHeight();
@@ -76,11 +72,7 @@ public class battleGraphics  {
     	this.wildMonster = wildMonster;
     	this.playerMonster = player.getTeam().get(0);
     	
-    	playerMonster.addmove(Move.FIREBLAST);
-    	playerMonster.addmove(Move.TACKLE);
-    	playerMonster.addmove(Move.WATERGUN);
-    	playerMonster.addmove(Move.FLAMETHROWER);
-    	
+   
     	this.playerMonsterSprite = player.getTeam().get(0).getBackSprite();
     	this.opponentMonsterSprite = wildMonster.getFrontSprite();
     }
@@ -437,7 +429,7 @@ public class battleGraphics  {
                     map.remove(playerMonsterSprite); 	
                     map.endBattle();
                 	
-                }else if(opponentMonster.isFainted() && opponentMonster != null ) {
+                }else if( opponentMonster != null && opponentMonster.isFainted()  ) {
                 	clearIconsB(); 
                     clearIconsF();
                     
@@ -446,7 +438,7 @@ public class battleGraphics  {
                     map.remove(playerMonsterSprite); 	
                     map.endBattle();
                 	
-                }else if(wildMonster.isFainted()  && wildMonster != null ){
+                }else if (  wildMonster != null  && wildMonster.isFainted() ){
                 	clearIconsB(); 
                     clearIconsF();
                     
@@ -465,9 +457,10 @@ public class battleGraphics  {
 public void moveAnimation(String moveName) {
    
     if (moveName.equals("Tackle")) {
+    	
         animateTackle();
     } else if (moveName.equals("Ember")) {
-        //animateEmber();
+        animateEmber();
     } else if (moveName.equals("Flamethrower")) {
        animateFlamethrower();
     } else if (moveName.equals("Fire Blast")) {
@@ -475,15 +468,216 @@ public void moveAnimation(String moveName) {
     } else if (moveName.equals("Water Gun")) {
         animateWaterGun();
     } else if (moveName.equals("Surf")) {
-       // animateSurf();
+        animateSurf();
     } else if (moveName.equals("Thunderbolt")) {
-        //animateThunderbolt();
+        animateThunderbolt();
     } else if (moveName.equals("Earthquake")) {
-       // animateEarthquake();
+       animateEarthquake();
     } 
    
 }
 
+
+private void animateEarthquake() {
+    
+    GImage FireBlast = new GImage("rock.png");  
+   
+    FireBlast.setSize(50, 50);
+    FireBlast.setLocation(200, 460);  
+    map.add(FireBlast);
+
+    
+    final int targetX = 630;
+    final int targetY = 280;
+
+   
+    final int moveDistance = 10;
+
+    // Calculate the total number of frames needed to move horizontally and vertically
+    // We divide the distance by the move distance, rounded up, so it covers the full distance
+    final int totalFramesX = (int) Math.ceil((double) Math.abs(targetX - FireBlast.getX()) / moveDistance);
+    final int totalFramesY = (int) Math.ceil((double) Math.abs(targetY - FireBlast.getY()) / moveDistance);
+
+    // We want to take the maximum of both X and Y frame counts so the image finishes in sync
+    final int totalFrames = Math.max(totalFramesX, totalFramesY);
+
+    // Create a timer to animate the image's movement
+    Timer timer = new Timer();
+    timer.scheduleAtFixedRate(new TimerTask() {
+        private int framesMoved = 0;
+
+        @Override
+        public void run() {
+            if (framesMoved < totalFrames) {
+               
+                int moveX = (int) ((targetX - FireBlast.getX()) / (totalFrames - framesMoved));
+                int moveY = (int) ((targetY - FireBlast.getY()) / (totalFrames - framesMoved));
+
+               
+                FireBlast.move(moveX, moveY);
+
+                framesMoved++;
+            } else {
+                
+                cancel();
+                map.remove(FireBlast);
+            }
+        }
+    }, 0, 30); 
+    
+}
+
+
+
+private void animateThunderbolt() {
+    
+    GImage FireBlast = new GImage("lighting.png");  
+   
+    FireBlast.setSize(50, 50);
+    FireBlast.setLocation(200, 460);  
+    map.add(FireBlast);
+
+    
+    final int targetX = 630;
+    final int targetY = 280;
+
+   
+    final int moveDistance = 10;
+
+    // Calculate the total number of frames needed to move horizontally and vertically
+    // We divide the distance by the move distance, rounded up, so it covers the full distance
+    final int totalFramesX = (int) Math.ceil((double) Math.abs(targetX - FireBlast.getX()) / moveDistance);
+    final int totalFramesY = (int) Math.ceil((double) Math.abs(targetY - FireBlast.getY()) / moveDistance);
+
+    // We want to take the maximum of both X and Y frame counts so the image finishes in sync
+    final int totalFrames = Math.max(totalFramesX, totalFramesY);
+
+    // Create a timer to animate the image's movement
+    Timer timer = new Timer();
+    timer.scheduleAtFixedRate(new TimerTask() {
+        private int framesMoved = 0;
+
+        @Override
+        public void run() {
+            if (framesMoved < totalFrames) {
+               
+                int moveX = (int) ((targetX - FireBlast.getX()) / (totalFrames - framesMoved));
+                int moveY = (int) ((targetY - FireBlast.getY()) / (totalFrames - framesMoved));
+
+               
+                FireBlast.move(moveX, moveY);
+
+                framesMoved++;
+            } else {
+                
+                cancel();
+                map.remove(FireBlast);
+            }
+        }
+    }, 0, 30); 
+    
+}
+
+
+
+private void animateSurf() {
+    
+    GImage FireBlast = new GImage("wave.png");  
+   
+    FireBlast.setSize(50, 50);
+    FireBlast.setLocation(200, 460);  
+    map.add(FireBlast);
+
+    
+    final int targetX = 630;
+    final int targetY = 280;
+
+   
+    final int moveDistance = 10;
+
+    // Calculate the total number of frames needed to move horizontally and vertically
+    // We divide the distance by the move distance, rounded up, so it covers the full distance
+    final int totalFramesX = (int) Math.ceil((double) Math.abs(targetX - FireBlast.getX()) / moveDistance);
+    final int totalFramesY = (int) Math.ceil((double) Math.abs(targetY - FireBlast.getY()) / moveDistance);
+
+    // We want to take the maximum of both X and Y frame counts so the image finishes in sync
+    final int totalFrames = Math.max(totalFramesX, totalFramesY);
+
+    // Create a timer to animate the image's movement
+    Timer timer = new Timer();
+    timer.scheduleAtFixedRate(new TimerTask() {
+        private int framesMoved = 0;
+
+        @Override
+        public void run() {
+            if (framesMoved < totalFrames) {
+               
+                int moveX = (int) ((targetX - FireBlast.getX()) / (totalFrames - framesMoved));
+                int moveY = (int) ((targetY - FireBlast.getY()) / (totalFrames - framesMoved));
+
+               
+                FireBlast.move(moveX, moveY);
+
+                framesMoved++;
+            } else {
+                
+                cancel();
+                map.remove(FireBlast);
+            }
+        }
+    }, 0, 30); 
+    
+}
+
+
+private void animateEmber() {
+    
+    GImage FireBlast = new GImage("fireball.png");  
+   
+    FireBlast.setSize(50, 50);
+    FireBlast.setLocation(200, 460);  
+    map.add(FireBlast);
+
+    
+    final int targetX = 630;
+    final int targetY = 280;
+
+   
+    final int moveDistance = 10;
+
+    // Calculate the total number of frames needed to move horizontally and vertically
+    // We divide the distance by the move distance, rounded up, so it covers the full distance
+    final int totalFramesX = (int) Math.ceil((double) Math.abs(targetX - FireBlast.getX()) / moveDistance);
+    final int totalFramesY = (int) Math.ceil((double) Math.abs(targetY - FireBlast.getY()) / moveDistance);
+
+    // We want to take the maximum of both X and Y frame counts so the image finishes in sync
+    final int totalFrames = Math.max(totalFramesX, totalFramesY);
+
+    // Create a timer to animate the image's movement
+    Timer timer = new Timer();
+    timer.scheduleAtFixedRate(new TimerTask() {
+        private int framesMoved = 0;
+
+        @Override
+        public void run() {
+            if (framesMoved < totalFrames) {
+               
+                int moveX = (int) ((targetX - FireBlast.getX()) / (totalFrames - framesMoved));
+                int moveY = (int) ((targetY - FireBlast.getY()) / (totalFrames - framesMoved));
+
+               
+                FireBlast.move(moveX, moveY);
+
+                framesMoved++;
+            } else {
+                
+                cancel();
+                map.remove(FireBlast);
+            }
+        }
+    }, 0, 30); 
+    
+}
 
 private void animateTackle() {
     // Create the tackle effect image
@@ -581,7 +775,6 @@ private void animateFireBlast() {
     }, 0, 30); 
     
 }
-
 
 private void animateFlamethrower() {
     
