@@ -37,7 +37,7 @@ public class Map extends GraphicsProgram implements KeyListener {
 	private Clip battleMusic;
 	private Clip lobbyMusic;
 	
-	//sfx
+	//sound effects
 	private Clip dirtPathSound;
 	private Clip normalGrassSound;
 	private Clip mouseClickSound;
