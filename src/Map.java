@@ -1,6 +1,8 @@
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -37,7 +39,7 @@ public class Map extends GraphicsProgram implements KeyListener {
 	private Clip battleMusic;
 	private Clip lobbyMusic;
 	
-	//sound effects
+	//sfx
 	private Clip dirtPathSound;
 	private Clip normalGrassSound;
 	private Clip mouseClickSound;
@@ -463,12 +465,12 @@ public class Map extends GraphicsProgram implements KeyListener {
 	    playSpecificSound();
 	}
 	
+	
 	@Override
 	public void mousePressed(MouseEvent e) {
-		if (currentPage == "Battle") {
-			battle.mousePressed(e);
-		}
-		
+	    if (currentPage != null && currentPage.equals("Battle")) {
+	        battle.mousePressed(e);  
+	    }
 	}
 	
 	@Override

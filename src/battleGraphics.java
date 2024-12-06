@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Vector;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.Random;
+
 
 public class battleGraphics  {
     
@@ -41,7 +43,11 @@ public class battleGraphics  {
     
     private boolean isPlayerTurn;
     
+    private final Timer timer = new Timer();
+    
     public battleGraphics(Map map, Trainer player, Trainer opponent) {
+    	
+    	
     	this.map = map;
     	this.screenSizeX = map.getWidth();
     	this.screenSizeY = map.getHeight();
@@ -56,6 +62,12 @@ public class battleGraphics  {
     }
     
     public battleGraphics(Map map, Trainer player, Monster wildMonster) {
+    	
+    	wildMonster.addmove(Move.FIREBLAST);
+    	wildMonster.addmove(Move.TACKLE);
+    	wildMonster.addmove(Move.WATERGUN);
+    	wildMonster.addmove(Move.FLAMETHROWER);
+    	
     	this.map = map;
     	this.screenSizeX = map.getWidth();
     	this.screenSizeY = map.getHeight();
@@ -63,6 +75,11 @@ public class battleGraphics  {
     	this.player = player;
     	this.wildMonster = wildMonster;
     	this.playerMonster = player.getTeam().get(0);
+    	
+    	playerMonster.addmove(Move.FIREBLAST);
+    	playerMonster.addmove(Move.TACKLE);
+    	playerMonster.addmove(Move.WATERGUN);
+    	playerMonster.addmove(Move.FLAMETHROWER);
     	
     	this.playerMonsterSprite = player.getTeam().get(0).getBackSprite();
     	this.opponentMonsterSprite = wildMonster.getFrontSprite();
@@ -89,8 +106,14 @@ public class battleGraphics  {
         //requestFocus();                      
     }
     
+   
+
+    
     public void clearIconsB() {
-        map.remove(fighticon);
+    	map.remove(battleScreen);
+    	
+    	 map.remove(fighticon);
+    	
         map.remove(bagicon);
         map.remove(Monstericon);
         map.remove(runicon);
@@ -124,6 +147,7 @@ public class battleGraphics  {
         map.add(Monstericon);
         map.add(runicon);
     }
+    
 
     public void clearIconsF() {
         	map.remove(bscreen);
@@ -182,15 +206,198 @@ public class battleGraphics  {
         opponentMonsterSprite.setSize(50, 50);
         opponentMonsterSprite.setLocation(630, 280);
         map.add(opponentMonsterSprite);
-        
+       
        // addMouseListeners();
     }
   
     public void mousePressed(MouseEvent e) {
     	int x = e.getX();
         int y = e.getY();
+       
+        if ( map.getElementAt(x, y) == fighticon ) {
+        	
+            setupMainF(); 
+            return;
+        } 
         
-        // clears everything 
+          if(map.getElementAt(x, y) == move1 &&  playerMonster.getMoves().size() > 0 ) {
+        	if (opponentMonster == null  ) {
+        		 Move move = playerMonster.getMoves().get(0);
+                 int damage = move.calculateDamage(playerMonster, wildMonster);   
+                 moveAnimation(move.getName());
+                 playerMonster.updateHP(-damage);
+                 
+                 Move move2 = wildMonster.selectRandomMove();
+                 int damage2 = move2.calculateDamage(wildMonster, playerMonster);
+
+                
+                 timer.schedule(new TimerTask() {
+                     @Override
+                     public void run() {
+                         moveAnimationTrainer(move2.getName());
+                         playerMonster.updateHP(-damage2);
+                     }
+                 }, 3000); 
+                 
+                 clearIconsF(); 
+                 setupMainB(); 
+        		
+        	}else {
+        		Move move = playerMonster.getMoves().get(0);
+            	int damage = move.calculateDamage(playerMonster, opponentMonster);
+            	moveAnimation(playerMonster.getMoves().get(0).getName());
+            	playerMonster.updateHP(-damage);
+            	   
+            	Move move2 = opponentMonster.selectRandomMove();
+                int damage2 = move2.calculateDamage(opponentMonster, playerMonster);
+                
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                    	 opponentMonster.updateHP(-damage2);
+                         moveAnimationTrainer(move2.getName());
+                    }
+                }, 3000); 
+                clearIconsF(); 
+                setupMainB(); 
+        	}
+        	 
+        }
+        
+       
+        if( map.getElementAt(x, y) == move2  &&  playerMonster.getMoves().size() > 1 ) {
+        	if (opponentMonster == null  ) {
+        		Move move = playerMonster.getMoves().get(1);
+            	int damage = move.calculateDamage(playerMonster, wildMonster);
+            	moveAnimation(playerMonster.getMoves().get(1).getName());
+            	playerMonster.updateHP(-damage);
+            	
+            	Move move2 = wildMonster.selectRandomMove();
+                int damage2 = move2.calculateDamage(wildMonster, playerMonster);
+               
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        moveAnimationTrainer(move2.getName());
+                        playerMonster.updateHP(-damage2);
+                    }
+                }, 3000);
+                clearIconsF(); 
+                setupMainB(); 
+                
+        	}else {
+        		clearIconsF(); 
+                setupMainB(); 
+        		Move move = playerMonster.getMoves().get(1);
+            	int damage = move.calculateDamage(playerMonster, opponentMonster);
+            	moveAnimation(playerMonster.getMoves().get(1).getName());
+            	playerMonster.updateHP(-damage);
+            	
+            	Move move2 = opponentMonster.selectRandomMove();
+                int damage2 = move2.calculateDamage(opponentMonster, playerMonster);
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                    	 opponentMonster.updateHP(-damage2);
+                         moveAnimationTrainer(move2.getName());
+                    }
+                }, 3000); 
+                clearIconsF(); 
+                setupMainB(); 
+                
+        	}
+        	
+            
+        }
+        
+       
+        if(map.getElementAt(x, y) == move3  &&  playerMonster.getMoves().size() > 2  ) {
+        	if (opponentMonster == null  ) {
+        		Move move = playerMonster.getMoves().get(2);
+            	int damage = move.calculateDamage(playerMonster, wildMonster);
+            	moveAnimation(playerMonster.getMoves().get(2).getName());
+            	playerMonster.updateHP(-damage);
+            	
+            	
+            	Move move2 = wildMonster.selectRandomMove();
+                int damage2 = move2.calculateDamage(wildMonster, playerMonster);
+               	timer.schedule(new TimerTask() {
+                     @Override
+                     public void run() {
+                         moveAnimationTrainer(move2.getName());
+                         playerMonster.updateHP(-damage2);
+                     }
+                 }, 3000);
+                 
+                clearIconsF(); 
+            	setupMainB(); 
+
+        	}else {
+        		Move move = playerMonster.getMoves().get(2);
+            	int damage = move.calculateDamage(playerMonster, opponentMonster);
+            	moveAnimation(playerMonster.getMoves().get(2).getName());
+            	playerMonster.updateHP(-damage);
+            	
+            	
+            	Move move2 = opponentMonster.selectRandomMove();
+                int damage2 = move2.calculateDamage(opponentMonster, playerMonster);
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                    	 opponentMonster.updateHP(-damage2);
+                         moveAnimationTrainer(move2.getName());
+                    }
+                }, 3000); 
+                clearIconsF(); 
+                setupMainB(); 
+        	}
+        	
+        	
+        }
+        if(map.getElementAt(x, y) == move4 &&  playerMonster.getMoves().size() > 3  ) {
+        	if (opponentMonster == null  ) {
+        		Move move = playerMonster.getMoves().get(3);
+            	int damage = move.calculateDamage(playerMonster, wildMonster);
+            	moveAnimation(playerMonster.getMoves().get(3).getName());
+            	playerMonster.updateHP(-damage);
+            	
+            	Move move2 = wildMonster.selectRandomMove();
+                int damage2 = move2.calculateDamage(wildMonster, playerMonster);
+                timer.schedule(new TimerTask() {
+                     @Override
+                     public void run() {
+                         moveAnimationTrainer(move2.getName());
+                         playerMonster.updateHP(-damage2);
+                     }
+                 }, 3000);  
+                clearIconsF(); 
+            	setupMainB(); 
+                 
+        	}else {
+        		Move move = playerMonster.getMoves().get(3);
+            	int damage = move.calculateDamage(playerMonster, opponentMonster);
+            	moveAnimation(playerMonster.getMoves().get(3).getName());
+            	playerMonster.updateHP(-damage);
+            	
+            	Move move2 = opponentMonster.selectRandomMove();
+                int damage2 = move2.calculateDamage(opponentMonster, playerMonster);
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                    	 opponentMonster.updateHP(-damage2);
+                         moveAnimationTrainer(move2.getName());
+                    }
+                }, 3000); 
+                clearIconsF(); 
+                setupMainB();  
+        	}
+        	
+
+        }
+     
+        
+        
+        
         if ( map.getElementAt(x, y) == runicon ) {
             clearIconsB(); 
             clearIconsF();
@@ -201,77 +408,13 @@ public class battleGraphics  {
             map.endBattle();
         }
         
-        if (map.getElementAt(x, y) == fighticon ) {
-            setupMainF();  
-        }
+        
         
         if (map.getElementAt(x, y) == exit ) {
             clearIconsF(); 
             setupMainB(); 
         }
-        
-        if(map.getElementAt(x, y) == move1 &&  playerMonster.getMoves().size() > 0 ) {
-        	Move move = playerMonster.getMoves().get(0);
-        	int damage = move.calculateDamage(playerMonster, opponentMonster);
-        	moveAnimation(playerMonster.getMoves().get(0).getName());
-        	playerMonster.updateHP(-damage);
-        	
-        	Move move2 = selectRandomMove(opponentMonster);
-            int damage2 = move2.calculateDamage(opponentMonster, playerMonster);
-            moveAnimationTrainer(move2.getName());
-            playerMonster.updateHP(-damage2);
-           
-            
-            clearIconsF(); 
-            setupMainB(); 
-        }
-        
-     
-        if( map.getElementAt(x, y) == move2  &&  playerMonster.getMoves().size() > 1  ) {
-        	Move move = playerMonster.getMoves().get(1);
-        	int damage = move.calculateDamage(playerMonster, opponentMonster);
-        	moveAnimation(playerMonster.getMoves().get(1).getName());
-        	playerMonster.updateHP(-damage);
-        	
-        	Move move2 = selectRandomMove(opponentMonster);
-            int damage2 = move2.calculateDamage(opponentMonster, playerMonster);
-            playerMonster.updateHP(-damage2);
-            moveAnimationTrainer(move2.getName());
-            
-            clearIconsF(); 
-            setupMainB(); 
-        }
-        if(map.getElementAt(x, y) == move3  &&  playerMonster.getMoves().size() > 2  ) {
-        	Move move = playerMonster.getMoves().get(2);
-        	int damage = move.calculateDamage(playerMonster, opponentMonster);
-        	moveAnimation(playerMonster.getMoves().get(2).getName());
-        	playerMonster.updateHP(-damage);
-        	
-        	
-        	Move move2 = selectRandomMove(opponentMonster);
-            int damage2 = move2.calculateDamage(opponentMonster, playerMonster);
-            moveAnimationTrainer(move2.getName());
-            playerMonster.updateHP(-damage2);
-            
-            clearIconsF(); 
-            setupMainB(); 
-        	
-        }
-        if(map.getElementAt(x, y) == move4 &&  playerMonster.getMoves().size() > 3  ) {
-        	Move move = playerMonster.getMoves().get(3);
-        	int damage = move.calculateDamage(playerMonster, opponentMonster);
-        	moveAnimation(playerMonster.getMoves().get(3).getName());
-        	playerMonster.updateHP(-damage);
-        	
-        	Move move2 = selectRandomMove(opponentMonster);
-            int damage2 = move2.calculateDamage(opponentMonster, playerMonster);
-            moveAnimationTrainer(move2.getName());
-            playerMonster.updateHP(-damage2);
-            
-            clearIconsF(); 
-            setupMainB(); 
-        }
-        
+       
         
         
         if (bagicon != null && bagicon.contains(x, y)) {
@@ -281,14 +424,42 @@ public class battleGraphics  {
             // Handle Monster icon click (not implemented here)
         }
    
+        	
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+            	if(playerMonster.isFainted() && playerMonster != null) {
+                	clearIconsB(); 
+                    clearIconsF();
+                    
+                    map.remove(background);
+                    map.remove(opponentMonsterSprite);
+                    map.remove(playerMonsterSprite); 	
+                    map.endBattle();
+                	
+                }else if(opponentMonster.isFainted() && opponentMonster != null ) {
+                	clearIconsB(); 
+                    clearIconsF();
+                    
+                    map.remove(background);
+                    map.remove(opponentMonsterSprite);
+                    map.remove(playerMonsterSprite); 	
+                    map.endBattle();
+                	
+                }else if(wildMonster.isFainted()  && wildMonster != null ){
+                	clearIconsB(); 
+                    clearIconsF();
+                    
+                    map.remove(background);
+                    map.remove(opponentMonsterSprite);
+                    map.remove(playerMonsterSprite); 	
+                    map.endBattle();
+                }
+            }
+        }, 7000); 
+        
         System.out.println("Mouse clicked at: (" + x + ", " + y + ")");
     }
-    
-
-private Move selectRandomMove(Monster trainerMonster2) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 
 public void moveAnimation(String moveName) {

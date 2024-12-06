@@ -36,6 +36,7 @@ public enum Move {
         // Additional animation logic can be added here
     }
     
+    
     public int calculateDamage(Monster attacker, Monster defender) {
         // Simplified damage calculation using base power, attack, and defense
         int baseDamage = ((2 * attacker.getLevel() / 5 + 2) * power * attacker.getAtk() / defender.getDef()) / 50 + 2;

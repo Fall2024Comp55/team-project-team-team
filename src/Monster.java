@@ -202,6 +202,15 @@ public class Monster {
 		moves.set(num, move);
 	}
 	
+	public Move selectRandomMove() {
+	    if (moves.isEmpty()) {
+	        return null; 
+	    }
+	    
+	    Random rand = new Random();
+	    int randomIndex = rand.nextInt(moves.size());
+	    return moves.get(randomIndex);
+	}
 	
 	public void setRandomMoves() {
         Random rand = new Random();
