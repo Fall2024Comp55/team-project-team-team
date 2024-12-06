@@ -58,6 +58,9 @@ public class Monster {
         this.type1 = specType.type1;
         this.type2 = specType.type2;
         this.moves = new ArrayList<Move>();
+        for(Move x : specType.moves) {
+        	this.moves.add(x);
+        }
         
         this.level = level;
         this.experience = lvlToExp(level);
@@ -88,6 +91,7 @@ public class Monster {
     public Type getType1() { return this.type1; }
     public Type getType2() { return this.type2; }
     public ArrayList<Move> getMoves() { return this.moves; }
+    public Move getMove(int index) { return this.moves.get(index); }
     
     public int getLevel() { return this.level; }
     public int getExperience() { return this.experience; }
