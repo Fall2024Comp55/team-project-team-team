@@ -41,6 +41,13 @@ public class battleGraphics  {
     private GImage move3;
     private GImage move4;
     
+    private GLabel move1Description;
+    private GLabel move2Description;
+    private GLabel move3Description;
+    private GLabel move4Description;
+    
+    private static final String labelFont = "Arial-Bold-22";
+    
     private boolean isPlayerTurn;
     
     private final Timer timer = new Timer();
@@ -102,6 +109,11 @@ public class battleGraphics  {
     	this.move3 = new GImage("move.png");
     	this.move4 = new GImage("move.png");
     	
+    	this.move1Description = new GLabel("Fire Blast");
+    	this.move2Description = new GLabel("Tackle");
+    	this.move3Description = new GLabel("Water Gun");
+    	this.move4Description = new GLabel("Flame Thrower");
+    	
        // addKeyListeners();                   
         //requestFocus();                      
     }
@@ -157,6 +169,10 @@ public class battleGraphics  {
         	map.remove(move2);
         	map.remove(move3);  
         	map.remove(move4);
+        	map.remove(move1Description);
+        	map.remove(move2Description);
+        	map.remove(move3Description);
+        	map.remove(move4Description);
     }
 
     public void setupMainF() {
@@ -178,7 +194,7 @@ public class battleGraphics  {
         move2.setSize(327, 98);
         move2.setLocation(330, 530); 
         
-        move3 = new GImage("move.png"); 
+        move3 = new GImage("move.png");
         move3.setSize(327, 98);
         move3.setLocation(5, 620);
         
@@ -186,12 +202,28 @@ public class battleGraphics  {
         move4.setSize(327, 98);
         move4.setLocation(330, 620);
         
+        move1Description.setFont(labelFont);
+        move1Description.setLocation(125, 585);
+        
+        move2Description.setFont(labelFont);
+        move2Description.setLocation(460, 585);
+        
+        move3Description.setFont(labelFont);
+        move3Description.setLocation(115, 675);
+        
+        move4Description.setFont(labelFont);
+        move4Description.setLocation(410, 675);
+        
         map.add(bscreen);
         map.add(exit); 
         map.add(move1);
         map.add(move2);
         map.add(move3);
         map.add(move4);
+        map.add(move1Description);
+        map.add(move2Description);
+        map.add(move3Description);
+        map.add(move4Description);
     }
 
     public void run() {
@@ -221,7 +253,7 @@ public class battleGraphics  {
             return;
         } 
         
-          if(map.getElementAt(x, y) == move1 &&  playerMonster.getMoves().size() > 0 ) {
+          if((map.getElementAt(x, y) == move1 || map.getElementAt(x, y) == move1Description)  &&  playerMonster.getMoves().size() > 0 ) {
         	if (opponentMonster == null  ) {
         		 Move move = playerMonster.getMoves().get(0);
                  int damage = move.calculateDamage(playerMonster, wildMonster);   
@@ -266,7 +298,7 @@ public class battleGraphics  {
         }
         
        
-        if( map.getElementAt(x, y) == move2  &&  playerMonster.getMoves().size() > 1 ) {
+        if((map.getElementAt(x, y) == move2 || map.getElementAt(x, y) == move2Description)  &&  playerMonster.getMoves().size() > 1 ) {
         	if (opponentMonster == null  ) {
         		Move move = playerMonster.getMoves().get(1);
             	int damage = move.calculateDamage(playerMonster, wildMonster);
@@ -312,7 +344,7 @@ public class battleGraphics  {
         }
         
        
-        if(map.getElementAt(x, y) == move3  &&  playerMonster.getMoves().size() > 2  ) {
+        if((map.getElementAt(x, y) == move3 || map.getElementAt(x, y) == move3Description)  &&  playerMonster.getMoves().size() > 2  ) {
         	if (opponentMonster == null  ) {
         		Move move = playerMonster.getMoves().get(2);
             	int damage = move.calculateDamage(playerMonster, wildMonster);
@@ -355,7 +387,7 @@ public class battleGraphics  {
         	
         	
         }
-        if(map.getElementAt(x, y) == move4 &&  playerMonster.getMoves().size() > 3  ) {
+        if((map.getElementAt(x, y) == move4 || map.getElementAt(x, y) == move4Description) &&  playerMonster.getMoves().size() > 3  ) {
         	if (opponentMonster == null  ) {
         		Move move = playerMonster.getMoves().get(3);
             	int damage = move.calculateDamage(playerMonster, wildMonster);
