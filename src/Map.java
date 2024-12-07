@@ -18,7 +18,7 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
 
-public class Map extends GraphicsProgram implements KeyListener {
+public class Map extends GraphicsProgram implements KeyListener, MouseListener {
 	public static final int SCREEN_TILES_WIDTH = 11;
 	public static final int SCREEN_TILES_HEIGHT = 9;
 	public static final int MAX_STEPS = 20;
@@ -34,7 +34,47 @@ public class Map extends GraphicsProgram implements KeyListener {
 	
 	private GImage userPlayer = new GImage("walkingDown2.png");
 	private GImage titleScreen = new GImage("media/monsterBattleTitleScreen3.png");
+	private GImage playButton = new GImage("media/playButton.png");
 	private PlayerTrainer userP = new PlayerTrainer();
+	
+	
+	
+	
+	 // Display the title screen with a play button
+    private void showTitleScreen() {
+        add(titleScreen);
+        titleScreen.setSize(getWidth(), getHeight());
+
+        // Create a transparent play button
+       // playButton = new GRect(getWidth() / 2 - 50, getHeight() / 2 + 100, 100, 50);
+        //playButton.setFilled(true);
+        playButton.setColor(null); // Transparent button
+        playButton.setLocation(400,450);
+        add(playButton);
+    }
+	
+	
+    // Start the game when the play button is clicked
+    private void startGame() {
+        currentPage = "Map"; // Update the state
+        remove(titleScreen);
+        remove(playButton);
+
+        // Initialize the game elements
+        createMap();
+        addPlayer();
+        adjustMap();
+        
+      //currentPage = "Map";
+		
+      		
+      		
+      	preloadSounds();
+      	playSpecificSound();
+    }
+	
+	
+	
 	
 	//backgroundMusic
 	private Clip battleMusic;
@@ -66,7 +106,7 @@ public class Map extends GraphicsProgram implements KeyListener {
 	private int playerY;
 	
 	private battleGraphics battle;
-	private String currentPage;
+	private String currentPage = "TITLE";
 	
 	
 	//movement images/logic
@@ -248,19 +288,28 @@ public class Map extends GraphicsProgram implements KeyListener {
 		setSize(tileSize * SCREEN_TILES_WIDTH, tileSize * SCREEN_TILES_HEIGHT);
 		addKeyListeners();
 		addMouseListeners();
+		showTitleScreen();
 		requestFocus();
 		
-		currentPage = "Map";
+		//currentPage = "Map";
 		
-		createMap();
-		addPlayer();
-		adjustMap();
-		preloadSounds();
-		playSpecificSound();
+		//createMap();
+		//addPlayer();
+		//adjustMap();
+		//preloadSounds();
+		//playSpecificSound();
 	}
 	
 	
-	
+	  @Override
+	    public void mouseClicked(MouseEvent e) {
+	        if (currentPage.equals("TITLE")) {
+	            GPoint click = new GPoint(e.getX(), e.getY());
+	            if (playButton.contains(click)) {
+	                startGame();
+	            }
+	        }
+	    }
 	
 	
 	
