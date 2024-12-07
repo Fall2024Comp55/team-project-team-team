@@ -33,8 +33,15 @@ public class Map extends GraphicsProgram implements KeyListener, MouseListener {
 	public Random rand = new Random();
 	
 	private GImage userPlayer = new GImage("walkingDown2.png");
+	
 	private GImage titleScreen = new GImage("media/monsterBattleTitleScreen3.png");
 	private GImage playButton = new GImage("media/playButton.png");
+	private Timer hoverTimer;
+	private boolean hoverUp = true; // Determines the hover direction (up or down)
+	private int hoverOffset = 0; // Current vertical offset for the hover animation
+	private final int HOVER_STEP = 1; // Amount to move per frame
+	private final int HOVER_LIMIT = 10; // Maximum offset for the hover
+	
 	private PlayerTrainer userP = new PlayerTrainer();
 	
 	
@@ -44,22 +51,58 @@ public class Map extends GraphicsProgram implements KeyListener, MouseListener {
     private void showTitleScreen() {
         add(titleScreen);
         titleScreen.setSize(getWidth(), getHeight());
-
+        preloadSounds();
+        playBackgroundMusic(titleMusic);
         // Create a transparent play button
        // playButton = new GRect(getWidth() / 2 - 50, getHeight() / 2 + 100, 100, 50);
         //playButton.setFilled(true);
         playButton.setColor(null); // Transparent button
         playButton.setLocation(400,450);
         add(playButton);
+        
+        // Start hover animation for the play button
+        startHoverAnimation();
     }
 	
 	
-    // Start the game when the play button is clicked
+    private void startHoverAnimation() {
+    	hoverTimer = new Timer(100, e -> {
+            if (hoverUp) {
+                hoverOffset += HOVER_STEP;
+                if (hoverOffset >= HOVER_LIMIT) {
+                    hoverUp = false; // Reverse direction
+                }
+            } else {
+                hoverOffset -= HOVER_STEP;
+                if (hoverOffset <= 0) {
+                    hoverUp = true; // Reverse direction
+                }
+            }
+
+            // Apply the offset to the button's position
+            playButton.setLocation(400, 450 + hoverOffset);
+        });
+        hoverTimer.start();
+		
+	}
+    
+ // Stop the hover animation when transitioning to the game
+    private void stopHoverAnimation() {
+        if (hoverTimer != null) {
+            hoverTimer.stop();
+        }
+    }
+
+
+	// Start the game when the play button is clicked
     private void startGame() {
         currentPage = "Map"; // Update the state
         remove(titleScreen);
         remove(playButton);
 
+        stopHoverAnimation(); // Stop hover animation
+
+        
         // Initialize the game elements
         createMap();
         addPlayer();
@@ -67,10 +110,9 @@ public class Map extends GraphicsProgram implements KeyListener, MouseListener {
         
       //currentPage = "Map";
 		
+        playSpecificSound();
       		
-      		
-      	preloadSounds();
-      	playSpecificSound();
+      	
     }
 	
 	
@@ -79,6 +121,7 @@ public class Map extends GraphicsProgram implements KeyListener, MouseListener {
 	//backgroundMusic
 	private Clip battleMusic;
 	private Clip lobbyMusic;
+	private Clip titleMusic;
 	
 	//sfx
 	private Clip dirtPathSound;
@@ -86,7 +129,7 @@ public class Map extends GraphicsProgram implements KeyListener, MouseListener {
 	private Clip mouseClickSound;
 	
 	//currentBackgroundMusic
-	private Clip currMusic = lobbyMusic;
+	private Clip currMusic = titleMusic;
 	
 	
 	//private Clip 
@@ -197,11 +240,12 @@ public class Map extends GraphicsProgram implements KeyListener, MouseListener {
 	}
 	//preload sounds
 	public void preloadSounds() {
+		titleMusic = createClip("media/monsterBall.wav");
 		battleMusic = createClip("media/Pokemon Black & White 2 OST Trainer Battle Music.wav");
 		lobbyMusic = createClip("media/Pokemon Black & White Music： Driftveil City Music.wav");
 		dirtPathSound = createClip("media/walkOnDirt 1.wav");
 		normalGrassSound = createClip("media/walkOnGrass1.wav");
-		mouseClickSound = createClip("media/Mouse Click Sound Effect.wav");
+		mouseClickSound = createClip("media/MouseClickSound2.wav");
 		
 	}
 	
@@ -214,6 +258,11 @@ public class Map extends GraphicsProgram implements KeyListener, MouseListener {
 		else if(currMusic == battleMusic){
 			stopSound(currMusic);
 			
+			currMusic.setFramePosition(-1000);
+		}
+		else if(currMusic == titleMusic) {
+			stopSound(currMusic);
+			setVolume(titleMusic, 0.5f);
 			currMusic.setFramePosition(-1000);
 		}
 	    
@@ -306,6 +355,9 @@ public class Map extends GraphicsProgram implements KeyListener, MouseListener {
 	        if (currentPage.equals("TITLE")) {
 	            GPoint click = new GPoint(e.getX(), e.getY());
 	            if (playButton.contains(click)) {
+	            	//mouseClickSound.setFramePosition(0);
+	            	mouseClickSound.start();
+	            	
 	                startGame();
 	            }
 	        }
