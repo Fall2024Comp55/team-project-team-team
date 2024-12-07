@@ -112,11 +112,14 @@ public enum Maps {
 		ROUTE1.spaceMap[0][10].setDestination(MapName.GYM, 0);
 		GYM.spaceMap[14][7].setDestination(MapName.ROUTE1, 1);
 		
-		GYM.spaceMap[3][7].enemy = Trainers.ROUTE1TRAINER0;
-		GYM.spaceMap[2][9].sightline = Trainers.ROUTE1TRAINER0;
-		GYM.spaceMap[2][10].sightline = Trainers.ROUTE1TRAINER0;
-		GYM.spaceMap[2][11].sightline = Trainers.ROUTE1TRAINER0;
-		GYM.spaceMap[2][12].sightline = Trainers.ROUTE1TRAINER0;
+		GYM.spaceMap[3][7].enemy = Trainers.GYMLEADER;
+		GYM.spaceMap[4][7].sightline = Trainers.GYMLEADER;
+		GYM.spaceMap[5][7].sightline = Trainers.GYMLEADER;
+		
+		// GYM.spaceMap[2][9].sightline = Trainers.GYMLEADER;
+		// GYM.spaceMap[2][10].sightline = Trainers.GYMLEADER;
+		// GYM.spaceMap[2][11].sightline = Trainers.GYMLEADER;
+		// GYM.spaceMap[2][12].sightline = Trainers.GYMLEADER;
 	}
 }
 

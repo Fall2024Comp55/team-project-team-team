@@ -2,7 +2,11 @@
 public enum Trainers {
 	ROUTE1TRAINER0("Jaques", Direction.RIGHT, false, 450, new SpeciesType[] {
 			SpeciesType.SPIDER
-		}, new int[] { 5 });
+	}, new int[] { 5 }),
+	
+	GYMLEADER("Jaques", Direction.DOWN, false, 4500, new SpeciesType[] {
+			SpeciesType.STONEJAW, SpeciesType.ROCKSHIELD, SpeciesType.IRONWHISKER
+	}, new int[] { 10, 10, 11 });
 	
 	public String name;
 	public Direction facing;
