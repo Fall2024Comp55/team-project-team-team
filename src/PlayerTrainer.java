@@ -37,7 +37,7 @@ public class PlayerTrainer extends Trainer{
 
 	    for (Item item : bag.getItems()) {
 	        //Item item = pair.getKey();
-	    	
+	    	//changed
 	        if (currentTab.equals("Heal") && item.getBagTab().equals("Heal")) {
 	        	int amount = bag.getItemQuantity(item.getName());
 	            System.out.println(item.getName() + " - Quantity: " + amount);

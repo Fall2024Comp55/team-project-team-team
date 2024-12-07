@@ -48,7 +48,7 @@ public class Shop {
     		itemQuantity.remove(name);
     		itemQuantity.put(name, shopQuantity);
     		player.updateMoney(quantity);
-    		Item newItem = new Item(name, null, quantity);
+    		Item newItem = new Item(name, null, quantity);//changed
     		playerBag.addItem(newItem);
     		System.out.println("Thank you for buying");
     	}
