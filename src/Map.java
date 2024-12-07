@@ -32,7 +32,8 @@ public class Map extends GraphicsProgram implements KeyListener {
 	public Timer timer = new Timer(1000, this);
 	public Random rand = new Random();
 	
-	private GImage userPlayer = new GImage("TrainerD.png");
+	private GImage userPlayer = new GImage("walkingDown2.png");
+	private GImage titleScreen = new GImage("media/monsterBattleTitleScreen3.png");
 	private PlayerTrainer userP = new PlayerTrainer();
 	
 	//backgroundMusic
@@ -66,6 +67,20 @@ public class Map extends GraphicsProgram implements KeyListener {
 	
 	private battleGraphics battle;
 	private String currentPage;
+	
+	
+	//movement images/logic
+	private int animationFrame = 0; // Current animation frame
+	private int animationDelay = 0; // To slow down the frame switch rate
+	private final int ANIMATION_DELAY_THRESHOLD = 0; // Adjust for slower/faster animation
+	private String[] walkingUpFrames = {"walkingUp1.png", "walkingUp2.png", "walkingUp3.png"};
+	private String[] walkingDownFrames = {"walkingDown1.png", "walkingDown2.png", "walkingDown3.png"};
+	private String[] walkingLeftFrames = {"walkingLeft1.png", "walkingLeft2.png", "walkingLeft3.png"};
+	private String[] walkingRightFrames = {"walkingRight1.png", "walkingRight2.png", "walkingRight3.png"};
+	
+	
+	
+	
 	
 	/* unused variables
 	private int numTimes;
@@ -174,12 +189,12 @@ public class Map extends GraphicsProgram implements KeyListener {
 	public void playStepSound(String terrainType) {
 	    switch (terrainType.toLowerCase()) {
 	        case "dirt":
-	        setVolume(dirtPathSound, 0.75f);
+	        setVolume(dirtPathSound, 1f);
 	        dirtPathSound.start();
 	        dirtPathSound.setFramePosition(0);
 	            break;
 	        case "grass":
-	        	 setVolume(normalGrassSound, 0.75f);
+	        	 setVolume(normalGrassSound, 1f);
 	            normalGrassSound.start();
 	            normalGrassSound.setFramePosition(0);
 	            break;
@@ -204,6 +219,22 @@ public class Map extends GraphicsProgram implements KeyListener {
             System.out.println("No music for page: " + currentPage);
     }
 	}
+	
+	//animation logic
+	private void animateWalking(String[] frames) {
+	    if (frames == null || frames.length == 0) return;
+
+	    // Slow down animation by only changing frames after a delay
+	    if (animationDelay >= ANIMATION_DELAY_THRESHOLD) {
+	        animationFrame = (animationFrame + 1) % frames.length;
+	        userPlayer.setImage(frames[animationFrame]);
+	        userPlayer.scale(tileSize / userPlayer.getWidth()*5);
+	        animationDelay = 0; // Reset delay
+	    } else {
+	        animationDelay++;
+	    }
+	}
+	
 	
 	
 	public void clearMap() {
@@ -280,7 +311,7 @@ public class Map extends GraphicsProgram implements KeyListener {
 		int startX = map.starts[spawn][0];
 		int startY = map.starts[spawn][1];
 
-		userPlayer.scale(tileSize / userPlayer.getWidth());
+		userPlayer.scale(tileSize / userPlayer.getWidth()*5);
 		userPlayer.setLocation(tileSize * startX, tileSize * startY);
 		add(userPlayer);
 
@@ -349,9 +380,13 @@ public class Map extends GraphicsProgram implements KeyListener {
 	}
 	
 	public void move(Direction direction) {
+		  String[] frames = null;
 		switch(direction) {
 		case UP:
-			userPlayer.setImage("TrainerU.png");
+			
+			//userPlayer.setImage("walkingUp2.png");
+			frames = walkingUpFrames;
+			animateWalking(frames);
 			if(playerY > 0 && spaces.get(playerY-1).get(playerX).walkable) {
 				if(playerYOffset < 0 || tiles.get(0).getY() >= 0) {
 					for(int i = 0; i < TILE_RESOLUTION; i++) {
@@ -370,7 +405,9 @@ public class Map extends GraphicsProgram implements KeyListener {
 			}
 			break;
 		case DOWN:
-			userPlayer.setImage("TrainerD.png");
+			//userPlayer.setImage("TrainerD.png");
+			frames = walkingDownFrames;
+			animateWalking(frames);
 			if(playerY < spaces.size()-1 && spaces.get(playerY+1).get(playerX).walkable) {
 				if(playerYOffset > 0 || tiles.get(tiles.size()-1).getY() <= screenHeight - tileSize) {
 					for(int i = 0; i < TILE_RESOLUTION; i++) {
@@ -389,7 +426,9 @@ public class Map extends GraphicsProgram implements KeyListener {
 			}
 			break;
 		case LEFT:
-			userPlayer.setImage("TrainerL.png");
+			//userPlayer.setImage("TrainerL.png");
+			frames = walkingLeftFrames;
+			animateWalking(frames);
 			if(playerX > 0 && spaces.get(playerY).get(playerX-1).walkable) {
 				if(playerXOffset > 0 || tiles.get(0).getX() >= 0) {
 					for(int i = 0; i < TILE_RESOLUTION; i++) {
@@ -405,7 +444,9 @@ public class Map extends GraphicsProgram implements KeyListener {
 			}
 			break;
 		case RIGHT:
-			userPlayer.setImage("TrainerR.png");
+			//userPlayer.setImage("TrainerR.png");
+			frames = walkingRightFrames;
+			animateWalking(frames);
 			if(playerX < spaces.get(0).size()-1 && spaces.get(playerY).get(playerX+1).walkable) {
 				if(playerXOffset < 0 || tiles.get(tiles.size()-1).getX() <= screenWidth - tileSize) {
 					for(int i = 0; i < TILE_RESOLUTION; i++) {
@@ -523,7 +564,9 @@ public class Map extends GraphicsProgram implements KeyListener {
 		
 	}
 	
-	
+	public void openTitleScreen() {
+		
+	}
 	public static void main(String[] args) {
 		new Map().start();
 		
