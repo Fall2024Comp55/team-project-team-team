@@ -47,12 +47,12 @@ public enum Maps {
 	}),
 	GYM(new char[][] { // Array of characters corresponding to tile types
 		{'o','o','o','o','o','o','o','o','o','o','o','o','o','o','o','o'},
-		{'o','g','g','g','g','g','g','g','g','g','g','g','g','g','g','o'},
-		{'o','g','g','g','g','g','g','g','g','g','g','g','g','g','g','o'},
-		{'o','g','g','g','g','g','g','g','g','g','g','g','g','g','g','o'},
-		{'o','g','g','g','g','g','p','p','p','g','g','g','g','g','g','o'},
-		{'o','g','g','g','g','g','p','g','p','g','g','g','g','g','g','o'},
-		{'o','g','g','g','p','p','p','p','p','p','p','p','g','g','g','o'},
+		{'o','g','g','p','g','g','g','g','g','g','g','p','g','g','g','o'},
+		{'o','g','g','p','g','g','g','g','g','g','g','p','g','g','g','o'},
+		{'o','g','g','p','g','g','g','g','g','g','g','p','g','g','g','o'},
+		{'o','g','g','p','g','g','p','p','p','g','g','p','g','g','g','o'},
+		{'o','g','g','p','g','g','p','g','p','g','g','p','g','g','g','o'},
+		{'o','g','g','p','p','p','p','p','p','p','p','p','g','g','g','o'},
 		{'o','g','g','g','g','g','g','g','g','g','g','g','g','g','g','o'},
 		{'o','o','o','o','o','o','o','p','o','o','o','o','o','o','o','o'}
 	}, new int[][] { // Array containing all possible starting coordinates on the map
