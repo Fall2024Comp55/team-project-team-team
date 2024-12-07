@@ -36,6 +36,8 @@ public class Map extends GraphicsProgram implements KeyListener, MouseListener {
 	
 	private GImage titleScreen = new GImage("media/monsterBattleTitleScreen3.png");
 	private GImage playButton = new GImage("media/playButton.png");
+	private GImage bagButton = new GImage("media/bagicon.png");
+	
 	private Timer hoverTimer;
 	private boolean hoverUp = true; // Determines the hover direction (up or down)
 	private int hoverOffset = 0; // Current vertical offset for the hover animation
@@ -44,6 +46,7 @@ public class Map extends GraphicsProgram implements KeyListener, MouseListener {
 	
 	private PlayerTrainer userP = new PlayerTrainer();
 	
+	private Bag playerBag; 
 	
 	
 	
@@ -62,6 +65,28 @@ public class Map extends GraphicsProgram implements KeyListener, MouseListener {
         
         // Start hover animation for the play button
         startHoverAnimation();
+    }
+    
+    private void showBagMenu() {
+    	System.out.println("bag opening");
+    	playerBag = userP.getBag();
+    	
+    	  // Display header
+        GLabel header = new GLabel("Bag: " + playerBag.getCurrentTab(), 50, 50);
+        add(header);
+        
+        ArrayList<Item> items = playerBag.getItems();
+        int yOffset = 100;
+        
+        for(Item item: items) {
+        	GLabel itemLabel = new GLabel(item.getName() + " x" + item.getAmount(), 50, yOffset);
+        	add(itemLabel);
+        	yOffset += 30;
+        }
+        
+        
+    	
+    	
     }
 	
 	
@@ -107,6 +132,9 @@ public class Map extends GraphicsProgram implements KeyListener, MouseListener {
         createMap();
         addPlayer();
         adjustMap();
+        addMouseListeners();
+        add(bagButton);
+        
         
       //currentPage = "Map";
 		
@@ -114,7 +142,20 @@ public class Map extends GraphicsProgram implements KeyListener, MouseListener {
       		
       	
     }
-	
+   
+    public void mouseClicked1(MouseEvent b) {
+    	System.out.println("opening bag");
+        if (currentPage.equals("Map")) {
+            GPoint click = new GPoint(b.getX(), b.getY());
+            if (bagButton.contains(click)) {
+            	//mouseClickSound.setFramePosition(0);
+            	mouseClickSound.start();
+            	
+                showBagMenu();
+            }
+        }
+    }
+
 	
 	
 	
@@ -360,11 +401,18 @@ public class Map extends GraphicsProgram implements KeyListener, MouseListener {
 	            	
 	                startGame();
 	            }
+	        }else if (currentPage.equals("Map")) {
+	            // Check if bag button was clicked
+	        	GPoint click1 = new GPoint(e.getX(), e.getY());
+	        	if (bagButton != null && bagButton.contains(click1)) {
+	                System.out.println("Opening bag...");
+	                mouseClickSound.start();
+	                showBagMenu();
+	            }
 	        }
 	    }
 	
-	
-	
+	  
 	
 	
 	
@@ -596,6 +644,8 @@ public class Map extends GraphicsProgram implements KeyListener, MouseListener {
 		    battle.run();
 		    currentPage = "Battle";
 		    playSpecificSound();
+		   // add(bagButton);
+		    
 		    //battleMusic.stop();
 		    //playSound("media/Pokemon Black & White 2 OST Trainer Battle Music.wav");
 		}

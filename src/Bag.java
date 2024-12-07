@@ -1,70 +1,66 @@
 import java.util.ArrayList;
-//test2
+
 public class Bag {
-	private ArrayList<Pair<Item, Integer> >items;
-	private String currentTab;
-	
-	public Bag() {
-		items = new ArrayList<>();
-		currentTab = "Heal"; // assume this is the first tab appear when open bag
-	}
-	
-	public ArrayList<Pair<Item, Integer>> getItems(){
-		return items;
-	}
-	
-	public Pair<Item, Integer> getItemByName(ItemName itemName) {
-	    for (Pair<Item, Integer> item : items) {
-	        if (item.getKey().getName() == itemName) {
-	            return item;
-	        }
-	    }
-	    return null;
-	}
-	
-	public void setItems(ArrayList<Pair<Item, Integer>> bagItems) {
-		this.items = bagItems;
-	}
-	
-	public void addItem(Pair<Item, Integer> bagItem) {
-		items.add(bagItem);
-	}
-	
-	
-	
-	//@SuppressWarnings("unlikely-arg-type")
-	public void removeItem(Item key, int amount) {
-		for(int i = 0; i < items.size(); i++) {
-			Pair<Item, Integer> item = items.get(i);
-				if(item.getKey().equals(key)) {
-					int currentAmount = item.getValue();
-					int newAmount = currentAmount - amount;
-					if(amount > 0 ) {
-						item.setValue(newAmount);
-					}
-					else {
-						items.remove(i);
-					}
-					return;
-					
-				}
-		}
-	}
-	
-	public void changeTab(String tab) {
+    private ArrayList<Item> items;
+    private String currentTab;
+
+    public Bag() {
+        items = new ArrayList<Item>();
+        initializeItems();
+        currentTab = "Heal";
+    }
+
+    public ArrayList<Item> getItems() {
+        return items;
+    }
+
+    public Item getItemByName(ItemName itemName) {
+        for (Item item : items) {
+            if (item.getName() == itemName) {
+                return item;
+            }
+        }
+        return null;
+    }
+    
+    public int getItemQuantity(ItemName itemName) {
+        for (Item item : items) {
+            if (item.getName() == itemName) {
+                return item.getAmount();
+            }
+        }
+        return 0; // Return 0 if the item is not found
+    }
+
+    public void addItem(Item newItem) {
+        for (Item item : items) {
+            if (item.getName() == newItem.getName()) {
+                // If the item already exists, increase the amount
+                item.setAmount(item.getAmount() + newItem.getAmount());
+                return;
+            }
+        }
+        // If the item does not exist, add it as a new entry
+        items.add(newItem);
+    }
+
+    public void removeItem(Item item) {
+        items.remove(item);
+    }
+
+    public void changeTab(String tab) {
         if (tab.equalsIgnoreCase("Heal") || tab.equalsIgnoreCase("Ball") || tab.equalsIgnoreCase("Badge")) {
             currentTab = tab;
-        } else {
-            return;
         }
     }
-	
-	public void setCurrentTab(String tab) {
-        this.currentTab = tab;
+    private void initializeItems() {
+        // Add initial items to the bag
+        addItem(new Item(ItemName.POTION, null, 5));
+        addItem(new Item(ItemName.POTION, null, 3)); // Will consolidate with the above
+        addItem(new Item(ItemName.SUPERPOTION, null, 2));
     }
-	
-	public String getCurrentTab() {
+
+    public String getCurrentTab() {
         return currentTab;
     }
 }
-	
