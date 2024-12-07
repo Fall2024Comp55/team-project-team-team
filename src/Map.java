@@ -279,7 +279,7 @@ public class Map extends GraphicsProgram implements KeyListener, MouseListener {
 	        return null;
 	    }
 	}
-	//preload sounds
+	//preload soundss
 	public void preloadSounds() {
 		titleMusic = createClip("media/monsterBall.wav");
 		battleMusic = createClip("media/Pokemon Black & White 2 OST Trainer Battle Music.wav");
