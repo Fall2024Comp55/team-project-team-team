@@ -70,6 +70,7 @@ public class battleGraphics  {
     
     public battleGraphics(Map map, Trainer player, Monster wildMonster) {
     	
+    	System.out.println(wildMonster.getMoves().size());
     	wildMonster.addmove(Move.FIREBLAST);
     	wildMonster.addmove(Move.TACKLE);
     	wildMonster.addmove(Move.WATERGUN);
@@ -81,7 +82,9 @@ public class battleGraphics  {
     	
     	this.player = player;
     	this.wildMonster = wildMonster;
+    	
     	this.playerMonster = player.getTeam().get(0);
+    	System.out.println(playerMonster.getMoves().size());
     	
     	playerMonster.addmove(Move.FIREBLAST);
     	playerMonster.addmove(Move.TACKLE);
@@ -257,10 +260,12 @@ public class battleGraphics  {
         	if (opponentMonster == null  ) {
         		 Move move = playerMonster.getMoves().get(0);
                  int damage = move.calculateDamage(playerMonster, wildMonster);   
+                 System.out.println(move.getName());
                  moveAnimation(move.getName());
                  playerMonster.updateHP(-damage);
                  
                  Move move2 = wildMonster.selectRandomMove();
+                 System.out.println(move2.getName());
                  int damage2 = move2.calculateDamage(wildMonster, playerMonster);
 
                 
@@ -302,10 +307,12 @@ public class battleGraphics  {
         	if (opponentMonster == null  ) {
         		Move move = playerMonster.getMoves().get(1);
             	int damage = move.calculateDamage(playerMonster, wildMonster);
+            	System.out.println(move.getName());
             	moveAnimation(playerMonster.getMoves().get(1).getName());
             	playerMonster.updateHP(-damage);
             	
             	Move move2 = wildMonster.selectRandomMove();
+            	 System.out.println(move2.getName());
                 int damage2 = move2.calculateDamage(wildMonster, playerMonster);
                
                 timer.schedule(new TimerTask() {
@@ -323,10 +330,12 @@ public class battleGraphics  {
                 setupMainB(); 
         		Move move = playerMonster.getMoves().get(1);
             	int damage = move.calculateDamage(playerMonster, opponentMonster);
+            	System.out.println(move.getName());
             	moveAnimation(playerMonster.getMoves().get(1).getName());
             	playerMonster.updateHP(-damage);
             	
             	Move move2 = opponentMonster.selectRandomMove();
+            	System.out.println(move2.getName());
                 int damage2 = move2.calculateDamage(opponentMonster, playerMonster);
                 timer.schedule(new TimerTask() {
                     @Override
@@ -348,11 +357,13 @@ public class battleGraphics  {
         	if (opponentMonster == null  ) {
         		Move move = playerMonster.getMoves().get(2);
             	int damage = move.calculateDamage(playerMonster, wildMonster);
+            	System.out.println(move.getName());
             	moveAnimation(playerMonster.getMoves().get(2).getName());
             	playerMonster.updateHP(-damage);
             	
             	
             	Move move2 = wildMonster.selectRandomMove();
+            	System.out.println(move2.getName());
                 int damage2 = move2.calculateDamage(wildMonster, playerMonster);
                	timer.schedule(new TimerTask() {
                      @Override
@@ -391,10 +402,12 @@ public class battleGraphics  {
         	if (opponentMonster == null  ) {
         		Move move = playerMonster.getMoves().get(3);
             	int damage = move.calculateDamage(playerMonster, wildMonster);
+            	System.out.println(move.getName());
             	moveAnimation(playerMonster.getMoves().get(3).getName());
             	playerMonster.updateHP(-damage);
             	
             	Move move2 = wildMonster.selectRandomMove();
+            	System.out.println(move2.getName());
                 int damage2 = move2.calculateDamage(wildMonster, playerMonster);
                 timer.schedule(new TimerTask() {
                      @Override
@@ -414,6 +427,7 @@ public class battleGraphics  {
             	
             	Move move2 = opponentMonster.selectRandomMove();
                 int damage2 = move2.calculateDamage(opponentMonster, playerMonster);
+                
                 timer.schedule(new TimerTask() {
                     @Override
                     public void run() {
@@ -421,6 +435,7 @@ public class battleGraphics  {
                          moveAnimationTrainer(move2.getName());
                     }
                 }, 3000); 
+                
                 clearIconsF(); 
                 setupMainB();  
         	}
