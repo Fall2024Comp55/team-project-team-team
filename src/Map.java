@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -37,6 +38,8 @@ public class Map extends GraphicsProgram implements KeyListener, MouseListener {
 	private GImage titleScreen = new GImage("media/monsterBattleTitleScreen3.png");
 	private GImage playButton = new GImage("media/playButton.png");
 	private GImage bagButton = new GImage("media/bagicon.png");
+	private GImage bagUI = new GImage("bagUIList.png");
+	private GImage bagUILeft = new GImage("bagUILeftSide.png");
 	
 	private Timer hoverTimer;
 	private boolean hoverUp = true; // Determines the hover direction (up or down)
@@ -47,6 +50,12 @@ public class Map extends GraphicsProgram implements KeyListener, MouseListener {
 	private PlayerTrainer userP = new PlayerTrainer();
 	
 	private Bag playerBag; 
+	private int selectedIndex = -1; // Tracks the index of the currently selected item
+	private ArrayList<Item> displayedItems; // Items currently displayed in the current tab
+	private String[] tabs = {"Heal", "Ball", "Badge"}; // Tabs in the bag
+	private int currentTabIndex = 0; // Tracks the current tab index
+	private GLabel[] itemLabels; // Array of labels for displayed items
+	private boolean bagIsOpen = false;
 	
 	
 	
@@ -68,27 +77,58 @@ public class Map extends GraphicsProgram implements KeyListener, MouseListener {
     }
     
     private void showBagMenu() {
+    	
     	System.out.println("bag opening");
     	playerBag = userP.getBag();
-    	
+    	bagIsOpen = true;
     	  // Display header
-        GLabel header = new GLabel("Bag: " + playerBag.getCurrentTab(), 50, 50);
+        GLabel header = new GLabel("Bag: " + tabs[currentTabIndex], 100, 100);
+       // GRect selected = new GRect(10, 10);
+       // selected.setColor(Color.GREEN);
         add(header);
+        add(bagUI);
+        add(bagUILeft);
+        bagUI.setLocation(100, 100);
+        //bagUI.setColor(Color.cyan);
+        bagUILeft.setLocation(10, 100);
         
-        ArrayList<Item> items = playerBag.getItems();
+        
+        
+        displayedItems = playerBag.getItems();
+        itemLabels = new GLabel[displayedItems.size()];
         int yOffset = 100;
-        
-        for(Item item: items) {
-        	GLabel itemLabel = new GLabel(item.getName() + " x" + item.getAmount(), 50, yOffset);
+        int i = 0;
+        for(Item item: displayedItems) {
+        	GLabel itemLabel = new GLabel(item.getName() + " x" + item.getAmount(), 125, yOffset+20);
+        	itemLabel.setColor(Color.BLACK); // Default text color
         	add(itemLabel);
+        	itemLabels[i] = itemLabel; // Store the label for updating later
+        	i++;
         	yOffset += 30;
         }
         
+        if (!displayedItems.isEmpty()) {
+            selectedIndex = 0;
+            highlightItem(selectedIndex);
+        }
         
     	
     	
     }
-	
+ // Highlight the selected item
+    private void highlightItem(int index) {
+        for (int i = 0; i < itemLabels.length; i++) {
+            itemLabels[i].setColor(Color.BLACK); // Reset all labels
+        }
+        if (index >= 0 && index < itemLabels.length) {
+            itemLabels[index].setColor(Color.GREEN); // Highlight selected item
+        }
+    }
+    
+ // Handle key press events
+  
+    
+    
 	
     private void startHoverAnimation() {
     	hoverTimer = new Timer(100, e -> {
@@ -672,7 +712,28 @@ public class Map extends GraphicsProgram implements KeyListener, MouseListener {
 		if (currentPage == "Battle") {
 			return;
 		}
-		
+		 if (!bagIsOpen) return;
+
+	        switch (e.getKeyCode()) {
+	            case KeyEvent.VK_UP:
+	                if (selectedIndex > 0) {
+	                    selectedIndex--;
+	                    highlightItem(selectedIndex);
+	                }
+	                break;
+
+	            case KeyEvent.VK_DOWN:
+	                if (selectedIndex < displayedItems.size() - 1) {
+	                    selectedIndex++;
+	                    highlightItem(selectedIndex);
+	                }
+	                break;
+	            case KeyEvent.VK_ENTER:
+	                if (selectedIndex >= 0 && selectedIndex < displayedItems.size()) {
+	                    useSelectedItem();
+	                }
+	                break;
+	        }
 		if(movable) {
 			movable = false;
 			int keyCode = e.getKeyCode();
@@ -699,6 +760,25 @@ public class Map extends GraphicsProgram implements KeyListener, MouseListener {
 		}
 	}
 	 
+	private void useSelectedItem() {
+		 Item selectedItem = displayedItems.get(selectedIndex);
+		    System.out.println("Using " + selectedItem.getName());
+
+		    // Apply the item's effect
+		    selectedItem.use(userP.getTeam().getFirst()); // Assuming `use()` is implemented in Item class
+
+		    // Update bag contents
+		   // playerBag.removeItem(selectedItem); // Assuming `removeItem()` is in Bag
+		    refreshBagMenu(); // Refresh the menu
+	}
+
+	private void refreshBagMenu() {
+		 	
+	        remove(bagUI);
+	        remove(bagUILeft);
+	    showBagMenu(); // Re-render the menu
+	}
+
 	public void endBattle() {
 		 battle = null;
 		currentPage = "Map";
