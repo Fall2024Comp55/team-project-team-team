@@ -43,7 +43,7 @@ public class Bag {
         // If the item does not exist, add it as a new entry
         items.add(newItem);
     }
-
+ 
     public void removeItem(Item item) {
         items.remove(item);
     }
