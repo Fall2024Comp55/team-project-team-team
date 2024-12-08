@@ -712,28 +712,7 @@ public class Map extends GraphicsProgram implements KeyListener, MouseListener {
 		if (currentPage == "Battle") {
 			return;
 		}
-		 if (!bagIsOpen) return;
-
-	        switch (e.getKeyCode()) {
-	            case KeyEvent.VK_UP:
-	                if (selectedIndex > 0) {
-	                    selectedIndex--;
-	                    highlightItem(selectedIndex);
-	                }
-	                break;
-
-	            case KeyEvent.VK_DOWN:
-	                if (selectedIndex < displayedItems.size() - 1) {
-	                    selectedIndex++;
-	                    highlightItem(selectedIndex);
-	                }
-	                break;
-	            case KeyEvent.VK_ENTER:
-	                if (selectedIndex >= 0 && selectedIndex < displayedItems.size()) {
-	                    useSelectedItem();
-	                }
-	                break;
-	        }
+		 
 		if(movable) {
 			movable = false;
 			int keyCode = e.getKeyCode();
@@ -758,6 +737,28 @@ public class Map extends GraphicsProgram implements KeyListener, MouseListener {
 			}
 			movable = true;
 		}
+		if (!bagIsOpen) return;
+
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_UP:
+                if (selectedIndex > 0) {
+                    selectedIndex--;
+                    highlightItem(selectedIndex);
+                }
+                break;
+
+            case KeyEvent.VK_DOWN:
+                if (selectedIndex < displayedItems.size() - 1) {
+                    selectedIndex++;
+                    highlightItem(selectedIndex);
+                }
+                break;
+            case KeyEvent.VK_ENTER:
+                if (selectedIndex >= 0 && selectedIndex < displayedItems.size()) {
+                    useSelectedItem();
+                }
+                break;
+        }
 	}
 	 
 	private void useSelectedItem() {
