@@ -71,10 +71,6 @@ public class battleGraphics  {
     public battleGraphics(Map map, Trainer player, Monster wildMonster) {
     	
     	System.out.println(wildMonster.getMoves().size());
-    	wildMonster.addmove(Move.FIREBLAST);
-    	wildMonster.addmove(Move.TACKLE);
-    	wildMonster.addmove(Move.WATERGUN);
-    	wildMonster.addmove(Move.FLAMETHROWER);
     	
     	this.map = map;
     	this.screenSizeX = map.getWidth();
@@ -86,10 +82,7 @@ public class battleGraphics  {
     	this.playerMonster = player.getTeam().get(0);
     	System.out.println(playerMonster.getMoves().size());
     	
-    	playerMonster.addmove(Move.FIREBLAST);
-    	playerMonster.addmove(Move.TACKLE);
-    	playerMonster.addmove(Move.WATERGUN);
-    	playerMonster.addmove(Move.FLAMETHROWER);
+    
     	
     	this.playerMonsterSprite = player.getTeam().get(0).getBackSprite();
     	this.opponentMonsterSprite = wildMonster.getFrontSprite();
@@ -112,10 +105,10 @@ public class battleGraphics  {
     	this.move3 = new GImage("move.png");
     	this.move4 = new GImage("move.png");
     	
-    	this.move1Description = new GLabel("Fire Blast");
-    	this.move2Description = new GLabel("Tackle");
-    	this.move3Description = new GLabel("Water Gun");
-    	this.move4Description = new GLabel("Flame Thrower");
+    	this.move1Description = new GLabel(player.getTeam().get(0).getMoves().get(0).name);
+    	this.move2Description = new GLabel(player.getTeam().get(0).getMoves().get(1).name);
+    	this.move3Description = new GLabel(player.getTeam().get(0).getMoves().get(2).name);
+    	this.move4Description = new GLabel(player.getTeam().get(0).getMoves().get(3).name);
     	
        // addKeyListeners();                   
         //requestFocus();                      
@@ -247,6 +240,7 @@ public class battleGraphics  {
     }
   
     public void mousePressed(MouseEvent e) {
+    	
     	int x = e.getX();
         int y = e.getY();
        
@@ -255,7 +249,7 @@ public class battleGraphics  {
             setupMainF(); 
             return;
         } 
-        
+     
           if((map.getElementAt(x, y) == move1 || map.getElementAt(x, y) == move1Description)  &&  playerMonster.getMoves().size() > 0 ) {
         	if (opponentMonster == null  ) {
         		 Move move = playerMonster.getMoves().get(0);
@@ -318,7 +312,7 @@ public class battleGraphics  {
                 timer.schedule(new TimerTask() {
                     @Override
                     public void run() {
-                        moveAnimationTrainer(move2.getName());
+                    	moveAnimationTrainer(move2.getName());
                         playerMonster.updateHP(-damage2);
                     }
                 }, 3000);
@@ -473,41 +467,102 @@ public class battleGraphics  {
         }*/
    
         	
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-            	if( playerMonster != null && playerMonster.isFainted() ) {
-                	clearIconsB(); 
-                    clearIconsF();
-                    
-                    map.remove(background);
-                    map.remove(opponentMonsterSprite);
-                    map.remove(playerMonsterSprite); 	
-                    map.endBattle();
-                	
-                }else if(  opponentMonster != null && opponentMonster.isFainted()  ) {
-                	clearIconsB(); 
-                    clearIconsF();
-                    
-                    map.remove(background);
-                    map.remove(opponentMonsterSprite);
-                    map.remove(playerMonsterSprite); 	
-                    map.endBattle();
-                	
-                }else if( wildMonster != null && wildMonster.isFainted()  ){
-                	clearIconsB(); 
-                    clearIconsF();
-                    
-                    map.remove(background);
-                    map.remove(opponentMonsterSprite);
-                    map.remove(playerMonsterSprite); 	
-                    map.endBattle();
-                }
-            }
-        }, 7000); 
+        winScreen();
         
         System.out.println("Mouse clicked at: (" + x + ", " + y + ")");
     }
+
+    
+    public void winScreen() {
+        // Create a label for displaying the win message (ACM GLabel)
+        final GLabel winMessage = new GLabel("");  // Start with an empty label
+        winMessage.setFont("Arial-Bold-24");  // Set font style (ACM uses a specific font string format)
+        winMessage.setColor(Color.BLACK);  // Set the text color
+        winMessage.setLocation(400, 360);  // Position the label at (200, 200)
+
+        // Add the winMessage to the map (assuming map is a GCanvas or similar container)
+        map.add(winMessage);
+
+        // Timer to check after 7 seconds for the winner
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                // Check who has won and set the win message
+                if (playerMonster != null && playerMonster.isFainted()) {
+                    clearIconsB(); 
+                    clearIconsF();
+                    map.remove(background);
+                    map.remove(opponentMonsterSprite);
+                    map.remove(playerMonsterSprite); 
+                    map.endBattle();
+                    winMessage.setLabel("Opponent Wins!");  // Update the win message
+
+                } else if (opponentMonster != null && opponentMonster.isFainted()) {
+                    clearIconsB(); 
+                    clearIconsF();
+                    map.remove(background);
+                    map.remove(opponentMonsterSprite);
+                    map.remove(playerMonsterSprite); 
+                    map.endBattle();
+                    winMessage.setLabel("Player Wins!");  // Update the win message
+
+                } else if (wildMonster != null && wildMonster.isFainted()) {
+                    clearIconsB(); 
+                    clearIconsF();
+                    map.remove(background);
+                    map.remove(opponentMonsterSprite);
+                    map.remove(playerMonsterSprite); 
+                    map.endBattle();
+                    winMessage.setLabel("Player Wins!");  // Update the win message
+                }
+
+                // Schedule a task to remove the winMessage after 3 seconds (3000ms)
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        map.remove(winMessage); // Remove the win message
+                    }
+                }, 3000); // Delay for 3 seconds before removing the winMessage
+            }
+        }, 7000); // Initial delay before checking for the winner
+    }
+    
+    
+ public void winScreen1() {
+	 timer.schedule(new TimerTask() {
+         @Override
+         public void run() {
+         	if( playerMonster != null && playerMonster.isFainted() ) {
+             	clearIconsB(); 
+                 clearIconsF();
+                 
+                 map.remove(background);
+                 map.remove(opponentMonsterSprite);
+                 map.remove(playerMonsterSprite); 	
+                 map.endBattle();
+                 
+             	
+             }else if(  opponentMonster != null && opponentMonster.isFainted()  ) {
+             	clearIconsB(); 
+                 clearIconsF();
+                 
+                 map.remove(background);
+                 map.remove(opponentMonsterSprite);
+                 map.remove(playerMonsterSprite); 	
+                 map.endBattle();
+             	
+             }else if( wildMonster != null && wildMonster.isFainted()  ){
+             	clearIconsB(); 
+                 clearIconsF();
+                 
+                 map.remove(background);
+                 map.remove(opponentMonsterSprite);
+                 map.remove(playerMonsterSprite); 	
+                 map.endBattle();
+             }
+         }
+     }, 7000); 
+ }
 
 
 public void moveAnimation(String moveName) {
