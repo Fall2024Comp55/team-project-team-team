@@ -465,14 +465,15 @@ public class Map extends GraphicsProgram implements KeyListener, MouseListener {
 	        }else if (currentPage.equals("Map")) {
 	            // Check if bag button was clicked
 	        	GPoint click1 = new GPoint(e.getX(), e.getY());
-	        	if (bagButton != null && bagButton.contains(click1)) {
+	        	if (bagButton != null && bagButton.contains(click1) && !bagIsOpen) {
 	               // System.out.println("Opening bag...");
+	        		mouseClickSound.setFramePosition(1);
 	                mouseClickSound.start();
 	                showBagMenu();
 	                System.out.println("checking");
 	            }
 	        	GPoint click2 = new GPoint(e.getX(), e.getY());
-	        	if (closeBagLabel.contains(click2)) {
+	        	if (closeBagLabel.contains(click2) && bagIsOpen) {
 	        		//mouseClickSound.setFramePosition(0);
 	        		mouseClickSound.start();
 	        	
@@ -526,6 +527,7 @@ public class Map extends GraphicsProgram implements KeyListener, MouseListener {
 		}
 		
 		add(bagButton);
+		bagIsOpen = false;
 	}
 	
 	public void addPlayer() {
