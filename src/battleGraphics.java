@@ -269,7 +269,7 @@ public class battleGraphics  {
                          moveAnimationTrainer(move2.getName());
                          playerMonster.updateHP(-damage2);
                      }
-                 }, 3000); 
+                 }, 2000); 
                  
                  clearIconsF(); 
                  setupMainB(); 
@@ -289,7 +289,7 @@ public class battleGraphics  {
                     	 opponentMonster.updateHP(-damage2);
                          moveAnimationTrainer(move2.getName());
                     }
-                }, 3000); 
+                }, 2000); 
                 clearIconsF(); 
                 setupMainB(); 
         	}
@@ -315,7 +315,7 @@ public class battleGraphics  {
                     	moveAnimationTrainer(move2.getName());
                         playerMonster.updateHP(-damage2);
                     }
-                }, 3000);
+                }, 2000);
                 clearIconsF(); 
                 setupMainB(); 
                 
@@ -337,7 +337,7 @@ public class battleGraphics  {
                     	 opponentMonster.updateHP(-damage2);
                          moveAnimationTrainer(move2.getName());
                     }
-                }, 3000); 
+                }, 2000); 
                 clearIconsF(); 
                 setupMainB(); 
                 
@@ -365,7 +365,7 @@ public class battleGraphics  {
                          moveAnimationTrainer(move2.getName());
                          playerMonster.updateHP(-damage2);
                      }
-                 }, 3000);
+                 }, 2000);
                  
                 clearIconsF(); 
             	setupMainB(); 
@@ -385,7 +385,7 @@ public class battleGraphics  {
                     	 opponentMonster.updateHP(-damage2);
                          moveAnimationTrainer(move2.getName());
                     }
-                }, 3000); 
+                }, 2000); 
                 clearIconsF(); 
                 setupMainB(); 
         	}
@@ -409,7 +409,7 @@ public class battleGraphics  {
                          moveAnimationTrainer(move2.getName());
                          playerMonster.updateHP(-damage2);
                      }
-                 }, 3000);  
+                 }, 2000);  
                 clearIconsF(); 
             	setupMainB(); 
                  
@@ -428,7 +428,7 @@ public class battleGraphics  {
                     	 opponentMonster.updateHP(-damage2);
                          moveAnimationTrainer(move2.getName());
                     }
-                }, 3000); 
+                }, 2000); 
                 
                 clearIconsF(); 
                 setupMainB();  
@@ -524,7 +524,7 @@ public class battleGraphics  {
                     }
                 }, 3000); // Delay for 3 seconds before removing the winMessage
             }
-        }, 7000); // Initial delay before checking for the winner
+        }, 5000); // Initial delay before checking for the winner
     }
     
     
@@ -632,7 +632,7 @@ private void animateTackle() {
                 playerMonsterSprite.setLocation(200, 460);
             }
         }
-    }, 0, 30); 
+    }, 0, 20); 
     
 }
 
@@ -681,7 +681,7 @@ private void animateEmber() {
                 map.remove(FireBlast);
             }
         }
-    }, 0, 30); 
+    }, 0, 20); 
     
 }
 
@@ -730,7 +730,7 @@ private void animateSurf() {
                 map.remove(FireBlast);
             }
         }
-    }, 0, 30); 
+    }, 0, 20); 
     
 }
 
@@ -779,7 +779,7 @@ private void animateThunderbolt() {
                 map.remove(FireBlast);
             }
         }
-    }, 0, 30); 
+    }, 0, 20); 
     
 }
 
@@ -828,7 +828,7 @@ private void animateEarthquake() {
                 map.remove(FireBlast);
             }
         }
-    }, 0, 30); 
+    }, 0, 20); 
     
 }
 
@@ -880,7 +880,7 @@ private void animateFireBlast() {
                 map.remove(FireBlast);
             }
         }
-    }, 0, 30); 
+    }, 0, 20); 
     
 }
 
@@ -923,7 +923,7 @@ private void animateFlamethrower() {
                 cancel();  
             }
         }
-    }, 0, 100);  
+    }, 0, 50);  
 }
 
 private void animateFireBlast(GImage fireBlast, final int targetX, final int targetY, final int moveDistance) {
@@ -961,7 +961,7 @@ private void animateFireBlast(GImage fireBlast, final int targetX, final int tar
 
           
         }
-    }, 0, 30); 
+    }, 0, 20); 
 }
 
 private void animateWaterGun() {
@@ -1003,7 +1003,7 @@ private void animateWaterGun() {
                 cancel();  
             }
         }
-    }, 0, 100);  
+    }, 0, 20);  
 }
 
 
@@ -1077,7 +1077,7 @@ private void animateEmberTrianer() {
                 map.remove(FireBlast);
             }
         }
-    }, 0, 30); 
+    }, 0, 20); 
     
 }
 
@@ -1126,7 +1126,7 @@ private void animateSurfTrainer() {
                 map.remove(FireBlast);
             }
         }
-    }, 0, 30); 
+    }, 0, 20); 
     
 }
 
@@ -1175,7 +1175,7 @@ private void animateThunderboltTrainer() {
                 map.remove(FireBlast);
             }
         }
-    }, 0, 30); 
+    }, 0, 20); 
     
 }
 
@@ -1224,7 +1224,7 @@ private void animateEarthquakeTrainer() {
                 map.remove(FireBlast);
             }
         }
-    }, 0, 30); 
+    }, 0, 20); 
     
 }
 
@@ -1234,7 +1234,8 @@ private void animateEarthquakeTrainer() {
 
 private void animateTackleTrainer() {
     // Create the tackle effect image
-    GImage tackleEffect = playerMonster.getBackSprite();  
+    GImage tackleEffect = opponentMonsterSprite;  
+    
     //tackleEffect.setSize(100, 100);  
     tackleEffect.setLocation( 630, 280);  
     map.add(tackleEffect);
@@ -1273,10 +1274,10 @@ private void animateTackleTrainer() {
             } else {
                 
                 cancel();
-                playerMonsterSprite.setLocation(200, 460);
+                opponentMonsterSprite.setLocation(200, 460);
             }
         }
-    }, 0, 30); 
+    }, 0, 20); 
     
 }
 
@@ -1325,7 +1326,7 @@ private void animateFireBlastTrainer() {
                 map.remove(FireBlast);
             }
         }
-    }, 0, 30); 
+    }, 0, 20); 
     
 }
 
@@ -1369,7 +1370,7 @@ private void animateFlamethrowerTrainer() {
                 cancel();  
             }
         }
-    }, 0, 100);  
+    }, 0, 50);  
 }
 
 
@@ -1412,7 +1413,7 @@ private void animateWaterGunTrainer() {
                 cancel();  
             }
         }
-    }, 0, 100);  
+    }, 0, 50);  
 }
 
 
