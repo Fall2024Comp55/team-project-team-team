@@ -105,10 +105,10 @@ public class battleGraphics  {
     	this.move3 = new GImage("move.png");
     	this.move4 = new GImage("move.png");
     	
-    	this.move1Description = new GLabel("Fire Blast");
-    	this.move2Description = new GLabel("Tackle");
-    	this.move3Description = new GLabel("Water Gun");
-    	this.move4Description = new GLabel("Flame Thrower");
+    	this.move1Description = new GLabel(player.getTeam().get(0).getMoves().get(0).name);
+    	this.move2Description = new GLabel(player.getTeam().get(0).getMoves().get(1).name);
+    	this.move3Description = new GLabel(player.getTeam().get(0).getMoves().get(2).name);
+    	this.move4Description = new GLabel(player.getTeam().get(0).getMoves().get(3).name);
     	
        // addKeyListeners();                   
         //requestFocus();                      
