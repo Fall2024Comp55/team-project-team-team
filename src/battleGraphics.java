@@ -71,10 +71,6 @@ public class battleGraphics  {
     public battleGraphics(Map map, Trainer player, Monster wildMonster) {
     	
     	System.out.println(wildMonster.getMoves().size());
-    	wildMonster.addmove(Move.FIREBLAST);
-    	wildMonster.addmove(Move.TACKLE);
-    	wildMonster.addmove(Move.WATERGUN);
-    	wildMonster.addmove(Move.FLAMETHROWER);
     	
     	this.map = map;
     	this.screenSizeX = map.getWidth();
@@ -86,10 +82,7 @@ public class battleGraphics  {
     	this.playerMonster = player.getTeam().get(0);
     	System.out.println(playerMonster.getMoves().size());
     	
-    	playerMonster.addmove(Move.FIREBLAST);
-    	playerMonster.addmove(Move.TACKLE);
-    	playerMonster.addmove(Move.WATERGUN);
-    	playerMonster.addmove(Move.FLAMETHROWER);
+    
     	
     	this.playerMonsterSprite = player.getTeam().get(0).getBackSprite();
     	this.opponentMonsterSprite = wildMonster.getFrontSprite();
@@ -484,8 +477,8 @@ public class battleGraphics  {
         // Create a label for displaying the win message (ACM GLabel)
         final GLabel winMessage = new GLabel("");  // Start with an empty label
         winMessage.setFont("Arial-Bold-24");  // Set font style (ACM uses a specific font string format)
-        winMessage.setColor(Color.GREEN);  // Set the text color
-        winMessage.setLocation(200, 200);  // Position the label at (200, 200)
+        winMessage.setColor(Color.BLACK);  // Set the text color
+        winMessage.setLocation(400, 360);  // Position the label at (200, 200)
 
         // Add the winMessage to the map (assuming map is a GCanvas or similar container)
         map.add(winMessage);
