@@ -40,7 +40,9 @@ public class Map extends GraphicsProgram implements KeyListener, MouseListener {
 	private GImage bagButton = new GImage("media/bagicon.png");
 	private GImage bagUI = new GImage("bagUIList.png");
 	private GImage bagUILeft = new GImage("bagUILeftSide.png");
-	
+	private GRect closeBagButton = new GRect(20,20);
+	private GLabel closeBagLabel = new GLabel("X");
+	private int bagOpenCallCount = 0;
 	private Timer hoverTimer;
 	private boolean hoverUp = true; // Determines the hover direction (up or down)
 	private int hoverOffset = 0; // Current vertical offset for the hover animation
@@ -76,22 +78,31 @@ public class Map extends GraphicsProgram implements KeyListener, MouseListener {
         startHoverAnimation();
     }
     
-    private void showBagMenu() {
-    	
-    	System.out.println("bag opening");
+ private void showBagMenu() {
+	// System.out.println("openBag() called");
+	    //Thread.dumpStack(); // Prints the call stack to see where the call is coming from
+	   
+    	//System.out.println("bag opening");
     	playerBag = userP.getBag();
     	bagIsOpen = true;
     	  // Display header
-        GLabel header = new GLabel("Bag: " + tabs[currentTabIndex], 100, 100);
+        //GLabel header = new GLabel("Bag: " + tabs[currentTabIndex], 100, 100);
        // GRect selected = new GRect(10, 10);
        // selected.setColor(Color.GREEN);
-        add(header);
+        //add(header);
         add(bagUI);
         add(bagUILeft);
         bagUI.setLocation(100, 100);
         //bagUI.setColor(Color.cyan);
         bagUILeft.setLocation(10, 100);
-        
+        add(closeBagButton);
+        closeBagButton.setLocation(225,250);
+        closeBagButton.setColor(Color.RED);
+        closeBagButton.setFilled(true);
+        closeBagButton.setFillColor(Color.RED);
+        add(closeBagLabel);
+        closeBagLabel.setLocation(230,265);
+        System.out.println("added close button");
         
         
         displayedItems = playerBag.getItems();
@@ -105,6 +116,7 @@ public class Map extends GraphicsProgram implements KeyListener, MouseListener {
         	itemLabels[i] = itemLabel; // Store the label for updating later
         	i++;
         	yOffset += 30;
+        	 
         }
         
         if (!displayedItems.isEmpty()) {
@@ -112,7 +124,7 @@ public class Map extends GraphicsProgram implements KeyListener, MouseListener {
             highlightItem(selectedIndex);
         }
         
-    	
+        System.out.println("added close button2");
     	
     }
  // Highlight the selected item
@@ -172,7 +184,7 @@ public class Map extends GraphicsProgram implements KeyListener, MouseListener {
         createMap();
         addPlayer();
         adjustMap();
-        addMouseListeners();
+        //addMouseListeners();
         add(bagButton);
         
         
@@ -183,22 +195,31 @@ public class Map extends GraphicsProgram implements KeyListener, MouseListener {
       	
     }
    
-    public void mouseClicked1(MouseEvent b) {
-    	System.out.println("opening bag");
-        if (currentPage.equals("Map")) {
-            GPoint click = new GPoint(b.getX(), b.getY());
-            if (bagButton.contains(click)) {
-            	//mouseClickSound.setFramePosition(0);
-            	mouseClickSound.start();
-            	
-                showBagMenu();
-            }
+   
+	
+	private void closeBag() {
+		  // Remove all UI components related to the bag menu
+        remove(bagUI);
+        remove(bagUILeft);
+        remove(closeBagButton);
+        remove(closeBagLabel);
+        
+        for(GLabel itemL: itemLabels) {
+        	remove(itemL);
+        	
+        	
+        	
+        	System.out.println("removed: " + itemL);
+        	
         }
-    }
+        selectedIndex = -1;
+        System.out.println(itemLabels.length);
+        bagIsOpen = false;
+	}
 
-	
-	
-	
+
+
+
 	//backgroundMusic
 	private Clip battleMusic;
 	private Clip lobbyMusic;
@@ -445,10 +466,20 @@ public class Map extends GraphicsProgram implements KeyListener, MouseListener {
 	            // Check if bag button was clicked
 	        	GPoint click1 = new GPoint(e.getX(), e.getY());
 	        	if (bagButton != null && bagButton.contains(click1)) {
-	                System.out.println("Opening bag...");
+	               // System.out.println("Opening bag...");
 	                mouseClickSound.start();
 	                showBagMenu();
+	                System.out.println("checking");
 	            }
+	        	GPoint click2 = new GPoint(e.getX(), e.getY());
+	        	if (closeBagLabel.contains(click2)) {
+	        		//mouseClickSound.setFramePosition(0);
+	        		mouseClickSound.start();
+	        	
+	            	closeBag();
+	            	System.out.println("Closing bag..");
+	          
+	        	}
 	        }
 	    }
 	
@@ -494,6 +525,7 @@ public class Map extends GraphicsProgram implements KeyListener, MouseListener {
 			row++;
 		}
 		
+		add(bagButton);
 	}
 	
 	public void addPlayer() {
@@ -741,20 +773,20 @@ public class Map extends GraphicsProgram implements KeyListener, MouseListener {
 
         switch (e.getKeyCode()) {
             case KeyEvent.VK_UP:
-                if (selectedIndex > 0) {
+                if (selectedIndex > 0 && bagIsOpen) {
                     selectedIndex--;
                     highlightItem(selectedIndex);
                 }
                 break;
 
             case KeyEvent.VK_DOWN:
-                if (selectedIndex < displayedItems.size() - 1) {
+                if (selectedIndex < displayedItems.size() - 1 && bagIsOpen) {
                     selectedIndex++;
                     highlightItem(selectedIndex);
                 }
                 break;
             case KeyEvent.VK_ENTER:
-                if (selectedIndex >= 0 && selectedIndex < displayedItems.size()) {
+                if (selectedIndex >= 0 && selectedIndex < displayedItems.size() && bagIsOpen) {
                     useSelectedItem();
                 }
                 break;
@@ -774,9 +806,9 @@ public class Map extends GraphicsProgram implements KeyListener, MouseListener {
 	}
 
 	private void refreshBagMenu() {
-		 	
-	        remove(bagUI);
-	        remove(bagUILeft);
+		 	closeBag();
+	        //remove(bagUI);
+	        //remove(bagUILeft);
 	    showBagMenu(); // Re-render the menu
 	}
 
