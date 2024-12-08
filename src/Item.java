@@ -6,7 +6,7 @@ public class Item {
     private String bagTab;
     private GImage sprite;
     private Badge badge;
-    private int amount; // Quantity of the item
+    private int amount; // Quantity of the item 
 
     public Item(ItemName name, BadgeType badgeType, int amount) {
         this.itemName = name;
