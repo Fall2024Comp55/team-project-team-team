@@ -62,7 +62,7 @@ public class PlayerTrainer extends Trainer{
 	 public Direction getDirection() {
 		 return direction;
 	 }
-	 
+	  
 	 
 	
 }
