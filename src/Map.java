@@ -229,6 +229,7 @@ public class Map extends GraphicsProgram implements KeyListener, MouseListener {
 	private Clip dirtPathSound;
 	private Clip normalGrassSound;
 	private Clip mouseClickSound;
+	private Clip openBagSound;
 	
 	//currentBackgroundMusic
 	private Clip currMusic = titleMusic;
@@ -348,6 +349,7 @@ public class Map extends GraphicsProgram implements KeyListener, MouseListener {
 		dirtPathSound = createClip("media/walkOnDirt 1.wav");
 		normalGrassSound = createClip("media/walkOnGrass1.wav");
 		mouseClickSound = createClip("media/MouseClickSound2.wav");
+		openBagSound = createClip("media/openingBagSFX.wav");
 		
 	}
 	
@@ -467,8 +469,8 @@ public class Map extends GraphicsProgram implements KeyListener, MouseListener {
 	        	GPoint click1 = new GPoint(e.getX(), e.getY());
 	        	if (bagButton != null && bagButton.contains(click1) && !bagIsOpen) {
 	               // System.out.println("Opening bag...");
-	        		mouseClickSound.setFramePosition(1);
-	                mouseClickSound.start();
+	        		openBagSound.setFramePosition(0);
+	        		openBagSound.start();
 	                showBagMenu();
 	                System.out.println("checking");
 	            }
@@ -716,12 +718,14 @@ public class Map extends GraphicsProgram implements KeyListener, MouseListener {
 			battle = new battleGraphics(this, userP, wildMon);
 		    battle.init();
 		    battle.run();
+		    System.out.println("Monster hp: " + userP.getTeam().getFirst().getCurHealth());
 		    currentPage = "Battle";
 		    playSpecificSound();
 		   // add(bagButton);
 		    
 		    //battleMusic.stop();
 		    //playSound("media/Pokemon Black & White 2 OST Trainer Battle Music.wav");
+		    
 		}
 	}
 	
@@ -815,11 +819,13 @@ public class Map extends GraphicsProgram implements KeyListener, MouseListener {
 	}
 
 	public void endBattle() {
+		
 		 battle = null;
 		currentPage = "Map";
 		playSpecificSound();
 		//battleMusic.stop();
 		//playSound("media/Pokemon Black & White Music： Driftveil City Music.wav");
+		System.out.println("Monster hp: " + userP.getTeam().getFirst().getCurHealth());
 	}
 	
 	

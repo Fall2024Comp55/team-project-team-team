@@ -21,7 +21,7 @@ public enum SpeciesType {
 	IRONWHISKER	("Ironwhisker", "A steel Pokémon known for its durability.", 					40, 25, 20, Type.STEEL,  null,			"placeholderCharacter.png", "", new Move[] {
 			Move.TACKLE, Move.EMBER, Move.THUNDERBOLT, Move.EARTHQUAKE
 	}),
-	SHADOWMATH	("Shadowmath", "A mysterious monster that blends into the shadows.", 			35, 18, 12, Type.DARK,   null,			"octoMonsterEv1Front.png", "octoMonsterEv1Back.png", new Move[] {
+	SHADOWMATH	("Shadowmath", "A mysterious monster that blends into the shadows.", 			100, 18, 12, Type.DARK,   null,			"octoMonsterEv1Front.png", "octoMonsterEv1Back.png", new Move[] {
 			Move.TACKLE, Move.EMBER, Move.THUNDERBOLT, Move.EARTHQUAKE
 	}),
 	WATERWISP	("Waterwisp", "A mystical water Pokémon that flows gracefully.", 				28, 12, 8,  Type.WATER,  Type.GHOST,	"placeholderCharacter.png", "", new Move[] {
