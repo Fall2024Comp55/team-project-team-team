@@ -634,6 +634,15 @@ public class battleGraphics  {
         if (Monstericon != null && Monstericon.contains(x, y)) {
             // Handle Monster icon click (not implemented here)
         }*/
+        
+        if (playerMonster != null && playerMonster.getCurHealth() == 0 && playerMonster.isFainted()) {
+        	winScreen();
+        } else if (opponentMonster != null && opponentMonster.getCurHealth() == 0 && opponentMonster.isFainted()) {
+        	winScreen();
+        } else if (wildMonster != null && wildMonster.getCurHealth() == 0 && wildMonster.isFainted() ) {
+        	winScreen();
+        }
+
    
         	
         winScreen();
