@@ -376,7 +376,6 @@ public class battleGraphics  {
         if (playerMonster.getCurHealth() == 0 ) {
         	HealMonsterScreen();
         	return;
-        	
         }
         
         
@@ -635,11 +634,11 @@ public class battleGraphics  {
             // Handle Monster icon click (not implemented here)
         }*/
         
-        if (playerMonster != null && playerMonster.getCurHealth() == 0 && playerMonster.isFainted()) {
+        if (playerMonster != null && playerMonster.getCurHealth() == 0 ) {
         	winScreen();
-        } else if (opponentMonster != null && opponentMonster.getCurHealth() == 0 && opponentMonster.isFainted()) {
+        } else if (opponentMonster != null && opponentMonster.getCurHealth() == 0 ) {
         	winScreen();
-        } else if (wildMonster != null && wildMonster.getCurHealth() == 0 && wildMonster.isFainted() ) {
+        } else if (wildMonster != null && wildMonster.getCurHealth() == 0  ) {
         	winScreen();
         }
 
@@ -667,7 +666,7 @@ public class battleGraphics  {
             @Override
             public void run() {
                 // Check who has won and set the win message
-                if (playerMonster != null && playerMonster.getCurHealth() == 0 && playerMonster.isFainted()) {
+                if (playerMonster != null && playerMonster.getCurHealth() == 0 ) {
                     playerMonster.setFaint(false);
                     if (opponentMonster == null) {
                         map.remove(WildMonsterHealth);
@@ -684,7 +683,7 @@ public class battleGraphics  {
                     map.remove(playerMonsterSprite);
                     map.endBattle();
                     winMessage.setLabel("Opponent Wins! Health your monster");
-                } else if (opponentMonster != null && opponentMonster.getCurHealth() == 0 && opponentMonster.isFainted()) {
+                } else if (opponentMonster != null && opponentMonster.getCurHealth() == 0 ) {
                 	opponentMonster.setFaint(false);
                     if (opponentMonster == null) {
                         map.remove(WildMonsterHealth);
@@ -701,7 +700,7 @@ public class battleGraphics  {
                     map.remove(playerMonsterSprite);
                     map.endBattle();
                     winMessage.setLabel("Player Wins! Opponent Monster fainted.");
-                } else if (wildMonster != null && wildMonster.getCurHealth() == 0 && wildMonster.isFainted() ) {
+                } else if (wildMonster != null && wildMonster.getCurHealth() == 0  ) {
                 	wildMonster.setFaint(false);
                     if (opponentMonster == null) {
                         map.remove(WildMonsterHealth);
