@@ -376,7 +376,6 @@ public class battleGraphics  {
         if (playerMonster.getCurHealth() == 0 ) {
         	HealMonsterScreen();
         	return;
-        	
         }
         
         
@@ -440,8 +439,7 @@ public class battleGraphics  {
                 clearIconsF(); 
                 setupMainB(); 
         	}
-        	 winScreen();
-        	 return;
+        	
         }
         
        
@@ -495,8 +493,8 @@ public class battleGraphics  {
                 setupMainB(); 
                 
         	}
-        	 winScreen();
-        	 return;
+        	 
+        	 
         }
         
        
@@ -546,8 +544,7 @@ public class battleGraphics  {
                 clearIconsF(); 
                 setupMainB(); 
         	}
-        	 winScreen();
-        	 return;
+        	
         } 
         if((map.getElementAt(x, y) == move4 || map.getElementAt(x, y) == move4Description) &&  playerMonster.getMoves().size() > 3   && playerMonster.getCurHealth() != 0 ) {
         	if (opponentMonster == null  ) {
@@ -595,8 +592,7 @@ public class battleGraphics  {
                 setupMainB();  
         	}
         	
-        	winScreen();
-        	return;
+        	
         }
      
         
@@ -637,9 +633,18 @@ public class battleGraphics  {
         if (Monstericon != null && Monstericon.contains(x, y)) {
             // Handle Monster icon click (not implemented here)
         }*/
+        
+        if (playerMonster != null && playerMonster.getCurHealth() == 0 ) {
+        	winScreen();
+        } else if (opponentMonster != null && opponentMonster.getCurHealth() == 0 ) {
+        	winScreen();
+        } else if (wildMonster != null && wildMonster.getCurHealth() == 0  ) {
+        	winScreen();
+        }
+
    
         	
-       
+        winScreen();
         
         System.out.println("Mouse clicked at: (" + x + ", " + y + ")");
     }
@@ -661,8 +666,8 @@ public class battleGraphics  {
             @Override
             public void run() {
                 // Check who has won and set the win message
-                if (playerMonster != null && playerMonster.getCurHealth() == 0) {
-                    playerMonster.setFaint(true);
+                if (playerMonster != null && playerMonster.getCurHealth() == 0 ) {
+                    playerMonster.setFaint(false);
                     if (opponentMonster == null) {
                         map.remove(WildMonsterHealth);
                         map.remove(Playerhealth);
@@ -678,8 +683,8 @@ public class battleGraphics  {
                     map.remove(playerMonsterSprite);
                     map.endBattle();
                     winMessage.setLabel("Opponent Wins! Health your monster");
-                } else if (opponentMonster != null && opponentMonster.getCurHealth() == 0) {
-                    playerMonster.setFaint(true);
+                } else if (opponentMonster != null && opponentMonster.getCurHealth() == 0 ) {
+                	opponentMonster.setFaint(false);
                     if (opponentMonster == null) {
                         map.remove(WildMonsterHealth);
                         map.remove(Playerhealth);
@@ -695,8 +700,8 @@ public class battleGraphics  {
                     map.remove(playerMonsterSprite);
                     map.endBattle();
                     winMessage.setLabel("Player Wins! Opponent Monster fainted.");
-                } else if (wildMonster != null && wildMonster.getCurHealth() == 0) {
-                    playerMonster.setFaint(true);
+                } else if (wildMonster != null && wildMonster.getCurHealth() == 0  ) {
+                	wildMonster.setFaint(false);
                     if (opponentMonster == null) {
                         map.remove(WildMonsterHealth);
                         map.remove(Playerhealth);
@@ -722,7 +727,7 @@ public class battleGraphics  {
                     }
                 }, 2000); // Delay for 2 seconds before removing the winMessage
             }
-        }, 7000); // Initial delay before checking for the winner
+        }, 5000); // Initial delay before checking for the winner
     }
     
     
