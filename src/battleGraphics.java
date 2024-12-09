@@ -848,52 +848,58 @@ private void animateTackle() {
 }
 
 private void animateEmber() {
-    
-    GImage FireBlast = new GImage("fireball.png");  
-   
-    FireBlast.setSize(50, 50);
-    FireBlast.setLocation(200, 460);  
-    map.add(FireBlast);
+	 GImage FireBlast = new GImage("fireball.png");
+	    GImage[] fireballFrames = new GImage[] {
+	        new GImage("fireBall1.png"),
+	        new GImage("fireBall2.png"),
+	        new GImage("fireBall3.png"),
+	        new GImage("fireBall4.png"),
+	        new GImage("fireBall5.png"),
+	        new GImage("fireBall6.png")
+	    };
 
-    
-    final int targetX = 630;
-    final int targetY = 280;
+	    FireBlast.setSize(50, 50);
+	    FireBlast.setLocation(200, 460);
+	    map.add(FireBlast);
 
-   
-    final int moveDistance = 10;
+	    final int targetX = 630;
+	    final int targetY = 280;
 
-    // Calculate the total number of frames needed to move horizontally and vertically
-    // We divide the distance by the move distance, rounded up, so it covers the full distance
-    final int totalFramesX = (int) Math.ceil((double) Math.abs(targetX - FireBlast.getX()) / moveDistance);
-    final int totalFramesY = (int) Math.ceil((double) Math.abs(targetY - FireBlast.getY()) / moveDistance);
+	    final int moveDistance = 10; // Distance moved per frame
+	    final int animationSpeed = 20; // Milliseconds per frame
 
-    // We want to take the maximum of both X and Y frame counts so the image finishes in sync
-    final int totalFrames = Math.max(totalFramesX, totalFramesY);
+	    // Calculate total number of frames needed
+	    final int totalFramesX = (int) Math.ceil((double) Math.abs(targetX - FireBlast.getX()) / moveDistance);
+	    final int totalFramesY = (int) Math.ceil((double) Math.abs(targetY - FireBlast.getY()) / moveDistance);
+	    final int totalFrames = Math.max(totalFramesX, totalFramesY);
 
-    // Create a timer to animate the image's movement
-    Timer timer = new Timer();
-    timer.scheduleAtFixedRate(new TimerTask() {
-        private int framesMoved = 0;
+	    // Timer for animation
+	    Timer timer = new Timer();
+	    timer.scheduleAtFixedRate(new TimerTask() {
+	        private int framesMoved = 0;
 
-        @Override
-        public void run() {
-            if (framesMoved < totalFrames) {
-               
-                int moveX = (int) ((targetX - FireBlast.getX()) / (totalFrames - framesMoved));
-                int moveY = (int) ((targetY - FireBlast.getY()) / (totalFrames - framesMoved));
+	        @Override
+	        public void run() {
+	            if (framesMoved < totalFrames) {
+	                // Calculate movement step
+	                int moveX = (int) ((targetX - FireBlast.getX()) / (totalFrames - framesMoved));
+	                int moveY = (int) ((targetY - FireBlast.getY()) / (totalFrames - framesMoved));
 
-               
-                FireBlast.move(moveX, moveY);
+	                // Update the fireball's position
+	                FireBlast.move(moveX, moveY);
 
-                framesMoved++;
-            } else {
-                
-                cancel();
-                map.remove(FireBlast);
-            }
-        }
-    }, 0, 20); 
-    
+	                // Update the fireball's image (cycle through frames)
+	                int frameIndex = framesMoved % fireballFrames.length; // Cycle frames
+	                FireBlast.setImage(fireballFrames[frameIndex].getImage());
+
+	                framesMoved++;
+	            } else {
+	                // Animation complete
+	                cancel();
+	                map.remove(FireBlast);
+	            }
+	        }
+	    }, 0, animationSpeed); // Animation speed in milliseconds
 }
 
 private void animateSurf() {
@@ -1225,7 +1231,7 @@ public void moveAnimationTrainer(String moveName) {
     if (moveName.equals("Tackle")) {
     	animateTackleTrainer();
     } else if (moveName.equals("Ember")) {
-        animateEmberTrianer();
+    	animateEmberTrianer();
     } else if (moveName.equals("Flamethrower")) {
     	animateFlamethrowerTrainer();
     } else if (moveName.equals("Fire Blast")) {
@@ -1242,54 +1248,125 @@ public void moveAnimationTrainer(String moveName) {
    
 }
 
+private void animateEmberTrainer2() {
+	  // Load all fireball images
+    GImage[] fireballFrames = new GImage[] {
+       // new GImage("fireBall.png"),
+        new GImage("fireBall1.png"),
+        new GImage("fireBall2.png"),
+        new GImage("fireBall3.png"),
+        new GImage("fireBall4.png"),
+        new GImage("fireBall5.png"),
+        new GImage("fireBall6.png")
+    };
 
-private void animateEmberTrianer() {
-    
-    GImage FireBlast = new GImage("fireball.png");  
-   
-    FireBlast.setSize(50, 50);
-    FireBlast.setLocation(630, 280);  
-    map.add(FireBlast);
+    // Initialize the fireball with the first frame
+    GImage fireball = fireballFrames[0];
+    fireball.setSize(50, 50);
+    fireball.setLocation(630, 280);
+    map.add(fireball);
 
-    
+    // Use a single-element array to wrap the fireball variable
+    GImage[] currentFireball = { fireball };
+
+    // Target position
     final int targetX = 200;
     final int targetY = 460;
 
-   
-    final int moveDistance = 10;
+    // Movement and animation properties
+    final int moveDistance = 10; // Pixels per frame
+    final int animationSpeed = 20; // Milliseconds per frame
+    final int frameCount = fireballFrames.length;
 
-    // Calculate the total number of frames needed to move horizontally and vertically
-    // We divide the distance by the move distance, rounded up, so it covers the full distance
-    final int totalFramesX = (int) Math.ceil((double) Math.abs(targetX - FireBlast.getX()) / moveDistance);
-    final int totalFramesY = (int) Math.ceil((double) Math.abs(targetY - FireBlast.getY()) / moveDistance);
-
-    // We want to take the maximum of both X and Y frame counts so the image finishes in sync
+    // Calculate the total number of frames
+    final int totalFramesX = (int) Math.ceil((double) Math.abs(targetX - fireball.getX()) / moveDistance);
+    final int totalFramesY = (int) Math.ceil((double) Math.abs(targetY - fireball.getY()) / moveDistance);
     final int totalFrames = Math.max(totalFramesX, totalFramesY);
 
-    // Create a timer to animate the image's movement
+    // Timer for animation
     Timer timer = new Timer();
     timer.scheduleAtFixedRate(new TimerTask() {
         private int framesMoved = 0;
+        private int currentFrame = 0;
 
         @Override
         public void run() {
             if (framesMoved < totalFrames) {
-               
-                int moveX = (int) ((targetX - FireBlast.getX()) / (totalFrames - framesMoved));
-                int moveY = (int) ((targetY - FireBlast.getY()) / (totalFrames - framesMoved));
+                // Update the fireball's position
+                int moveX = (int) ((targetX - currentFireball[0].getX()) / (totalFrames - framesMoved));
+                int moveY = (int) ((targetY - currentFireball[0].getY()) / (totalFrames - framesMoved));
+                currentFireball[0].move(moveX, moveY);
 
-               
-                FireBlast.move(moveX, moveY);
+                // Update the fireball's frame
+                map.remove(currentFireball[0]); // Remove the current frame
+                currentFrame = (currentFrame + 1) % frameCount; // Cycle through frames
+                currentFireball[0] = fireballFrames[currentFrame]; // Get the next frame
+                currentFireball[0].setSize(50, 50);
+                currentFireball[0].setLocation(currentFireball[0].getX(), currentFireball[0].getY());
+                map.add(currentFireball[0]); // Add the updated frame
 
                 framesMoved++;
             } else {
-                
+                // End the animation
                 cancel();
-                map.remove(FireBlast);
+                map.remove(currentFireball[0]);
             }
         }
-    }, 0, 20); 
-    
+    }, 0, animationSpeed); // Animation speed in milliseconds
+}
+private void animateEmberTrianer() {
+	  GImage FireBlast = new GImage("fireball.png");
+	    GImage[] fireballFrames = new GImage[] {
+	        new GImage("fireBall1.png"),
+	        new GImage("fireBall2.png"),
+	        new GImage("fireBall3.png"),
+	        new GImage("fireBall4.png"),
+	        new GImage("fireBall5.png"),
+	        new GImage("fireBall6.png")
+	    };
+
+	    FireBlast.setSize(50, 50);
+	    FireBlast.setLocation(630, 280);  
+	    map.add(FireBlast);
+
+	    final int targetX = 200;
+	    final int targetY = 460;
+
+	    final int moveDistance = 10; // Movement speed per frame
+	    final int animationSpeed = 20; // Milliseconds per frame
+
+	    // Calculate the total number of frames needed
+	    final int totalFramesX = (int) Math.ceil((double) Math.abs(targetX - FireBlast.getX()) / moveDistance);
+	    final int totalFramesY = (int) Math.ceil((double) Math.abs(targetY - FireBlast.getY()) / moveDistance);
+	    final int totalFrames = Math.max(totalFramesX, totalFramesY);
+
+	    // Timer for animation
+	    Timer timer = new Timer();
+	    timer.scheduleAtFixedRate(new TimerTask() {
+	        private int framesMoved = 0;
+
+	        @Override
+	        public void run() {
+	            if (framesMoved < totalFrames) {
+	                // Calculate movement step
+	                int moveX = (int) ((targetX - FireBlast.getX()) / (totalFrames - framesMoved));
+	                int moveY = (int) ((targetY - FireBlast.getY()) / (totalFrames - framesMoved));
+
+	                // Update the fireball's position
+	                FireBlast.move(moveX, moveY);
+
+	                // Update the fireball's image (cycle through frames)
+	                int frameIndex = framesMoved % fireballFrames.length; // Loop through frames
+	                FireBlast.setImage(fireballFrames[frameIndex].getImage());
+
+	                framesMoved++;
+	            } else {
+	                // Animation complete
+	                cancel();
+	                map.remove(FireBlast);
+	            }
+	        }
+	    }, 0, animationSpeed); // Animation speed in milliseconds
 }
 
 private void animateSurfTrainer() {
