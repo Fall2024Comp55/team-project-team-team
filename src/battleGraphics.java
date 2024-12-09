@@ -905,7 +905,7 @@ private void animateEmber() {
 	            }
 	        }
 	    }, 0, animationSpeed); // Animation speed in milliseconds
-}
+}//done
 
 private void animateSurf() {
     

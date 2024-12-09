@@ -230,6 +230,7 @@ public class Map extends GraphicsProgram implements KeyListener, MouseListener {
 	private Clip normalGrassSound;
 	private Clip mouseClickSound;
 	private Clip openBagSound;
+	private Clip collectItemSound;
 	
 	//currentBackgroundMusic
 	private Clip currMusic = titleMusic;
@@ -350,6 +351,7 @@ public class Map extends GraphicsProgram implements KeyListener, MouseListener {
 		normalGrassSound = createClip("media/walkOnGrass1.wav");
 		mouseClickSound = createClip("media/MouseClickSound2.wav");
 		openBagSound = createClip("media/openingBagSFX.wav");
+		collectItemSound = createClip("media/Collect Item Sound Effect.wav");
 		
 	}
 	
@@ -826,6 +828,7 @@ public class Map extends GraphicsProgram implements KeyListener, MouseListener {
 		//battleMusic.stop();
 		//playSound("media/Pokemon Black & White Music： Driftveil City Music.wav");
 		System.out.println("Monster hp: " + userP.getTeam().getFirst().getCurHealth());
+		
 	}
 	
 	
