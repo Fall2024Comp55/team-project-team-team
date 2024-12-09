@@ -46,13 +46,17 @@ public class battleGraphics  {
     private GLabel move3Description;
     private GLabel move4Description;
     
+    private GLabel battleText1;
+    private GLabel battleText2;
+    
     String  Pheath = "";
 	String  Whealth = "";
 	String Ohealth =  "";
 	GLabel OpponetHealth;
 	GLabel Playerhealth;
 	GLabel WildMonsterHealth;
-    private static final String labelFont = "Arial-Bold-22";
+    private static final String moveLabelFont = "Pokemon Solid-30";
+    private static final String textLabelFont = "Pokemon Solid-50";
     
     private boolean isPlayerTurn;
     
@@ -130,6 +134,9 @@ public class battleGraphics  {
     	this.move3Description = new GLabel(player.getTeam().get(0).getMoves().get(2).name);
     	this.move4Description = new GLabel(player.getTeam().get(0).getMoves().get(3).name);
     	
+    	this.battleText1 = new GLabel("What will");
+    	this.battleText2 = new GLabel("player do?");
+    	
        // addKeyListeners();                   
         //requestFocus();                      
     }
@@ -146,12 +153,20 @@ public class battleGraphics  {
         //map.remove(Monstericon);
         map.remove(runicon);
         map.remove(battleScreen);
+        map.remove(battleText1);
+        map.remove(battleText2);;
     }
 
     public void setupMainB() {
         battleScreen = new GImage("battle.png");  
         battleScreen.setSize(880, 200); 
         battleScreen.setLocation(0, 520); 
+        
+        battleText1.setFont(textLabelFont);
+        battleText1.setLocation(45, 615);
+        
+        battleText2.setFont(textLabelFont);
+        battleText2.setLocation(45, 680);
         
         /*bagicon = new GImage("bagicon.png"); 
         bagicon.setSize(250, 100);
@@ -175,6 +190,8 @@ public class battleGraphics  {
         //map.add(bagicon);
         //map.add(Monstericon);
         map.add(runicon);
+        map.add(battleText1);
+        map.add(battleText2);
     }
     
 
@@ -218,16 +235,16 @@ public class battleGraphics  {
         move4.setSize(327, 98);
         move4.setLocation(330, 620);
         
-        move1Description.setFont(labelFont);
+        move1Description.setFont(moveLabelFont);
         move1Description.setLocation(125, 585);
         
-        move2Description.setFont(labelFont);
+        move2Description.setFont(moveLabelFont);
         move2Description.setLocation(460, 585);
         
-        move3Description.setFont(labelFont);
+        move3Description.setFont(moveLabelFont);
         move3Description.setLocation(115, 675);
         
-        move4Description.setFont(labelFont);
+        move4Description.setFont(moveLabelFont);
         move4Description.setLocation(410, 675);
         
         map.add(bscreen);
