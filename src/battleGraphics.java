@@ -375,8 +375,9 @@ public class battleGraphics  {
                  timer.schedule(new TimerTask() {
                      @Override
                      public void run() {
+                    	 wildMonster.updateHP(-damage2);
                          moveAnimationTrainer(move2.getName());
-                         playerMonster.updateHP(-damage2);
+                        
                      }
                  }, 2000); 
                  
@@ -421,8 +422,9 @@ public class battleGraphics  {
                 timer.schedule(new TimerTask() {
                     @Override
                     public void run() {
+                    	 wildMonster.updateHP(-damage2);
                     	moveAnimationTrainer(move2.getName());
-                        playerMonster.updateHP(-damage2);
+                
                     }
                 }, 2000);
                 clearIconsF(); 
@@ -471,8 +473,9 @@ public class battleGraphics  {
                	timer.schedule(new TimerTask() {
                      @Override
                      public void run() {
+                    	 wildMonster.updateHP(-damage2);
                          moveAnimationTrainer(move2.getName());
-                         playerMonster.updateHP(-damage2);
+                         
                      }
                  }, 2000);
                  
@@ -515,8 +518,9 @@ public class battleGraphics  {
                 timer.schedule(new TimerTask() {
                      @Override
                      public void run() {
+                    	 wildMonster.updateHP(-damage2);
                          moveAnimationTrainer(move2.getName());
-                         playerMonster.updateHP(-damage2);
+                         
                      }
                  }, 2000);  
                 clearIconsF(); 
