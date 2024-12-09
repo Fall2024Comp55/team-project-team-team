@@ -9,7 +9,7 @@ import acm.graphics.GImage;
 
 public enum SpeciesType {
 	
-	SPIDER		("Spider", "A small, agile creature.", 											30, 10, 5,  Type.BUG,    null,			"placeholderCharacter.png", "", new Move[] {
+	SPIDER		("Spider", "A small, agile creature.", 											30, 10, 5,  Type.BUG,    null,			"spiderMonster2Front.png", "spiderMonster2Back.png", new Move[] {
 			Move.TACKLE, Move.EMBER, Move.EMBER, Move.THUNDERBOLT
 	}),
 	GLIMMERBUG	("Glimmerbug", "A glowing insect with magical properties.", 					25, 15, 7,  Type.BUG,    Type.FAIRY,	"placeholderCharacter.png", "", new Move[] {
@@ -42,10 +42,10 @@ public enum SpeciesType {
 	STORMWIND	("Stormwind", "A powerful creature that harnesses the energy of storms.", 		45, 30, 12, Type.FLYING, Type.ELECTRIC,	"placeholderCharacter.png", "", new Move[] {
 			Move.TACKLE, Move.WATERGUN, Move.EMBER, Move.EARTHQUAKE
 	}),
-	GREENHORN	("Greenhorn", "A powerful creature that harnesses the energy of storms.", 		50, 15, 25, Type.GRASS,  null,	        "placeholderCharacter.png", "", new Move[] {
+	GREENHORN	("Greenhorn", "A powerful creature that harnesses the energy of storms.", 		50, 15, 25, Type.GRASS,  null,	        "greenHornFront.png", "greenHornBack.png", new Move[] {
 			Move.TACKLE, Move.WATERGUN, Move.EMBER, Move.EARTHQUAKE
 	}),
-	THORNTAIL	("Thorntail", "A reptilian Pokémon covered in sharp thorns.", 					38, 17, 18, Type.GROUND, Type.GRASS,	"placeholderCharacter.png", "", new Move[] {
+	THORNTAIL	("Thorntail", "A reptilian Pokémon covered in sharp thorns.", 					38, 17, 18, Type.GROUND, Type.GRASS,	"ghasLiZardEv1Front.png", "ghasLiZardEv1Back.png", new Move[] {
 			Move.TACKLE, Move.WATERGUN, Move.EMBER, Move.EARTHQUAKE
 	}),
 	VENOMSPIT	("Venomspit", "A toxic Pokémon that can paralyze its enemies.", 				26, 25, 5,  Type.POISON, null,			"excitedGibliEv1Front.png", "excitedGibliEv1Back.png", new Move[] {
