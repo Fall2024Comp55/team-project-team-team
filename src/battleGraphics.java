@@ -1134,7 +1134,7 @@ private void animateFlamethrower() {
                 cancel();  
             }
         }
-    }, 0, 50);  
+    }, 0, 30);  
 }
 
 private void animateFireBlast(GImage fireBlast, final int targetX, final int targetY, final int moveDistance) {
@@ -1214,7 +1214,7 @@ private void animateWaterGun() {
                 cancel();  
             }
         }
-    }, 0, 20);  
+    }, 0, 30);  
 }
 
 
@@ -1581,7 +1581,7 @@ private void animateFlamethrowerTrainer() {
                 cancel();  
             }
         }
-    }, 0, 50);  
+    }, 0, 30);  
 }
 
 
@@ -1624,7 +1624,7 @@ private void animateWaterGunTrainer() {
                 cancel();  
             }
         }
-    }, 0, 50);  
+    }, 0, 30);  
 }
 
 
