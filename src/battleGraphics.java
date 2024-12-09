@@ -299,54 +299,62 @@ public class battleGraphics  {
        // addMouseListeners();
     }
   
+    
+    
+    public void updateHealthbar() {
+    	 if ( opponentMonster == null) {
+         	map.remove(WildMonsterHealth);
+         	map.remove(Playerhealth);
+         	System.out.println("removed");
+         	
+         	
+         	  Pheath = Integer.toString(playerMonster.getCurHealth());
+         	  Whealth =  Integer.toString(wildMonster.getCurHealth());
+         	        
+         	        WildMonsterHealth = new GLabel( "Health: " + Whealth); 
+         	        WildMonsterHealth.setFont("Arial-Bold-24");  
+         	        WildMonsterHealth.setColor(Color.BLACK); 
+         	        WildMonsterHealth.setLocation(600, 240);  
+         	        map.add(WildMonsterHealth);
+         	       
+         	         Playerhealth = new GLabel( "Health: " + Pheath);
+         	        Playerhealth.setFont("Arial-Bold-24");  
+         	        Playerhealth.setColor(Color.BLACK); 
+         	        Playerhealth.setLocation(180, 420);
+         	        map.add(Playerhealth);
+         	        
+         	      
+         }else {
+         	map.remove(OpponetHealth);
+         	map.remove(Playerhealth);
+         	
+         	
+         	 Pheath = Integer.toString(playerMonster.getCurHealth());
+         	 Ohealth =  Integer.toString(opponentMonster.getCurHealth());
+         	        
+         	        OpponetHealth = new GLabel( "Health: " + Ohealth); 
+         	        OpponetHealth.setFont("Arial-Bold-24");  
+         	        OpponetHealth.setColor(Color.BLACK); 
+         	        OpponetHealth.setLocation(600, 240);  
+         	        map.add(OpponetHealth);
+         	       
+         	        Playerhealth = new GLabel(Pheath);
+         	        Playerhealth.setFont("Arial-Bold-24");  
+         	        Playerhealth.setColor(Color.BLACK); 
+         	        Playerhealth.setLocation(180, 420);
+         	        map.add(Playerhealth);
+         	        
+         }	
+    	
+    }
+    
+    
     public void mousePressed(MouseEvent e) {
     	
     	int x = e.getX();
         int y = e.getY();
         
-        if ( opponentMonster == null) {
-        	map.remove(WildMonsterHealth);
-        	map.remove(Playerhealth);
-        	System.out.println("removed");
-        	
-        	
-        	  Pheath = Integer.toString(playerMonster.getCurHealth());
-        	  Whealth =  Integer.toString(wildMonster.getCurHealth());
-        	        
-        	        WildMonsterHealth = new GLabel( "Health: " + Whealth); 
-        	        WildMonsterHealth.setFont("Arial-Bold-24");  
-        	        WildMonsterHealth.setColor(Color.BLACK); 
-        	        WildMonsterHealth.setLocation(600, 240);  
-        	        map.add(WildMonsterHealth);
-        	       
-        	         Playerhealth = new GLabel( "Health: " + Pheath);
-        	        Playerhealth.setFont("Arial-Bold-24");  
-        	        Playerhealth.setColor(Color.BLACK); 
-        	        Playerhealth.setLocation(180, 420);
-        	        map.add(Playerhealth);
-        	        
-        	      
-        }else {
-        	map.remove(OpponetHealth);
-        	map.remove(Playerhealth);
-        	
-        	
-        	 Pheath = Integer.toString(playerMonster.getCurHealth());
-        	 Ohealth =  Integer.toString(opponentMonster.getCurHealth());
-        	        
-        	        OpponetHealth = new GLabel( "Health: " + Ohealth); 
-        	        OpponetHealth.setFont("Arial-Bold-24");  
-        	        OpponetHealth.setColor(Color.BLACK); 
-        	        OpponetHealth.setLocation(600, 240);  
-        	        map.add(OpponetHealth);
-        	       
-        	        Playerhealth = new GLabel(Pheath);
-        	        Playerhealth.setFont("Arial-Bold-24");  
-        	        Playerhealth.setColor(Color.BLACK); 
-        	        Playerhealth.setLocation(180, 420);
-        	        map.add(Playerhealth);
-        	        
-        }
+       
 
         
         
@@ -381,6 +389,9 @@ public class battleGraphics  {
                      }
                  }, 2000); 
                  
+                 
+                 updateHealthbar();
+                 
                  clearIconsF(); 
                  setupMainB(); 
         		
@@ -400,6 +411,8 @@ public class battleGraphics  {
                          moveAnimationTrainer(move2.getName());
                     }
                 }, 2000); 
+                
+                updateHealthbar();
                 clearIconsF(); 
                 setupMainB(); 
         	}
@@ -427,6 +440,8 @@ public class battleGraphics  {
                 
                     }
                 }, 2000);
+                
+                updateHealthbar();
                 clearIconsF(); 
                 setupMainB(); 
                 
@@ -449,6 +464,7 @@ public class battleGraphics  {
                          moveAnimationTrainer(move2.getName());
                     }
                 }, 2000); 
+                updateHealthbar();
                 clearIconsF(); 
                 setupMainB(); 
                 
@@ -478,7 +494,7 @@ public class battleGraphics  {
                          
                      }
                  }, 2000);
-                 
+                updateHealthbar();
                 clearIconsF(); 
             	setupMainB(); 
 
@@ -498,6 +514,7 @@ public class battleGraphics  {
                          moveAnimationTrainer(move2.getName());
                     }
                 }, 2000); 
+                updateHealthbar();
                 clearIconsF(); 
                 setupMainB(); 
         	}
@@ -523,6 +540,7 @@ public class battleGraphics  {
                          
                      }
                  }, 2000);  
+                updateHealthbar();
                 clearIconsF(); 
             	setupMainB(); 
                  
@@ -542,7 +560,7 @@ public class battleGraphics  {
                          moveAnimationTrainer(move2.getName());
                     }
                 }, 2000); 
-                
+                updateHealthbar();
                 clearIconsF(); 
                 setupMainB();  
         	}
@@ -672,7 +690,7 @@ public class battleGraphics  {
                     }
                 }, 3000); // Delay for 3 seconds before removing the winMessage
             }
-        }, 5000); // Initial delay before checking for the winner
+        }, 8000); // Initial delay before checking for the winner
     }
     
     
