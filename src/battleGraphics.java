@@ -367,7 +367,7 @@ public class battleGraphics  {
             return;
         } 
      
-          if((map.getElementAt(x, y) == move1 || map.getElementAt(x, y) == move1Description)  &&  playerMonster.getMoves().size() > 0  && !playerMonster.isFainted()) {
+          if((map.getElementAt(x, y) == move1 || map.getElementAt(x, y) == move1Description)  &&  playerMonster.getMoves().size() > 0  && playerMonster.getCurHealth() != 0) {
         	if (opponentMonster == null  ) {
         		 Move move = playerMonster.getMoves().get(0);
                  int damage = move.calculateDamage(playerMonster, wildMonster);   
@@ -420,7 +420,7 @@ public class battleGraphics  {
         }
         
        
-        if((map.getElementAt(x, y) == move2 || map.getElementAt(x, y) == move2Description)  &&  playerMonster.getMoves().size() > 1   && !playerMonster.isFainted()) {
+        if((map.getElementAt(x, y) == move2 || map.getElementAt(x, y) == move2Description)  &&  playerMonster.getMoves().size() > 1   && playerMonster.getCurHealth() != 0) {
         	if (opponentMonster == null  ) {
         		Move move = playerMonster.getMoves().get(1);
             	int damage = move.calculateDamage(playerMonster, wildMonster);
@@ -474,7 +474,7 @@ public class battleGraphics  {
         }
         
        
-        if((map.getElementAt(x, y) == move3 || map.getElementAt(x, y) == move3Description)  &&  playerMonster.getMoves().size() > 2   && !playerMonster.isFainted() ) {
+        if((map.getElementAt(x, y) == move3 || map.getElementAt(x, y) == move3Description)  &&  playerMonster.getMoves().size() > 2   && playerMonster.getCurHealth() != 0) {
         	if (opponentMonster == null  ) {
         		Move move = playerMonster.getMoves().get(2);
             	int damage = move.calculateDamage(playerMonster, wildMonster);
@@ -521,7 +521,7 @@ public class battleGraphics  {
         	
         	
         } 
-        if((map.getElementAt(x, y) == move4 || map.getElementAt(x, y) == move4Description) &&  playerMonster.getMoves().size() > 3   && !playerMonster.isFainted() ) {
+        if((map.getElementAt(x, y) == move4 || map.getElementAt(x, y) == move4Description) &&  playerMonster.getMoves().size() > 3   && playerMonster.getCurHealth() != 0 ) {
         	if (opponentMonster == null  ) {
         		Move move = playerMonster.getMoves().get(3);
             	int damage = move.calculateDamage(playerMonster, wildMonster);
@@ -688,7 +688,7 @@ public class battleGraphics  {
                     public void run() {
                         map.remove(winMessage); // Remove the win message
                     }
-                }, 3000); // Delay for 3 seconds before removing the winMessage
+                }, 2000); // Delay for 3 seconds before removing the winMessage
             }
         }, 8000); // Initial delay before checking for the winner
     }
