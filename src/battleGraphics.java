@@ -690,7 +690,7 @@ public class battleGraphics  {
                     }
                 }, 3000); // Delay for 3 seconds before removing the winMessage
             }
-        }, 5000); // Initial delay before checking for the winner
+        }, 8000); // Initial delay before checking for the winner
     }
     
     
