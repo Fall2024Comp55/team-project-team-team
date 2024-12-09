@@ -359,7 +359,7 @@ public class battleGraphics  {
             return;
         } 
      
-          if((map.getElementAt(x, y) == move1 || map.getElementAt(x, y) == move1Description)  &&  playerMonster.getMoves().size() > 0 ) {
+          if((map.getElementAt(x, y) == move1 || map.getElementAt(x, y) == move1Description)  &&  playerMonster.getMoves().size() > 0  && !playerMonster.isFainted()) {
         	if (opponentMonster == null  ) {
         		 Move move = playerMonster.getMoves().get(0);
                  int damage = move.calculateDamage(playerMonster, wildMonster);   
@@ -407,7 +407,7 @@ public class battleGraphics  {
         }
         
        
-        if((map.getElementAt(x, y) == move2 || map.getElementAt(x, y) == move2Description)  &&  playerMonster.getMoves().size() > 1 ) {
+        if((map.getElementAt(x, y) == move2 || map.getElementAt(x, y) == move2Description)  &&  playerMonster.getMoves().size() > 1   && !playerMonster.isFainted()) {
         	if (opponentMonster == null  ) {
         		Move move = playerMonster.getMoves().get(1);
             	int damage = move.calculateDamage(playerMonster, wildMonster);
@@ -458,7 +458,7 @@ public class battleGraphics  {
         }
         
        
-        if((map.getElementAt(x, y) == move3 || map.getElementAt(x, y) == move3Description)  &&  playerMonster.getMoves().size() > 2  ) {
+        if((map.getElementAt(x, y) == move3 || map.getElementAt(x, y) == move3Description)  &&  playerMonster.getMoves().size() > 2   && !playerMonster.isFainted() ) {
         	if (opponentMonster == null  ) {
         		Move move = playerMonster.getMoves().get(2);
             	int damage = move.calculateDamage(playerMonster, wildMonster);
@@ -503,8 +503,8 @@ public class battleGraphics  {
         	}
         	
         	
-        }
-        if((map.getElementAt(x, y) == move4 || map.getElementAt(x, y) == move4Description) &&  playerMonster.getMoves().size() > 3  ) {
+        } 
+        if((map.getElementAt(x, y) == move4 || map.getElementAt(x, y) == move4Description) &&  playerMonster.getMoves().size() > 3   && !playerMonster.isFainted() ) {
         	if (opponentMonster == null  ) {
         		Move move = playerMonster.getMoves().get(3);
             	int damage = move.calculateDamage(playerMonster, wildMonster);
@@ -599,7 +599,7 @@ public class battleGraphics  {
         final GLabel winMessage = new GLabel("");  // Start with an empty label
         winMessage.setFont("Arial-Bold-24");  // Set font style (ACM uses a specific font string format)
         winMessage.setColor(Color.BLACK);  // Set the text color
-        winMessage.setLocation(400, 360);  // Position the label at (200, 200)
+        winMessage.setLocation(200, 360);  // Position the label at (200, 200)
 
         // Add the winMessage to the map (assuming map is a GCanvas or similar container)
         map.add(winMessage);
@@ -669,7 +669,7 @@ public class battleGraphics  {
                     }
                 }, 3000); // Delay for 3 seconds before removing the winMessage
             }
-        }, 8000); // Initial delay before checking for the winner
+        }, 5000); // Initial delay before checking for the winner
     }
     
     
