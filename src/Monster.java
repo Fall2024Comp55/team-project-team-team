@@ -202,6 +202,11 @@ public class Monster {
 		}
 		
 	}
+	
+	public void setFaint(boolean b) {
+		this.fainted = b;
+	}
+	
 	public void Switchmove( int num, Move move ) {
 		moves.set(num, move);
 	}
@@ -223,6 +228,8 @@ public class Monster {
         for (Move move : Move.values()) {
             availableMoves.add(move);
         }
+        
+      
 
         while (moves.size() < 4) {
             Move randomMove = availableMoves.get(rand.nextInt(availableMoves.size()));

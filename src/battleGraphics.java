@@ -610,6 +610,7 @@ public class battleGraphics  {
             public void run() {
                 // Check who has won and set the win message
                 if (playerMonster != null && playerMonster.isFainted()) {
+                	playerMonster.setFaint(true);
                 	if ( opponentMonster == null) {
                     	map.remove(WildMonsterHealth);
                     	map.remove(Playerhealth);      
@@ -627,6 +628,7 @@ public class battleGraphics  {
                     winMessage.setLabel("Opponent Wins! Health your monster");  // Update the win message
 
                 } else if (opponentMonster != null && opponentMonster.isFainted()) {
+                	playerMonster.setFaint(true);
                 	if ( opponentMonster == null) {
                     	map.remove(WildMonsterHealth);
                     	map.remove(Playerhealth);      
@@ -644,6 +646,7 @@ public class battleGraphics  {
                     winMessage.setLabel("Player Wins! Opponent Monster fainted. ");  // Update the win message
 
                 } else if (wildMonster != null && wildMonster.isFainted()) {
+                	playerMonster.setFaint(true);
                 	if ( opponentMonster == null) {
                     	map.remove(WildMonsterHealth);
                     	map.remove(Playerhealth);      
