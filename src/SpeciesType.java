@@ -12,34 +12,34 @@ public enum SpeciesType {
 	SPIDER		("Spider", "A small, agile creature.", 											30, 10, 5,  Type.BUG,    null,			"spiderMonster2Front.png", "spiderMonster2Back.png", new Move[] {
 			Move.TACKLE, Move.EMBER, Move.EMBER, Move.THUNDERBOLT
 	}),
-	GLIMMERBUG	("Glimmerbug", "A glowing insect with magical properties.", 					25, 15, 7,  Type.BUG,    Type.FAIRY,	"placeholderCharacter.png", "", new Move[] {
+	GLIMMERBUG	("Glimmerbug", "A glowing insect with magical properties.", 					25, 15, 7,  Type.BUG,    Type.FAIRY,	"glimmerBugFront.png", "glimmerBugBack.png", new Move[] {
 			Move.TACKLE, Move.EMBER, Move.THUNDERBOLT, Move.EARTHQUAKE
 	}),
-	STONEJAW	("Stonejaw", "A rock-like monster with a strong bite.", 						50, 20, 15, Type.ROCK,   null,			"placeholderCharacter.png", "", new Move[] {
+	STONEJAW	("Stonejaw", "A rock-like monster with a strong bite.", 						50, 20, 15, Type.ROCK,   null,			"stoneJawFront.png", "stoneJawBack.png", new Move[] {
 			Move.TACKLE, Move.EMBER, Move.THUNDERBOLT, Move.EARTHQUAKE
 	}),
-	IRONWHISKER	("Ironwhisker", "A steel Pokémon known for its durability.", 					40, 25, 20, Type.STEEL,  null,			"placeholderCharacter.png", "", new Move[] {
+	IRONWHISKER	("Ironwhisker", "A steel Pokémon known for its durability.", 					40, 25, 20, Type.STEEL,  null,			"ironWhiskersFront.png", "ironWhiskersBack.png", new Move[] {
 			Move.TACKLE, Move.EMBER, Move.THUNDERBOLT, Move.EARTHQUAKE
 	}),
 	SHADOWMATH	("Shadowmath", "A mysterious monster that blends into the shadows.", 			100, 18, 12, Type.DARK,   null,			"octoMonsterEv1Front.png", "octoMonsterEv1Back.png", new Move[] {
 			Move.TACKLE, Move.EMBER, Move.THUNDERBOLT, Move.EARTHQUAKE
 	}),
-	WATERWISP	("Waterwisp", "A mystical water Pokémon that flows gracefully.", 				28, 12, 8,  Type.WATER,  Type.GHOST,	"placeholderCharacter.png", "", new Move[] {
+	WATERWISP	("Waterwisp", "A mystical water Pokémon that flows gracefully.", 				28, 12, 8,  Type.WATER,  Type.GHOST,	"waterWispFront.png", "waterWispBack.png", new Move[] {
 			Move.TACKLE, Move.WATERGUN, Move.THUNDERBOLT, Move.EARTHQUAKE
 	}),
-	FLAMECLAW	("Flameclaw", "A fiery creature with sharp claws and fierce temper.", 			40, 22, 10, Type.FIRE,   Type.FIGHTING,	"placeholderCharacter.png", "", new Move[] {
+	FLAMECLAW	("Flameclaw", "A fiery creature with sharp claws and fierce temper.", 			40, 22, 10, Type.FIRE,   Type.FIGHTING,	"flameClawFront.png", "flameClawBack.png", new Move[] {
 			Move.TACKLE, Move.FLAMETHROWER, Move.THUNDERBOLT, Move.EARTHQUAKE
 	}),
-	FROSTBEAK	("Frostbeak", "An icy bird that can freeze its foes with a glance.", 			32, 18, 15, Type.ICE,    Type.FLYING,	"placeholderCharacter.png", "", new Move[] {
+	FROSTBEAK	("Frostbeak", "An icy bird that can freeze its foes with a glance.", 			32, 18, 15, Type.ICE,    Type.FLYING,	"frostBeakFront.png", "frostBeakBack.png", new Move[] {
 			Move.TACKLE, Move.WATERGUN, Move.EMBER, Move.THUNDERBOLT
 	}),
-	ROCKSHIELD	("Rockshield", "A stout Pokémon that defends its allies with a sturdy shell.", 	55, 15, 25, Type.ROCK,   null,			"placeholderCharacter.png", "", new Move[] {
+	ROCKSHIELD	("Rockshield", "A stout Pokémon that defends its allies with a sturdy shell.", 	55, 15, 25, Type.ROCK,   null,			"pixelatedDirtPath.png", "pixelatedDirtPath.png", new Move[] {
 			Move.TACKLE, Move.WATERGUN, Move.EMBER, Move.THUNDERBOLT
 	}),
-	GHOSTFLARE	("Ghostflare", "An ethereal being that flickers in and out of existence.", 		30, 20, 10, Type.GHOST,  null,			"placeholderCharacter.png", "", new Move[] {
+	GHOSTFLARE	("Ghostflare", "An ethereal being that flickers in and out of existence.", 		30, 20, 10, Type.GHOST,  null,			"ghostFlareFront.png", "ghostFlareBack.png", new Move[] {
 			Move.TACKLE, Move.WATERGUN, Move.EMBER, Move.THUNDERBOLT
 	}),
-	STORMWIND	("Stormwind", "A powerful creature that harnesses the energy of storms.", 		45, 30, 12, Type.FLYING, Type.ELECTRIC,	"placeholderCharacter.png", "", new Move[] {
+	STORMWIND	("Stormwind", "A powerful creature that harnesses the energy of storms.", 		45, 30, 12, Type.FLYING, Type.ELECTRIC,	"electricMonsterFront.png", "electricMonsterBack.png", new Move[] {
 			Move.TACKLE, Move.WATERGUN, Move.EMBER, Move.EARTHQUAKE
 	}),
 	GREENHORN	("Greenhorn", "A powerful creature that harnesses the energy of storms.", 		50, 15, 25, Type.GRASS,  null,	        "greenHornFront.png", "greenHornBack.png", new Move[] {
