@@ -412,12 +412,12 @@ public class battleGraphics  {
                         
                      }
                  }, 2000); 
-                 
-                 
+               
                  updateHealthbar();
                  
                  clearIconsF(); 
                  setupMainB(); 
+                 
         		
         	}else {
         		Move move = playerMonster.getMoves().get(0);
@@ -435,12 +435,13 @@ public class battleGraphics  {
                          moveAnimationTrainer(move2.getName());
                     }
                 }, 2000); 
-                
+              
                 updateHealthbar();
                 clearIconsF(); 
                 setupMainB(); 
         	}
-        	 
+        	 winScreen();
+        	 return;
         }
         
        
@@ -488,13 +489,14 @@ public class battleGraphics  {
                          moveAnimationTrainer(move2.getName());
                     }
                 }, 2000); 
+               
                 updateHealthbar();
                 clearIconsF(); 
                 setupMainB(); 
                 
         	}
-        	
-            
+        	 winScreen();
+        	 return;
         }
         
        
@@ -518,6 +520,7 @@ public class battleGraphics  {
                          
                      }
                  }, 2000);
+               
                 updateHealthbar();
                 clearIconsF(); 
             	setupMainB(); 
@@ -538,12 +541,13 @@ public class battleGraphics  {
                          moveAnimationTrainer(move2.getName());
                     }
                 }, 2000); 
+              
                 updateHealthbar();
                 clearIconsF(); 
                 setupMainB(); 
         	}
-        	
-        	
+        	 winScreen();
+        	 return;
         } 
         if((map.getElementAt(x, y) == move4 || map.getElementAt(x, y) == move4Description) &&  playerMonster.getMoves().size() > 3   && playerMonster.getCurHealth() != 0 ) {
         	if (opponentMonster == null  ) {
@@ -564,10 +568,11 @@ public class battleGraphics  {
                          
                      }
                  }, 2000);  
+              
                 updateHealthbar();
                 clearIconsF(); 
             	setupMainB(); 
-                 
+                
         	}else {
         		Move move = playerMonster.getMoves().get(3);
             	int damage = move.calculateDamage(playerMonster, opponentMonster);
@@ -584,12 +589,14 @@ public class battleGraphics  {
                          moveAnimationTrainer(move2.getName());
                     }
                 }, 2000); 
+                
                 updateHealthbar();
                 clearIconsF(); 
                 setupMainB();  
         	}
         	
-
+        	winScreen();
+        	return;
         }
      
         
@@ -611,6 +618,7 @@ public class battleGraphics  {
             map.remove(opponentMonsterSprite);
             map.remove(playerMonsterSprite); 	
             map.endBattle();
+            return;
         }
         
         
@@ -618,6 +626,7 @@ public class battleGraphics  {
         if (map.getElementAt(x, y) == exit ) {
             clearIconsF(); 
             setupMainB(); 
+            return;
         }
        
         
@@ -630,11 +639,12 @@ public class battleGraphics  {
         }*/
    
         	
-        winScreen();
+       
         
         System.out.println("Mouse clicked at: (" + x + ", " + y + ")");
     }
 
+    
     
     public void winScreen() {
         // Create a label for displaying the win message (ACM GLabel)
@@ -651,72 +661,72 @@ public class battleGraphics  {
             @Override
             public void run() {
                 // Check who has won and set the win message
-                if (playerMonster != null && playerMonster.isFainted()) {
-                	playerMonster.setFaint(true);
-                	if ( opponentMonster == null) {
-                    	map.remove(WildMonsterHealth);
-                    	map.remove(Playerhealth);      
-                    }else {
-                    	map.remove(OpponetHealth);
-                    	map.remove(Playerhealth); 	        
+                if (playerMonster != null && playerMonster.getCurHealth() == 0) {
+                    playerMonster.setFaint(true);
+                    if (opponentMonster == null) {
+                        map.remove(WildMonsterHealth);
+                        map.remove(Playerhealth);
+                    } else {
+                        map.remove(OpponetHealth);
+                        map.remove(Playerhealth);
                     }
 
-                    clearIconsB(); 
+                    clearIconsB();
                     clearIconsF();
                     map.remove(background);
                     map.remove(opponentMonsterSprite);
-                    map.remove(playerMonsterSprite); 
+                    map.remove(playerMonsterSprite);
                     map.endBattle();
-                    winMessage.setLabel("Opponent Wins! Health your monster");  // Update the win message
-
-                } else if (opponentMonster != null && opponentMonster.isFainted()) {
-                	playerMonster.setFaint(true);
-                	if ( opponentMonster == null) {
-                    	map.remove(WildMonsterHealth);
-                    	map.remove(Playerhealth);      
-                    }else {
-                    	map.remove(OpponetHealth);
-                    	map.remove(Playerhealth); 	        
+                    winMessage.setLabel("Opponent Wins! Health your monster");
+                } else if (opponentMonster != null && opponentMonster.getCurHealth() == 0) {
+                    playerMonster.setFaint(true);
+                    if (opponentMonster == null) {
+                        map.remove(WildMonsterHealth);
+                        map.remove(Playerhealth);
+                    } else {
+                        map.remove(OpponetHealth);
+                        map.remove(Playerhealth);
                     }
 
-                    clearIconsB(); 
+                    clearIconsB();
                     clearIconsF();
                     map.remove(background);
                     map.remove(opponentMonsterSprite);
-                    map.remove(playerMonsterSprite); 
+                    map.remove(playerMonsterSprite);
                     map.endBattle();
-                    winMessage.setLabel("Player Wins! Opponent Monster fainted. ");  // Update the win message
-
-                } else if (wildMonster != null && wildMonster.isFainted()) {
-                	playerMonster.setFaint(true);
-                	if ( opponentMonster == null) {
-                    	map.remove(WildMonsterHealth);
-                    	map.remove(Playerhealth);      
-                    }else {
-                    	map.remove(OpponetHealth);
-                    	map.remove(Playerhealth); 	        
+                    winMessage.setLabel("Player Wins! Opponent Monster fainted.");
+                } else if (wildMonster != null && wildMonster.getCurHealth() == 0) {
+                    playerMonster.setFaint(true);
+                    if (opponentMonster == null) {
+                        map.remove(WildMonsterHealth);
+                        map.remove(Playerhealth);
+                    } else {
+                        map.remove(OpponetHealth);
+                        map.remove(Playerhealth);
                     }
 
-                    clearIconsB(); 
+                    clearIconsB();
                     clearIconsF();
                     map.remove(background);
                     map.remove(opponentMonsterSprite);
-                    map.remove(playerMonsterSprite); 
+                    map.remove(playerMonsterSprite);
                     map.endBattle();
-                    winMessage.setLabel("Player Wins! Wild Monster fainted. ");  // Update the win message
+                    winMessage.setLabel("Player Wins! Wild Monster fainted.");
                 }
 
-                // Schedule a task to remove the winMessage after 3 seconds (3000ms)
+                // Schedule a task to remove the winMessage after 2 seconds (2000ms)
                 timer.schedule(new TimerTask() {
                     @Override
                     public void run() {
                         map.remove(winMessage); // Remove the win message
                     }
-                }, 2000); // Delay for 3 seconds before removing the winMessage
+                }, 2000); // Delay for 2 seconds before removing the winMessage
             }
         }, 7000); // Initial delay before checking for the winner
     }
     
+    
+    /**/
     
     public void HealMonsterScreen() {
         // Create a label for displaying the win message (ACM GLabel)
@@ -733,7 +743,7 @@ public class battleGraphics  {
             @Override
             public void run() {
                 // Check who has won and set the win message
-                if (playerMonster != null && playerMonster.isFainted()) {
+                if (playerMonster != null && playerMonster.getCurHealth() == 0) {
                 	playerMonster.setFaint(true);
                 	if ( opponentMonster == null) {
                     	map.remove(WildMonsterHealth);
